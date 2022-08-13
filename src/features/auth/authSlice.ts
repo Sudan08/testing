@@ -26,6 +26,14 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
     },
 
+    setNewToken: (
+      state: IAuthState,
+      action: PayloadAction<{ accessToken: string; refreshToken: string }>
+    ) => {
+      state.refreshToken = action.payload.refreshToken;
+      state.accessToken = action.payload.accessToken;
+    },
+
     // logout
     logout: (state: IAuthState, action: PayloadAction) => {
       state.accessToken = null;
@@ -34,11 +42,11 @@ const authSlice = createSlice({
     },
   },
 });
+export const { login, logout, setNewToken } = authSlice.actions;
 
-export const { login, logout } = authSlice.actions;
-export default authSlice.reducer;
-
-export const selectIsAuthenticated = (state: IAuthState) => state.isAuthenticated;
+export const selectIsAuthenticated = (state: IAuthState) =>
+  state.isAuthenticated;
 export const selectAccessToken = (state: IAuthState) => state.accessToken;
 export const selectRefreshToken = (state: IAuthState) => state.refreshToken;
 
+export default authSlice.reducer;
