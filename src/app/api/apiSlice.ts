@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { logout, setNewToken } from '../../features/auth';
+import { logout, setNewToken } from '../../features/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://rms-beta-test.herokuapp.com/api/v4',
@@ -19,8 +19,10 @@ interface IRefreshResponse {
   refreshToken?: string;
   message?: string;
 }
+
 const baseQueryWithReAuth = async (args: any, api: any, extraOptions: any) => {
   let result = await baseQuery(args, api, extraOptions);
+
   if (result?.error?.status === 401) {
     await api.dispatch(logout());
     result = await baseQuery(args, api, extraOptions);
@@ -47,5 +49,6 @@ const baseQueryWithReAuth = async (args: any, api: any, extraOptions: any) => {
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReAuth,
+  reducerPath: 'api',
   endpoints: (builder) => ({}),
 });

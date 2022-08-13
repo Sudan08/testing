@@ -43,10 +43,9 @@ const authSlice = createSlice({
   },
 });
 export const { login, logout, setNewToken } = authSlice.actions;
+export default authSlice.reducer;
 
 export const selectIsAuthenticated = (state: IAuthState) =>
   state.isAuthenticated;
 export const selectAccessToken = (state: IAuthState) => state.accessToken;
 export const selectRefreshToken = (state: IAuthState) => state.refreshToken;
-
-export default authSlice.reducer;
