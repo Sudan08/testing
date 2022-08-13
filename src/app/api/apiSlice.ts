@@ -3,7 +3,7 @@ import { logout, setNewToken } from '../../features/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://rms-beta-test.herokuapp.com/api/v4',
-  credentials: 'include',
+  // credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const { auth } = getState() as any;
     const token = auth.accessToken;
@@ -14,11 +14,6 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-interface IRefreshResponse {
-  accessToken?: string;
-  refreshToken?: string;
-  message?: string;
-}
 
 const baseQueryWithReAuth = async (args: any, api: any, extraOptions: any) => {
   let result = await baseQuery(args, api, extraOptions);
@@ -27,14 +22,23 @@ const baseQueryWithReAuth = async (args: any, api: any, extraOptions: any) => {
     await api.dispatch(logout());
     result = await baseQuery(args, api, extraOptions);
   } else if (result?.error?.status === 403) {
-    const res = await baseQuery('/RegenerateToken', api, extraOptions);
+    const res = await baseQuery(
+      {
+        url: '/RegenerateToken',
+        headers: {
+          Authorization: `Bearer ${api.getState().auth.accessToken}`,
+        },
+      },
+      api,
+      extraOptions
+    );
     console.log(res);
-    const data = res.data as IRefreshResponse;
-    if (data.accessToken && data.refreshToken) {
+    const data = res.data as ILoginResponse;
+    if (data.token) {
       api.dispatch(
         setNewToken({
-          refreshToken: data.refreshToken,
-          accessToken: data.accessToken,
+          accessToken: data.token.access_token,
+          refreshToken: data.token.refresh_token,
         })
       );
 

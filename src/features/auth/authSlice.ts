@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface IAuthState {
+export interface IAuthState {
   refreshToken: string | null;
   accessToken: string | null;
   isAuthenticated: boolean;
@@ -14,10 +14,9 @@ const initialState: IAuthState = {
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState,
+  initialState: { ...initialState },
   reducers: {
-    // login
-    login: (
+    setInitialCredentials: (
       state: IAuthState,
       action: PayloadAction<{ refreshToken: string; accessToken: string }>
     ) => {
@@ -33,7 +32,6 @@ const authSlice = createSlice({
       state.refreshToken = action.payload.refreshToken;
       state.accessToken = action.payload.accessToken;
     },
-
     // logout
     logout: (state: IAuthState, action: PayloadAction) => {
       state.accessToken = null;
@@ -42,10 +40,9 @@ const authSlice = createSlice({
     },
   },
 });
-export const { login, logout, setNewToken } = authSlice.actions;
+export const { setInitialCredentials, logout, setNewToken } = authSlice.actions;
 export default authSlice.reducer;
 
-export const selectIsAuthenticated = (state: IAuthState) =>
-  state.isAuthenticated;
-export const selectAccessToken = (state: IAuthState) => state.accessToken;
-export const selectRefreshToken = (state: IAuthState) => state.refreshToken;
+export const selectIsAuthenticated = (state: any) => state.auth.isAuthenticated;
+export const selectAccessToken = (state: any) => state.auth.accessToken;
+export const selectRefreshToken = (state: any) => state.auth.refreshToken;
