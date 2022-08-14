@@ -53,7 +53,6 @@ const ClassesPage = () => {
   const toast = useToast();
 
   const schedules = useSelector(selectAllSchedules);
-  console.log(schedules);
   const [deleteSchedule, { isLoading }] = useDeleteScheduleMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();

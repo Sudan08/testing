@@ -152,12 +152,7 @@ const Sidebar = ({ isMobileView = false }) => {
               <Button ref={cancelRef} onClick={handleCancelLogout}>
                 Cancel
               </Button>
-              <Button
-                colorScheme='red'
-                onClick={() => handleLogout()}
-                // onClick={onClose}
-                ml={3}
-              >
+              <Button colorScheme='red' onClick={() => handleLogout()} ml={3}>
                 Confirm
               </Button>
             </AlertDialogFooter>
@@ -193,7 +188,7 @@ const navItems = [
   },
   {
     label: 'Lecturers',
-    link: 'lecturer',
+    link: 'lecturers',
     icon: <Person strokeWidth={2} size={24} />,
   },
 
@@ -208,8 +203,8 @@ const navItems = [
     icon: <Icon as={AiOutlineLineChart} />,
   },
   {
-    label: 'Feedback',
-    link: '/feedback',
+    label: 'Feedbacks',
+    link: '/feedbacks',
     icon: <Icon as={MdOutlineFeedback} />,
   },
   {
