@@ -21,11 +21,14 @@ import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 import { BiLock } from 'react-icons/bi';
 import { chakra } from '@chakra-ui/system';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { useLoginMutation } from '../auth/authApiSlice';
-import { useDispatch } from 'react-redux';
-import { setInitialCredentials } from '../auth/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectIsAuthenticated,
+  setInitialCredentials,
+} from '../auth/authSlice';
 const Login = () => {
   const toast = useToast();
   const { colorMode, toggleColorMode } = useColorMode();
@@ -33,6 +36,14 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (localStorage) {
@@ -40,7 +51,6 @@ const Login = () => {
     }
   }, [colorMode]);
 
-  const navigate = useNavigate();
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
   const [isDemoClicked, setIsDemoClicked] = useState(false);

@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { Box, Show, VStack } from '@chakra-ui/react';
 import { TopBar } from '../MobileNav';
 import Sidebar from '../Sidebar';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useGetAllSchedulesQuery } from '../../features/schedules/scheduleApiSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAllSchedules } from '../../features/schedules/scheduleSlice';
+import { selectIsAuthenticated } from '../../features/auth/authSlice';
 
 const AdminLayout = () => {
   const { data: allSchedules } = useGetAllSchedulesQuery(null);

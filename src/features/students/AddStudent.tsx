@@ -11,23 +11,12 @@ import { useState } from 'react';
 import { FileWithPath, useDropzone } from 'react-dropzone';
 import { BiUpload } from 'react-icons/bi';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
+import { addStudentPageBreadcrumbNav } from '../../data/breadcrumbDatas';
 
 const AddStudentPage = () => {
-  const orderedNavItems = [
-    {
-      label: 'Dashboard',
-      link: '#/',
-    },
-    {
-      label: 'Add Student',
-      link: '#/add-student',
-    },
-  ];
   const [uploadFile, setUploadFile] = useState<FileWithPath[]>();
   const [isFileDragging, setIsFileDragging] = useState(false);
-  // const backgroundColor = useColorModeValue("#fff", "gray.800");
   const textColor = useColorModeValue('gray.800', '#fff');
-  // const onDragColor = useColorModeValue("green.100", "green.500");
 
   const backgroundColor = useColorModeValue(
     isFileDragging ? 'green.100' : '#fff',
@@ -60,7 +49,7 @@ const AddStudentPage = () => {
   const toast = useToast();
   return (
     <Box width={'100%'} height={'100%'}>
-      <BreadcrumbNav orderedNavItems={orderedNavItems} />
+      <BreadcrumbNav orderedNavItems={addStudentPageBreadcrumbNav} />
       <VStack width={'100%'} height={`100%`} justifyContent={'center'}>
         <Box
           minH={'400px'}

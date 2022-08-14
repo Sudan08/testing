@@ -4,6 +4,7 @@ import {
   BreadcrumbLink,
   HStack,
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 const BreadcrumbNav: React.FC<{ orderedNavItems: IBreadcrumNav[] }> = ({
   orderedNavItems,
@@ -21,7 +22,8 @@ const BreadcrumbNav: React.FC<{ orderedNavItems: IBreadcrumNav[] }> = ({
         return (
           <BreadcrumbItem key={index}>
             <BreadcrumbLink
-              href={item.link}
+              as={Link}
+              to={item.link || '/'}
               textDecor={has_href ? 'underline' : 'none'}
             >
               {item.label}

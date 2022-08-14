@@ -43,6 +43,7 @@ import CustomHeading from '../../components/CustomHeading';
 import { useDispatch } from 'react-redux';
 import { addSchedule } from './scheduleSlice';
 import { usePostScheduleMutation } from './scheduleApiSlice';
+import { addSchedulePageBreadcrumbNav } from '../../data/breadcrumbDatas';
 
 const FilePreviewComponent: React.FC<{ acceptedFiles: FileWithPath[] }> = ({
   acceptedFiles,
@@ -141,17 +142,6 @@ const AddSchedulePage = () => {
     }
   };
 
-  const orderedNavItems = [
-    {
-      label: 'Dashboard',
-      link: '#/',
-    },
-    { label: 'Schedule' },
-    {
-      label: 'Add Schedule',
-      link: '#/add-schedule',
-    },
-  ];
 
   const groups = ['L5CG7', 'L5CG6'];
   const blocks = ['Wolverhampton', 'HCK'];
@@ -180,7 +170,7 @@ const AddSchedulePage = () => {
   return (
     <VStack height={`100%`} width={`100%`}>
       <chakra.div width={`100%`} height={`100%`}>
-        <BreadcrumbNav orderedNavItems={orderedNavItems} />
+        <BreadcrumbNav orderedNavItems={addSchedulePageBreadcrumbNav} />
         <VStack
           as={Box}
           padding={`1rem`}

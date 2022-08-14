@@ -11,22 +11,16 @@ import {
 import { useState } from 'react';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
 import FeedbackComponent from '../../components/FeedbackComponent';
-import { fakeData } from '../../fakeDatas/fakeData';
+import { feedbacksPageBreadcrumbNav } from '../../data/breadcrumbDatas';
+import { fakeData } from '../../data/fakeData';
 
 const FeedbackPage = () => {
   const backgroundColor = useColorModeValue('#F9F9F9', 'gray.800');
   const [activeIndex, setActiveIndex] = useState(0);
-  const orderedNavItems = [
-    {
-      label: 'Dashboard',
-      link: '#/',
-    },
-    { label: 'Feedback', link: '#/feedback' },
-  ];
 
   return (
     <Box width={'100%'} height={`100%`}>
-      <BreadcrumbNav orderedNavItems={orderedNavItems} />
+      <BreadcrumbNav orderedNavItems={feedbacksPageBreadcrumbNav} />
       <br />
       <VStack width={'100%'} height={`100%`} justifyContent={'center'}>
         <Tabs

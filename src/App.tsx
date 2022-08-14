@@ -1,4 +1,4 @@
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 import AdminLayout from './components/layouts/AdminLayout';
 import ProtectedLayout from './components/layouts/ProtectedLayout';
 import AnalyticsPage from './features/analytics/Analytics';
@@ -16,7 +16,7 @@ import ViewStudentsPage from './features/students/ViewStudents';
 
 const App = () => {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route element={<AdminLayout />}>
           <Route element={<ProtectedLayout />}>
@@ -35,7 +35,7 @@ const App = () => {
         </Route>
         <Route path={'/login'} element={<Login />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 

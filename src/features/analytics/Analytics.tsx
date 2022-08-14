@@ -31,14 +31,7 @@ import {
 } from 'recharts';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
-
-const orderedNavItems = [
-  {
-    label: 'Dashboard',
-    link: '#/',
-  },
-  { label: 'Analytics', link: '#/analytics' },
-];
+import { analyticsPageBreadcrumbNav } from '../../data/breadcrumbDatas';
 
 const AnalyticsPage = () => {
   const data = [
@@ -80,7 +73,7 @@ const AnalyticsPage = () => {
   ];
   return (
     <chakra.div width={`100%`} height={`100%`}>
-      <BreadcrumbNav orderedNavItems={orderedNavItems} />
+      <BreadcrumbNav orderedNavItems={analyticsPageBreadcrumbNav} />
       <VStack
         as={Box}
         padding={`0.5rem`}

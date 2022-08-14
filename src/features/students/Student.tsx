@@ -14,20 +14,14 @@ import { Person } from 'akar-icons';
 import { useNavigate } from 'react-router-dom';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
+import { addStudentPageBreadcrumbNav } from '../../data/breadcrumbDatas';
 
 const StudentPage = () => {
   const navigate = useNavigate();
   const backgroundColor = useColorModeValue('#F9F9F9', 'gray.800');
-  const orderedNavItems = [
-    {
-      label: 'Dashboard',
-      link: '#/',
-    },
-    { label: 'Students', link: '#/students' },
-  ];
   return (
     <Box width={`100%`} height={`100%`}>
-      <BreadcrumbNav orderedNavItems={orderedNavItems} />
+      <BreadcrumbNav orderedNavItems={addStudentPageBreadcrumbNav} />
       <VStack width={`100%`} height={`100%`} justifyContent={'center'}>
         <VStack
           width={'100%'}

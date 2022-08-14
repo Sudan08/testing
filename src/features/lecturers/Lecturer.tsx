@@ -3,19 +3,13 @@ import { Person } from "akar-icons";
 import { VStack, Divider, Button, HStack, Box } from "@chakra-ui/react";
 import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
+import { lecturersPageBreadcrumbNav } from '../../data/breadcrumbDatas';
 
-const orderedNavItems = [
-  {
-    label: "Dashboard",
-    link: "#/",
-  },
-  { label: "Lecturer", link: "#/lecturer" },
-];
 
 const LecturersPage = () => {
   return (
     <VStack padding={`1rem`} width={`100%`} height={`100%`}>
-      <BreadcrumbNav orderedNavItems={orderedNavItems} />
+      <BreadcrumbNav orderedNavItems={lecturersPageBreadcrumbNav} />
       <VStack justifyContent={"center"} width={"100%"} height={"100%"}>
         <Box
           width={"100%"}

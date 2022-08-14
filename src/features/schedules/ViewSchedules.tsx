@@ -12,38 +12,26 @@ import { BookClose } from 'akar-icons';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
 import ScheduleTime from '../../components/ScheduleTime';
+import { viewSchedulePageBreadcrumbNav } from '../../data/breadcrumbDatas';
 import { convertTime } from '../../helpers';
-import { useGetAllSchedulesQuery } from './scheduleApiSlice';
-
+const times = [
+  '7:00 AM',
+  '8:00 AM',
+  '9:00 AM',
+  '10:00 AM',
+  '11:00 AM',
+  '12:00 AM',
+  '01:00 PM',
+  '02:00 PM',
+  '03:00 PM',
+  '04:00 PM',
+  '05:00 PM',
+  '06:00 PM',
+];
 const ViewSchedulePage = () => {
-  const orderedNavItems = [
-    {
-      label: 'Dashboard',
-      link: '#/',
-    },
-    { label: 'Schedule' },
-    {
-      label: 'View Schedule',
-      link: '#/view-schedule',
-    },
-  ];
-  const times = [
-    '7:00 AM',
-    '8:00 AM',
-    '9:00 AM',
-    '10:00 AM',
-    '11:00 AM',
-    '12:00 AM',
-    '01:00 PM',
-    '02:00 PM',
-    '03:00 PM',
-    '04:00 PM',
-    '05:00 PM',
-    '06:00 PM',
-  ];
   return (
     <chakra.div height={`100%`} width={`100%`}>
-      <BreadcrumbNav orderedNavItems={orderedNavItems} />
+      <BreadcrumbNav orderedNavItems={viewSchedulePageBreadcrumbNav} />
       <VStack
         as={Box}
         padding={`1rem`}
@@ -54,7 +42,6 @@ const ViewSchedulePage = () => {
         <VStack
           borderRadius={`12px`}
           boxShadow={[`none`, `none`, `0px 0px 4px rgba(0, 0, 0, 0.5)`]}
-          // overflow={`hidden`}
           width={`100%`}
           maxW={'1150px'}
           height={`fit-content`}

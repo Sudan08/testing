@@ -36,14 +36,8 @@ import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
 import { convertTime } from '../../helpers';
 import { useDeleteScheduleMutation } from './scheduleApiSlice';
+import { classesPageBreadcrumbNav } from '../../data/breadcrumbDatas';
 type statusType = 'Completed' | 'Ongoing' | 'Cancelled';
-const orderedNavItems = [
-  {
-    label: 'Dashboard',
-    link: '#/',
-  },
-  { label: 'Classes', link: '#/classes' },
-];
 
 const ClassesPage = () => {
   const [deleteModal, setDeleteModal] = useState(false);
@@ -99,7 +93,7 @@ const ClassesPage = () => {
 
   return (
     <chakra.div height={`100%`}>
-      <BreadcrumbNav orderedNavItems={orderedNavItems} />
+      <BreadcrumbNav orderedNavItems={classesPageBreadcrumbNav} />
       <VStack as={Box} padding={`1rem`} height={'100%'} width={`100%`}>
         <Box
           borderRadius={`12px`}

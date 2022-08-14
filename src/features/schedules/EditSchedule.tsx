@@ -180,28 +180,7 @@ const EditSchedulePage = () => {
                   <option value={'BIT'}>BIT</option>
                 </Select>
               </FormControl>
-              {/* <FormControl isRequired>
-                <label htmlFor='level'>Level</label>
-                <Select
-                  id='level'
-                  onChange={(e) => setLevel(e.target.value)}
-                  value={level}
-                  placeholder='Select Level'
-                  backgroundColor={'whiteAplha.600'}
-                  outline={`1px solid #DFDFDF`}
-                  borderRadius={'4px'}
-                  _placeholder={{
-                    color:'inherit',
-                  }}
-                  marginTop={'0.5rem'}
-                >
-                  {levels.map((level, index) => (
-                    <option key={index} value={level.value}>
-                      {level.label}
-                    </option>
-                  ))}
-                </Select>
-              </FormControl> */}
+        
               <FormControl isRequired>
                 <label htmlFor='group'>Group</label>
                 <Select
