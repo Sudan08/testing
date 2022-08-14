@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Show, VStack } from '@chakra-ui/react';
 import { TopBar } from '../MobileNav';
 import Sidebar from '../Sidebar';
 import { Outlet } from 'react-router-dom';
+import { useGetAllSchedulesQuery } from '../../features/schedules/scheduleApiSlice';
+import { useDispatch } from 'react-redux';
+import { setAllSchedules } from '../../features/schedules/scheduleSlice';
 
 const AdminLayout = () => {
+  const { data: allSchedules } = useGetAllSchedulesQuery(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (allSchedules) {
+      dispatch(setAllSchedules(allSchedules));
+    }
+  }, [allSchedules]);
+
   return (
     <VStack width={`100%`} overflowY={`hidden`}>
       <Show breakpoint={`(max-width:625px)`}>

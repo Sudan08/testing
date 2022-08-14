@@ -77,7 +77,7 @@ const Login = () => {
           status: 'success',
           isClosable: true,
         });
-        navigate('/dashboard');
+        navigate('/');
       } else {
         throw new Error('Something went wrong!');
       }

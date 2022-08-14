@@ -1,10 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface IAuthState {
-  refreshToken: string | null;
-  accessToken: string | null;
-  isAuthenticated: boolean;
-}
 
 const initialState: IAuthState = {
   refreshToken: null,
