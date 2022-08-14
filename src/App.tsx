@@ -3,11 +3,12 @@ import AdminLayout from './components/layouts/AdminLayout';
 import ProtectedLayout from './components/layouts/ProtectedLayout';
 import Dashboard from './features/dashboard/Dashboard';
 import Login from './features/login/Login';
+import AddSchedule from './features/schedules/AddSchedule';
+import ClassesPage from './features/schedules/Classes';
 import { useGetAllSchedulesQuery } from './features/schedules/scheduleApiSlice';
 import ViewSchedule from './features/schedules/ViewSchedules';
 
 function App() {
-
   return (
     <BrowserRouter>
       <Routes>
@@ -15,6 +16,8 @@ function App() {
           <Route element={<ProtectedLayout />}>
             <Route index element={<Dashboard />} />
             <Route path={'/view-schedule'} element={<ViewSchedule />} />
+            <Route path={'/add-schedule'} element={<AddSchedule />} />
+            <Route path={'/classes'} element={<ClassesPage />} />
           </Route>
         </Route>
         <Route path={'/login'} element={<Login />} />

@@ -27,6 +27,8 @@ interface ISchedule {
   blockName: string;
   startTime: string;
   endTime: string;
+  day: string;
+  classType: string;
 }
 interface IScheduleState {
   allSchedules: ISchedule[];

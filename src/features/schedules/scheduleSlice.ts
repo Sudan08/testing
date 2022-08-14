@@ -25,14 +25,14 @@ const scheduleSlice = createSlice({
       state: IScheduleState,
       action: PayloadAction<{ routineID: string }>
     ) => {
-      state.allSchedules.filter(
+      state.allSchedules = state.allSchedules.filter(
         (routine) => routine._id !== action.payload.routineID
       );
     },
 
     // edit schedule
     editSchedule: (state: IScheduleState, action: PayloadAction<ISchedule>) => {
-      state.allSchedules.map((routine) => {
+      state.allSchedules = state.allSchedules.map((routine) => {
         if (routine._id === action.payload._id) {
           routine = action.payload;
         }
@@ -43,7 +43,6 @@ const scheduleSlice = createSlice({
 
 export const { setAllSchedules, addSchedule, removeSchedule, editSchedule } =
   scheduleSlice.actions;
-
 export default scheduleSlice.reducer;
 
 export const selectAllSchedules = (state: any) => state.schedules.allSchedules;

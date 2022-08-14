@@ -18,11 +18,28 @@ export const scheduleApiSlice = apiSlice.injectEndpoints({
               blockName: routine.block_name,
               startTime: routine.start_time,
               endTime: routine.end_time,
+              day: routine.day,
+              classType: routine.class_type,
             })
           );
+        } else {
+          return [];
         }
-        return response;
       },
+    }),
+    postSchedule: builder.mutation({
+      query: (data) => ({
+        url: '/admin/postRoutineData',
+        method: 'POST',
+        body: { ...data },
+      }),
+    }),
+    deleteSchedule: builder.mutation({
+      query: (routineID) => ({
+        url: '/admin/deleteRoutineData',
+        method: 'DELETE',
+        body: { routineID },
+      }),
     }),
     // getSchedulesByTime: builder.query({
     //   query: (time) => ({
@@ -33,4 +50,8 @@ export const scheduleApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetAllSchedulesQuery } = scheduleApiSlice;
+export const {
+  useGetAllSchedulesQuery,
+  usePostScheduleMutation,
+  useDeleteScheduleMutation,
+} = scheduleApiSlice;
