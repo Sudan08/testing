@@ -68,6 +68,7 @@ const Login = () => {
           setInitialCredentials({
             accessToken: data.token.access_token,
             refreshToken: data.token.refresh_token,
+            rememberMe,
           })
         );
         toast({
@@ -189,6 +190,7 @@ const Login = () => {
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     setRememberMe(e.target.checked)
                   }
+                  checked={rememberMe}
                   borderRadius={`16px`}
                   colorScheme={`green`}
                   id={`remember`}
