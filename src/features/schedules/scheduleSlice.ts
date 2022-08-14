@@ -34,8 +34,9 @@ const scheduleSlice = createSlice({
     editSchedule: (state: IScheduleState, action: PayloadAction<ISchedule>) => {
       state.allSchedules = state.allSchedules.map((routine) => {
         if (routine._id === action.payload._id) {
-          routine = action.payload;
+          return action.payload;
         }
+        return routine;
       });
     },
   },
