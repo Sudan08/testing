@@ -15,7 +15,7 @@ import ScheduleTime from '../../components/ScheduleTime';
 import { convertTime } from '../../helpers';
 import { useGetAllSchedulesQuery } from './scheduleApiSlice';
 
-const ViewSchedule = () => {
+const ViewSchedulePage = () => {
   const orderedNavItems = [
     {
       label: 'Dashboard',
@@ -84,4 +84,4 @@ const ViewSchedule = () => {
   );
 };
 
-export default ViewSchedule;
+export default ViewSchedulePage;

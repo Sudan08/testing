@@ -41,6 +41,13 @@ export const scheduleApiSlice = apiSlice.injectEndpoints({
         body: { routineID },
       }),
     }),
+    putSchedule: builder.mutation({
+      query: (data) => ({
+        url: '/admin/updateRoutineData',
+        method: 'PUT',
+        body: { ...data },
+      }),
+    }),
     // getSchedulesByTime: builder.query({
     //   query: (time) => ({
     //     url: `/routines/getRoutineData?time=${time}`,
@@ -54,4 +61,5 @@ export const {
   useGetAllSchedulesQuery,
   usePostScheduleMutation,
   useDeleteScheduleMutation,
+  usePutScheduleMutation,
 } = scheduleApiSlice;

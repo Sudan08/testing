@@ -1,163 +1,42 @@
-import React, {
-  ChangeEvent,
-  FocusEventHandler,
-  FormEvent,
-  ReactNode,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { useParams } from 'react-router-dom';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { chakra } from '@chakra-ui/system';
+import { useColorModeValue } from '@chakra-ui/react';
 import {
+  Spinner,
+  Input,
   Box,
   Button,
   Divider,
   FormControl,
   Heading,
   HStack,
-  Input,
   InputGroup,
   InputLeftElement,
   Select,
-  useToast,
   VStack,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  useColorModeValue,
-  ModalCloseButton,
-  useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import { Schedule } from 'akar-icons';
 import { TimeIcon } from '@chakra-ui/icons';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
-import { useSearchParams } from 'react-router-dom';
-import { BiUpload } from 'react-icons/bi';
-import { useDropzone, FileWithPath } from 'react-dropzone';
-import { useCallback } from 'react';
-import { convertTime } from '../../helpers';
-import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
-import { useDispatch } from 'react-redux';
-import { addSchedule } from './scheduleSlice';
-import { usePostScheduleMutation } from './scheduleApiSlice';
 
-const FilePreviewComponent: React.FC<{ acceptedFiles: FileWithPath[] }> = ({
-  acceptedFiles,
-}) => (
-  <>
-    {acceptedFiles.map((file) => (
-      <chakra.li color={'green.600'} fontWeight={500} key={file.path}>
-        {file.path} - {file.size} bytes
-      </chakra.li>
-    ))}
-  </>
-);
-
-const AddSchedulePage = () => {
-  const [uploadFile, setUploadFile] = useState<boolean | string>(false);
-  const [searchedParams] = useSearchParams();
-  const queryStartTime = searchedParams.get('start_time');
-  const { isOpen, onToggle } = useDisclosure();
-  const isFileDragging = useMemo(() => isOpen, [isOpen]);
-  const placeholderColor = useColorModeValue('gray', '#fff');
-  const [postSchedule, { isLoading }] = usePostScheduleMutation();
-  const dispatch = useDispatch();
-
-  const backgroundColor = useColorModeValue(
-    isFileDragging ? 'green.100' : '#fff',
-    isFileDragging ? 'green.500' : 'gray.800'
-  );
-  const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
-    console.log(acceptedFiles);
-  }, []);
-
-  const { getRootProps, acceptedFiles, getInputProps } = useDropzone({
-    onDrop,
-    onDragEnter: onToggle,
-    onDragLeave: onToggle,
-  });
+const EditSchedulePage = () => {
+  const { id } = useParams();
   const toast = useToast();
-
-  const handleScheduleAdd = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = {
-      course_type: courseType.trim(),
-      module_name: moduleName.trim(),
-      lecturer_name: lecturerName.trim(),
-      group: group.trim(),
-      room_name: room.trim(),
-      block_name: block.trim(),
-      day: day.trim(),
-      start_time: startTime.trim(),
-      end_time: endTime.trim(),
-      class_type: classType.trim(),
-    };
-    console.log(formData);
-    const response: { data?: Object; error?: Object } = await postSchedule(
-      formData
-    );
-    if (response.data) {
-      dispatch(
-        addSchedule({
-          courseType: courseType.trim(),
-          moduleName: moduleName.trim(),
-          lecturerName: lecturerName.trim(),
-          group: group.trim(),
-          roomName: room.trim(),
-          blockName: block.trim(),
-          day: day.trim(),
-          startTime: startTime.trim(),
-          endTime: endTime.trim(),
-          classType: classType.trim(),
-        })
-      );
-      toast({
-        title: 'Schedule Added',
-        description: 'Schedule has been added successfully',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-        position: 'top-right',
-      });
-      setModuleName('');
-      setLecturerName('');
-      setGroup('');
-      setRoom('');
-      setBlock('');
-      setStartTime('');
-      setEndTime('');
-    } else {
-      toast({
-        title: 'Failed to add schedule',
-        description: response.data,
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-        position: 'top-right',
-      });
-    }
+  const schedule: ISchedule = {
+    _id: 'lorem',
+    courseType: 'lorem',
+    moduleName: 'lorem',
+    lecturerName: 'lorem',
+    roomName: 'lorem',
+    blockName: 'lorem',
+    group: 'lorem',
+    startTime: 'lorem',
+    endTime: 'lorem',
+    day: 'lorem',
+    classType: 'lorem',
   };
-
-  const orderedNavItems = [
-    {
-      label: 'Dashboard',
-      link: '#/',
-    },
-    { label: 'Schedule' },
-    {
-      label: 'Add Schedule',
-      link: '#/add-schedule',
-    },
-  ];
-
-  const groups = ['L5CG7', 'L5CG6'];
-  const blocks = ['Wolverhampton', 'HCK'];
-  const rooms = ['Kirtipur', 'Basantapur', 'Dudley'];
-  const classTypes = ['Lecture', 'Tutorial', 'Workshop'];
-  const modules = ['Human Computer Interaction', 'Object Oriented Programming'];
 
   // form values
   const [group, setGroup] = useState('');
@@ -171,16 +50,82 @@ const AddSchedulePage = () => {
   const [day, setDay] = useState('');
   const [courseType, setCourseType] = useState('');
 
+  const handleScheduleAdd = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = {
+      module_name: moduleName.trim(),
+      lecturer_name: lecturerName.trim(),
+      group: group.trim(),
+      room_name: room.trim(),
+      block_name: block.trim(),
+      start_time: startTime.trim(),
+      end_time: endTime.trim(),
+    };
+    console.log(formData);
+    // const response = await EditSchedule(formData);
+
+    toast({
+      title: 'Schedule Edited',
+      description: 'Schedule has been edited successfully',
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+      position: 'top-right',
+    });
+
+    setModuleName('');
+    setLecturerName('');
+    setGroup('');
+    setRoom('');
+    setBlock('');
+    setStartTime('');
+    setEndTime('');
+
+    toast({
+      title: 'Failed to edit schedule',
+      description: 'Failed to edit schedule',
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+      position: 'top-right',
+    });
+  };
+
+  const levels = [
+    {
+      label: 'Four',
+      value: '4',
+    },
+    {
+      label: 'Five',
+      value: '5',
+    },
+    {
+      label: 'Six',
+      value: '6',
+    },
+  ];
+
+  const placeholderColor = useColorModeValue('gray', '#fff');
+  const groups = ['L5CG7', 'L5CG6'];
+  const blocks = ['Wolverhampton', 'HCK'];
+  const rooms = ['Kirtipur', 'Basantapur', 'Dudley'];
+  const classTypes = ['Lecture', 'Tutorial', 'Workshop'];
+  const modules = ['Human Computer Interaction', 'Object Oriented Programming'];
+
   useEffect(() => {
-    if (queryStartTime) {
-      setStartTime(convertTime(queryStartTime));
+    if (schedule) {
+      setLecturerName(schedule.lecturerName);
     }
-  }, [queryStartTime]);
+  }, [schedule]);
+
+  if (schedule === null) {
+    return <Spinner />;
+  }
 
   return (
-    <VStack height={`100%`} width={`100%`}>
+    <>
       <chakra.div width={`100%`} height={`100%`}>
-        <BreadcrumbNav orderedNavItems={orderedNavItems} />
         <VStack
           as={Box}
           padding={`1rem`}
@@ -188,39 +133,19 @@ const AddSchedulePage = () => {
           height={`100%`}
           width={`100%`}
         >
-          <Box width={'100%'} display={'flex'} justifyContent={'flex-end'}>
-            <Button
-              onClick={() => {
-                setUploadFile(true);
-              }}
-              leftIcon={<BiUpload />}
-              variant='outline'
-              transition={`0.2s`}
-              colorScheme={`brand`}
-              _hover={{
-                textColor: `#4bbd00`,
-              }}
-            >
-              Upload File
-            </Button>
-          </Box>
-          <br />
-
           <Box
             borderRadius={`12px`}
             width={`100%`}
-            backgroundColor={'blackAlpha.50'}
             boxShadow={[`none`, `none`, `0px 0px 4px rgba(0, 0, 0, 0.25)`]}
             maxW={`1200`}
           >
             <Heading margin={`1rem 0`}>
               <HStack alignItems={`center`} justifyContent={`center`}>
-                <Schedule color={'green'} strokeWidth={2} size={24} />
-                <CustomHeading>Add Schedule</CustomHeading>
+                <Schedule strokeWidth={2} size={24} />
+                <CustomHeading>Edit Schedule</CustomHeading>
               </HStack>
             </Heading>
             <Divider />
-
             <chakra.form
               // mt={`2rem`}
               padding={[`0.5rem`, `0.5rem`, `1rem`, `2rem`, `3rem`]}
@@ -507,7 +432,7 @@ const AddSchedulePage = () => {
                   }}
                   backgroundColor='#74C043'
                   width={`100%`}
-                  isLoading={isLoading}
+                  // isLoading={isLoading}
                 >
                   Save Schedule
                 </Button>
@@ -516,72 +441,7 @@ const AddSchedulePage = () => {
           </Box>
         </VStack>
       </chakra.div>
-
-      <Modal
-        isCentered
-        isOpen={Boolean(uploadFile)}
-        onClose={() => setUploadFile('')}
-      >
-        <ModalOverlay />
-        <ModalContent backgroundColor={backgroundColor}>
-          <ModalHeader>Upload File</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody
-            // {...getRootProps}
-            display={'flex'}
-            gap={'0.5rem'}
-            justifyContent={'flex-start'}
-            className='container'
-          >
-            <Box
-              {...getRootProps({
-                className: 'dropzone',
-              })}
-              width={'100%'}
-            >
-              <input {...getInputProps()} onChange={(e) => console.log(e)} />
-              <HStack width={`100%`} justifyContent={'center'}>
-                <AiOutlineCloudUpload size={24} />
-                <chakra.span>
-                  Drag and Drop or click to
-                  <chakra.label
-                    cursor={'pointer'}
-                    htmlFor='excel_file'
-                    color={'green'}
-                  >
-                    {' '}
-                    Browse{' '}
-                  </chakra.label>
-                </chakra.span>
-              </HStack>
-              <Divider />
-              <chakra.aside
-                display={'flex'}
-                flexDir={'column'}
-                alignItems={'flex-start'}
-                pb={'0.5rem'}
-              >
-                <chakra.h2
-                  fontWeight={700}
-                  fontSize={'1.2rem'}
-                  color={'green.600'}
-                  marginTop={'0.5rem'}
-                >
-                  File
-                </chakra.h2>
-                <chakra.span>
-                  {acceptedFiles.length === 0 && 'No file yet!'}
-                </chakra.span>
-                <chakra.ul>
-                  <FilePreviewComponent acceptedFiles={acceptedFiles} />
-                </chakra.ul>
-              </chakra.aside>
-            </Box>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-    </VStack>
+    </>
   );
 };
-
-export default AddSchedulePage;
+export default EditSchedulePage;

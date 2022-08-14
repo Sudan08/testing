@@ -5,7 +5,7 @@ import Dashboard from './features/dashboard/Dashboard';
 import Login from './features/login/Login';
 import AddSchedule from './features/schedules/AddSchedule';
 import ClassesPage from './features/schedules/Classes';
-import { useGetAllSchedulesQuery } from './features/schedules/scheduleApiSlice';
+import EditSchedulePage from './features/schedules/EditSchedule';
 import ViewSchedule from './features/schedules/ViewSchedules';
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path={'/view-schedule'} element={<ViewSchedule />} />
             <Route path={'/add-schedule'} element={<AddSchedule />} />
+            <Route path='/schedule/edit/:id' element={<EditSchedulePage />} />
             <Route path={'/classes'} element={<ClassesPage />} />
           </Route>
         </Route>
