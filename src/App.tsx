@@ -2,6 +2,7 @@ import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 import AdminLayout from './components/layouts/AdminLayout';
 import ProtectedLayout from './components/layouts/ProtectedLayout';
 import AnalyticsPage from './features/analytics/Analytics';
+import ForgotPassword from './features/auth/ForgotPassword';
 import Dashboard from './features/dashboard/Dashboard';
 import FeedbackPage from './features/feedback/Feedback';
 import LecturersPage from './features/lecturers/Lecturer';
@@ -34,6 +35,7 @@ const App = () => {
           </Route>
         </Route>
         <Route path={'/login'} element={<Login />} />
+        <Route path={'/forgot-password'} element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
   );

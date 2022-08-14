@@ -236,7 +236,7 @@ const Login = () => {
         </chakra.form>
         <HStack width={`100%`} marginTop={`3rem !important`}>
           <Icon as={BiLock} />
-          <Link href='#/forget-password'>Forgot Your Password?</Link>
+          <Link href='/forgot-password'>Forgot Your Password?</Link>
         </HStack>
       </VStack>
       <chakra.p
