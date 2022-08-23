@@ -157,9 +157,9 @@ const ClassesPage = () => {
                           Completed
                         </Td>
                         <Td fontWeight={'semibold'}>
-                          {convertTime(item.startTime, 'am/pm') +
+                          {/* {convertTime(item.startTime, 'am/pm') + */}
                             '-' +
-                            convertTime(item.endTime, 'am/pm')}
+                            {/* convertTime(item.endTime, 'am/pm')} */}
                         </Td>
                         <Td display={'flex'} gap={'0.5rem'}>
                           <IconButton
