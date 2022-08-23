@@ -16,29 +16,50 @@ import StudentPage from './features/students/Student';
 import ViewStudentsPage from './features/students/ViewStudents';
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<AdminLayout />}>
-          <Route element={<ProtectedLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path={'/view-schedule'} element={<ViewSchedule />} />
-            <Route path={'/add-schedule'} element={<AddSchedule />} />
-            <Route path='/schedule/edit/:id' element={<EditSchedulePage />} />
-            <Route path={'/classes'} element={<ClassesPage />} />
-            <Route path={'/lecturers'} element={<LecturersPage />} />
-            <Route path={'/students'} element={<StudentPage />} />
-            <Route path={'/view-students'} element={<ViewStudentsPage />} />
-            <Route path={'/add-student'} element={<AddStudentPage />} />
-            <Route path={'/feedbacks'} element={<FeedbackPage />} />
-            <Route path={'/analytics'} element={<AnalyticsPage />} />
-          </Route>
-        </Route>
-        <Route path={'/login'} element={<Login />} />
-        <Route path={'/forgot-password'} element={<ForgotPassword />} />
-      </Routes>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route element={<AdminLayout />}>
+                    <Route element={<ProtectedLayout />}>
+                        <Route index element={<Dashboard />} />
+                        <Route
+                            path={'/view-schedule'}
+                            element={<ViewSchedule />}
+                        />
+                        <Route
+                            path={'/add-schedule'}
+                            element={<AddSchedule />}
+                        />
+                        <Route
+                            path='/schedule/edit/:id'
+                            element={<EditSchedulePage />}
+                        />
+                        <Route path={'/classes'} element={<ClassesPage />} />
+                        <Route
+                            path={'/lecturers'}
+                            element={<LecturersPage />}
+                        />
+                        <Route path={'/students'} element={<StudentPage />} />
+                        <Route
+                            path={'/view-students'}
+                            element={<ViewStudentsPage />}
+                        />
+                        <Route
+                            path={'/add-student'}
+                            element={<AddStudentPage />}
+                        />
+                        <Route path={'/feedbacks'} element={<FeedbackPage />} />
+                        <Route
+                            path={'/analytics'}
+                            element={<AnalyticsPage />}
+                        />
+                    </Route>
+                </Route>
+                <Route path={'/login'} element={<Login />} />
+                <Route path={'/forgot-password'} element={<ForgotPassword />} />
+            </Routes>
+        </BrowserRouter>
+    );
 };
 
 export default App;

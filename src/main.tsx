@@ -8,8 +8,8 @@ import './styles/index.css';
 
 const themeConfig = {
     config: {
-        initialColorMode: localStorage.getItem('rms_theme') || 'light',
-        useSystemColorMode: !localStorage.getItem('rms_theme'),
+        initialColorMode: localStorage.getItem('rmsTheme') || 'light',
+        useSystemColorMode: !localStorage.getItem('rmsTheme'),
     },
     colors: {
         brand: {
