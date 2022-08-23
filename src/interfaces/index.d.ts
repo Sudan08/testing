@@ -1,35 +1,36 @@
 interface ILoginResponse {
-  message?: string;
-  token?: {
-    access_token: string;
-    refresh_token: string;
-  };
+    message?: string;
+    email: string;
+    scope: string;
+    accessToken: string;
+    refreshToken: string;
 }
 
 interface IBreadcrumNav {
-  label: string;
-  link?: string;
+    label: string;
+    link?: string;
 }
 
 interface IAuthState {
-  refreshToken: string | null;
-  accessToken: string | null;
-  isAuthenticated: boolean;
+    refreshToken: string | null;
+    accessToken: string | null;
+	scope: string | null;
+    isAuthenticated: boolean;
 }
 
 interface ISchedule {
-  _id?: string;
-  courseType: string;
-  moduleName: string;
-  lecturerName: string;
-  group: string;
-  roomName: string;
-  blockName: string;
-  startTime: string;
-  endTime: string;
-  day: string;
-  classType: string;
+    _id?: string;
+    courseType: string;
+    moduleName: string;
+    lecturerName: string;
+    group: string;
+    roomName: string;
+    blockName: string;
+    startTime: string;
+    endTime: string;
+    day: string;
+    classType: string;
 }
 interface IScheduleState {
-  allSchedules: ISchedule[];
+    allSchedules: ISchedule[];
 }

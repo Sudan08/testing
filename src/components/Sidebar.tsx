@@ -37,7 +37,7 @@ const Sidebar = ({ isMobileView = false }) => {
 
   useEffect(() => {
     if (localStorage) {
-      localStorage.setItem('rms_theme', colorMode);
+      localStorage.setItem('rmsTheme', colorMode);
     }
   }, [colorMode]);
 

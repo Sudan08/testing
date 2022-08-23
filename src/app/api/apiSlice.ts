@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { logout, setNewToken } from '../../features/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://rms-beta-test.herokuapp.com/api/v4',
+  baseUrl: 'https://prod-herald-server.herokuapp.com/api/v4',
   // credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const { auth } = getState() as any;
@@ -32,13 +32,12 @@ const baseQueryWithReAuth = async (args: any, api: any, extraOptions: any) => {
       api,
       extraOptions
     );
-    console.log(res);
     const data = res.data as ILoginResponse;
-    if (data.token) {
+    if (data) {
       api.dispatch(
         setNewToken({
-          accessToken: data.token.access_token,
-          refreshToken: data.token.refresh_token,
+          accessToken: data.accessToken,
+          refreshToken: data.refreshToken,
         })
       );
 
