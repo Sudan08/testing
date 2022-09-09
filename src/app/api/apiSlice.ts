@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { logout, setNewToken } from '../../features/auth/authSlice';
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://prod-herald-server.herokuapp.com/api/v4',
+  baseUrl: 'https://dev-herald-server.herokuapp.com/api/v4',
   // credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const { auth } = getState() as any;
@@ -13,7 +13,6 @@ const baseQuery = fetchBaseQuery({
     return headers;
   },
 });
-
 
 const baseQueryWithReAuth = async (args: any, api: any, extraOptions: any) => {
   let result = await baseQuery(args, api, extraOptions);

@@ -23,13 +23,14 @@ interface ISchedule {
     courseType: string;
     moduleName: string;
     lecturerName: string;
+    classType: string;
     group: string;
     roomName: string;
     blockName: string;
+    day: string;
     startTime: string;
     endTime: string;
-    day: string;
-    classType: string;
+		status:string;
 }
 interface IScheduleState {
     allSchedules: ISchedule[];

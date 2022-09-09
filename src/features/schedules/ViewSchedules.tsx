@@ -41,10 +41,11 @@ const ViewSchedulePage = () => {
       >
         <VStack
           borderRadius={`12px`}
-          boxShadow={[`none`, `none`, `0px 0px 4px rgba(0, 0, 0, 0.5)`]}
           width={`100%`}
           maxW={'1150px'}
           height={`fit-content`}
+          boxShadow={[`none`, `none`, `0px 0px 15px rgba(0, 0, 0, 0.15)`]}
+          backgroundColor={'white'}
         >
           <Heading margin={`1rem 0`}>
             <HStack alignItems={`center`} justifyContent={`center`}>

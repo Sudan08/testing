@@ -30,12 +30,12 @@ const Dashboard = () => {
           ]}
         >
           <VStack
-            boxShadow={`0px 0px 4px rgba(0,0,0,0.5)`}
+            boxShadow={[`none`, `none`, `0px 0px 15px rgba(0, 0, 0, 0.15)`]}
+            backgroundColor={backgroundColor}
             padding={`1rem`}
             width={`100%`}
             height={`100%`}
             borderRadius={'8px'}
-            backgroundColor={backgroundColor}
           >
             <CustomHeading fontSize={`1.4rem`} color={`#2F4858`}>
               Announcements
@@ -130,8 +130,8 @@ const Dashboard = () => {
             height={`100%`}
             minH={`400px`}
             borderRadius={'8px'}
-            boxShadow={`0px 0px 4px rgba(0,0,0,0.5)`}
             padding={`1rem`}
+            boxShadow={[`none`, `none`, `0px 0px 15px rgba(0, 0, 0, 0.15)`]}
             backgroundColor={backgroundColor}
           >
             <CustomHeading fontSize={`1.4rem`} color={`#2F4858`}>

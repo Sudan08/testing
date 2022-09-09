@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { Spinner, useToast } from '@chakra-ui/react';
+import { Spinner, useColorModeValue, useToast } from '@chakra-ui/react';
 import {
   Table,
   Thead,
@@ -40,6 +40,7 @@ import { classesPageBreadcrumbNav } from '../../data/breadcrumbDatas';
 type statusType = 'Completed' | 'Ongoing' | 'Cancelled';
 
 const ClassesPage = () => {
+  const backgroundColor = useColorModeValue('#fff', 'gray.800');
   const [deleteModal, setDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<string | undefined | null>(
     null
@@ -110,7 +111,12 @@ const ClassesPage = () => {
           </Heading>
           <Divider />
 
-          <Box id='table' height={'fit-content'}>
+          <Box
+            id='table'
+            height={'fit-content'}
+            boxShadow={[`none`, `none`, `0px 0px 15px rgba(0, 0, 0, 0.10)`]}
+            backgroundColor={backgroundColor}
+          >
             <TableContainer maxH={'60vh'} overflowY={`scroll`} height={'100%'}>
               <Table variant='simple' height={'100%'}>
                 <Thead
@@ -158,8 +164,7 @@ const ClassesPage = () => {
                         </Td>
                         <Td fontWeight={'semibold'}>
                           {/* {convertTime(item.startTime, 'am/pm') + */}
-                            '-' +
-                            {/* convertTime(item.endTime, 'am/pm')} */}
+                          '-' +{/* convertTime(item.endTime, 'am/pm')} */}
                         </Td>
                         <Td display={'flex'} gap={'0.5rem'}>
                           <IconButton
@@ -186,15 +191,13 @@ const ClassesPage = () => {
                       </Tr>
                     ))
                   )}
-                  {schedules.length === 0 && !isLoading && (
-                    <Tr>
-                      <Td>
-                        <chakra.p>No Routines Found!</chakra.p>
-                      </Td>
-                    </Tr>
-                  )}
                 </Tbody>
               </Table>
+              {schedules.length === 0 && !isLoading && (
+                <chakra.p width={'full'} textAlign={'center'} py={'1rem'}>
+                  No Routines Found!
+                </chakra.p>
+              )}
             </TableContainer>
           </Box>
         </Box>

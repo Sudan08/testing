@@ -1,29 +1,27 @@
-import { chakra } from "@chakra-ui/react";
-import { Person } from "akar-icons";
-import { VStack, Divider, Button, HStack, Box } from "@chakra-ui/react";
+import { chakra, useColorModeValue } from '@chakra-ui/react';
+import { Person } from 'akar-icons';
+import { VStack, Divider, Button, HStack, Box } from '@chakra-ui/react';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
 import { lecturersPageBreadcrumbNav } from '../../data/breadcrumbDatas';
 
-
 const LecturersPage = () => {
+  const backgroundColor = useColorModeValue('#fff', 'gray.800');
   return (
     <VStack padding={`1rem`} width={`100%`} height={`100%`}>
       <BreadcrumbNav orderedNavItems={lecturersPageBreadcrumbNav} />
-      <VStack justifyContent={"center"} width={"100%"} height={"100%"}>
+      <VStack justifyContent={'center'} width={'100%'} height={'100%'}>
         <Box
-          width={"100%"}
-          boxShadow={`0px 0px 4px rgba(0,0,0,0.25)`}
+          width={'100%'}
           borderRadius={`12px`}
+          boxShadow={[`none`, `none`, `0px 0px 15px rgba(0, 0, 0, 0.10)`]}
+          backgroundColor={backgroundColor}
         >
-          <HStack padding={"1rem"} justifyContent={"center"}>
-            <chakra.span color={"brand"}>
-              <Person strokeWidth={2} size={24} color={"green"} />
+          <HStack padding={'1rem'} justifyContent={'center'}>
+            <chakra.span color={'brand'}>
+              <Person strokeWidth={2} size={24} color={'green'} />
             </chakra.span>
-            <CustomHeading
-              fontSize={`1.4rem`}
-              color={`#2F4858`}
-            >
+            <CustomHeading fontSize={`1.4rem`} color={`#2F4858`}>
               Lecturer
             </CustomHeading>
           </HStack>
@@ -45,7 +43,7 @@ const LecturersPage = () => {
                 width={`100%`}
               >
                 <chakra.h2
-                  color={"brand.500"}
+                  color={'brand.500'}
                   fontSize={`1.2rem`}
                   fontWeight={`700`}
                 >
@@ -97,11 +95,11 @@ const LecturersPage = () => {
               borderRadius={`6px`}
               type={`submit`}
               transition={`0.2s`}
-              color="white"
+              color='white'
               _hover={{
                 backgroundColor: `brand.700`,
               }}
-              backgroundColor="brand.500"
+              backgroundColor='brand.500'
             >
               View All
             </Button>

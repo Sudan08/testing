@@ -113,6 +113,7 @@ const AddSchedulePage = () => {
           startTime: startTime.trim(),
           endTime: endTime.trim(),
           classType: classType.trim(),
+          status,
         })
       );
       toast({
@@ -158,6 +159,7 @@ const AddSchedulePage = () => {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [day, setDay] = useState('');
+  const [status, setStatus] = useState('PENDING');
   const [courseType, setCourseType] = useState('');
 
   useEffect(() => {
@@ -459,6 +461,24 @@ const AddSchedulePage = () => {
                   <option value='Friday' />
                   <option value='Saturday' />
                 </datalist>
+              </FormControl>
+              <FormControl isRequired>
+                <label htmlFor='status'>Status</label>
+                <Select
+                  id='status'
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                    setStatus(e.target.value)
+                  }
+                  value={status}
+                  placeholder='Select Status'
+                  backgroundColor={'blackAlpha.50'}
+                  outline={`1px solid #DFDFDF`}
+                  borderRadius={'4px'}
+                  marginTop={'0.5rem'}
+                >
+                  <option value={'PENDING'}>PENDING</option>
+                  <option value={'ACTIVE'}>ACTIVE</option>
+                </Select>
               </FormControl>
               <VStack
                 justifyContent={`flex-end`}
