@@ -5,6 +5,7 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { IBreadcrumNav } from '../interfaces';
 
 const BreadcrumbNav: React.FC<{ orderedNavItems: IBreadcrumNav[] }> = ({
   orderedNavItems,

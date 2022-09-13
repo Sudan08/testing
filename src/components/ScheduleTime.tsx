@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { selectAllSchedules } from '../features/schedules/scheduleSlice';
 import { convertTime } from '../helpers';
+import { ISchedule } from '../interfaces';
 
 const ScheduleTime: React.FC<{ time: string }> = ({ time }) => {
   const [isActive, setIsActive] = useState(false);
