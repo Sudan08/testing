@@ -21,24 +21,18 @@ import { Schedule } from 'akar-icons';
 import { TimeIcon } from '@chakra-ui/icons';
 import CustomHeading from '../../components/CustomHeading';
 import { ISchedule } from '../../interfaces';
+import { useGetScheduleByIdQuery } from './scheduleApiSlice';
 
 const EditSchedulePage = () => {
   const toast = useToast();
-  const schedule: ISchedule = {
-    _id: 'lorem',
-    courseType: 'lorem',
-    moduleName: 'lorem',
-    lecturerName: 'lorem',
-    roomName: 'lorem',
-    blockName: 'lorem',
-    group: 'lorem',
-    startTime: 'lorem',
-    endTime: 'lorem',
-    day: 'lorem',
-    classType: 'lorem',
-    status: 'ACTIVE',
-  };
+  // getting schedule by id in the params
+  const {id} = useParams()
 
+  useEffect(() => {
+
+    }, [])
+
+  const { data, isLoading } = useGetScheduleByIdQuery(id);     
   // form values
   const [group, setGroup] = useState('');
   const [block, setBlock] = useState('');
@@ -114,13 +108,8 @@ const EditSchedulePage = () => {
   const classTypes = ['Lecture', 'Tutorial', 'Workshop'];
   const modules = ['Human Computer Interaction', 'Object Oriented Programming'];
 
-  useEffect(() => {
-    if (schedule) {
-      setLecturerName(schedule.lecturerName);
-    }
-  }, [schedule]);
 
-  if (schedule === null) {
+  if ( data === null || isLoading) {
     return <Spinner />;
   }
 
