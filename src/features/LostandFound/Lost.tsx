@@ -6,21 +6,12 @@ import {
     Th,
     Td,
     TableContainer,
-    IconButton,
     VStack,
     Box,
     Heading,
     HStack,
     Divider,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
     Button,
-    chakra,
     FormControl,
     FormLabel,
     Select,
@@ -28,10 +19,9 @@ import {
     
   } from '@chakra-ui/react';
   import {SearchIcon} from '@chakra-ui/icons';
-  import { Link, useNavigate } from 'react-router-dom';
+  import { Link } from 'react-router-dom';
   import BreadcrumbNav from '../../components/BreadcrumbNav';
   import {LostandFoundPageBreadcrumbNav} from '../../data/breadcrumbDatas';
-  import { useEffect } from 'react';
 
   const LostPage = () => {
     const item = {

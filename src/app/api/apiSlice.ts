@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { logout, setNewToken } from '../../features/auth/authSlice';
+import { ILoginResponse } from '../../interfaces';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://dev-herald-server.herokuapp.com/api/v4',

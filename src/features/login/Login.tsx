@@ -29,6 +29,7 @@ import {
   selectIsAuthenticated,
   setInitialCredentials,
 } from '../auth/authSlice';
+import { ILoginResponse } from '../../interfaces';
 const Login = () => {
   const toast = useToast();
   const { colorMode, toggleColorMode } = useColorMode();

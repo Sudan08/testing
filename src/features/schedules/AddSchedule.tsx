@@ -1,8 +1,6 @@
 import React, {
   ChangeEvent,
-  FocusEventHandler,
   FormEvent,
-  ReactNode,
   useEffect,
   useMemo,
   useState,
@@ -85,16 +83,17 @@ const AddSchedulePage = () => {
   const handleScheduleAdd = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = {
-      course_type: courseType.trim(),
-      module_name: moduleName.trim(),
-      lecturer_name: lecturerName.trim(),
+      courseType: courseType.trim(),
+      moduleName: moduleName.trim(),
+      lecturerName: lecturerName.trim(),
       group: group.trim(),
-      room_name: room.trim(),
-      block_name: block.trim(),
+      roomName: room.trim(),
+      blockName: block.trim(),
       day: day.trim(),
-      start_time: startTime.trim(),
-      end_time: endTime.trim(),
-      class_type: classType.trim(),
+      startTime: startTime.trim(),
+      endTime: endTime.trim(),
+      classType: classType.trim(),
+      status,
     };
     console.log(formData);
     const response: { data?: Object; error?: Object } = await postSchedule(

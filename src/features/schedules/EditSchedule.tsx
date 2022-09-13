@@ -20,9 +20,9 @@ import {
 import { Schedule } from 'akar-icons';
 import { TimeIcon } from '@chakra-ui/icons';
 import CustomHeading from '../../components/CustomHeading';
+import { ISchedule } from '../../interfaces';
 
 const EditSchedulePage = () => {
-  const { id } = useParams();
   const toast = useToast();
   const schedule: ISchedule = {
     _id: 'lorem',
@@ -36,6 +36,7 @@ const EditSchedulePage = () => {
     endTime: 'lorem',
     day: 'lorem',
     classType: 'lorem',
+    status: 'ACTIVE',
   };
 
   // form values
@@ -180,7 +181,6 @@ const EditSchedulePage = () => {
                   <option value={'BIT'}>BIT</option>
                 </Select>
               </FormControl>
-        
               <FormControl isRequired>
                 <label htmlFor='group'>Group</label>
                 <Select
