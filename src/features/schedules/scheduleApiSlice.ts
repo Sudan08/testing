@@ -13,6 +13,12 @@ export const scheduleApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+    getScheduleById: builder.query({ 
+      query: (routineID) => ({
+        url: `/admin/routines/${routineID}`,
+        method: 'GET',
+      }),
+    }),
     postSchedule: builder.mutation({
       query: (data) => ({
         url: '/admin/postRoutineData/',
@@ -45,6 +51,7 @@ export const scheduleApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetAllSchedulesQuery,
+  useGetScheduleByIdQuery,
   usePostScheduleMutation,
   useDeleteScheduleMutation,
   usePutScheduleMutation,

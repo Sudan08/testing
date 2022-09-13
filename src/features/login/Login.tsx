@@ -57,7 +57,7 @@ const Login = () => {
   const [isDemoClicked, setIsDemoClicked] = useState(false);
 
   const demoValueSetter = async () => {
-    setEmail('admin@gmail.com');
+    setEmail('rms@gmail.com');
     setPassword('admin');
     setIsDemoClicked(true);
   };
