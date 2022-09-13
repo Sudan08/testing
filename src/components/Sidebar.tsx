@@ -23,6 +23,7 @@ import { chakra } from '@chakra-ui/system';
 import { Schedule, Person } from 'akar-icons';
 import { VscDashboard } from 'react-icons/vsc';
 import { SiGoogleclassroom } from 'react-icons/si';
+import { CgSearchFound } from 'react-icons/cg';
 import { LockIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import NavItem from './NavItem';
 import { useDispatch } from 'react-redux';
@@ -208,8 +209,13 @@ const navItems = [
     icon: <Icon as={MdOutlineFeedback} />,
   },
   {
+    label:'Lost And Found',
+    link:'/lost',
+    icon: <Icon as={CgSearchFound}/>
+  },
+  {
     label: 'Add Student',
     link: '/add-student',
     icon: <Icon as={MdAdd} />,
-  },
+  }
 ];
