@@ -20,12 +20,21 @@ export const classesPageBreadcrumbNav = [
   { label: 'Classes', link: '/classes' },
 ];
 
+export const LostandFoundPageBreadcrumbNav = [
+  {
+    label: 'Dashboard',
+    link: '/',
+  },
+  { label: 'Lost And Found', link: '/lost' },
+
+];
+
 export const feedbacksPageBreadcrumbNav = [
   {
     label: 'Dashboard',
     link: '/',
   },
-  { label: 'Feedback', link: '/feedback' },
+  { label: 'Feedbacks', link: '/feedbacks' },
 ];
 
 export const addSchedulePageBreadcrumbNav = [
@@ -77,4 +86,7 @@ export const viewStudentPageBreadcrumbNav = [
     link: '/',
   },
   { label: 'View Students', link: '/view-students' },
+
 ];
+
+

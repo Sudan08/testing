@@ -1,4 +1,3 @@
-import React, { useEffect, useMemo } from 'react';
 import { Spinner, useColorModeValue, useToast } from '@chakra-ui/react';
 import {
   Table,
@@ -37,6 +36,7 @@ import CustomHeading from '../../components/CustomHeading';
 import { convertTime } from '../../helpers';
 import { useDeleteScheduleMutation } from './scheduleApiSlice';
 import { classesPageBreadcrumbNav } from '../../data/breadcrumbDatas';
+import { IDeleteRoutineResponse, ISchedule } from '../../interfaces';
 type statusType = 'Completed' | 'Ongoing' | 'Cancelled';
 
 const ClassesPage = () => {
@@ -61,11 +61,15 @@ const ClassesPage = () => {
     return 'red';
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     try {
       if (itemToDelete) {
-        const res = deleteSchedule(itemToDelete);
-
+        const res = (await deleteSchedule(
+          itemToDelete
+        )) as IDeleteRoutineResponse;
+        if (res?.error) {
+          throw new Error('Failed to delete routine!');
+        }
         toast({
           title: 'Class Deleted !!!',
           description: 'The Class has been successfully deleted.',
@@ -80,7 +84,6 @@ const ClassesPage = () => {
         }
       }
     } catch (err: any) {
-      console.log(err);
       toast({
         title: 'Failed to delete class !!!',
         description: "Class couldn't be deleted.",
@@ -89,6 +92,7 @@ const ClassesPage = () => {
         duration: 5000,
         isClosable: true,
       });
+      setDeleteModal(false);
     }
   };
 
@@ -163,8 +167,9 @@ const ClassesPage = () => {
                           Completed
                         </Td>
                         <Td fontWeight={'semibold'}>
-                          {/* {convertTime(item.startTime, 'am/pm') + */}
-                          '-' +{/* convertTime(item.endTime, 'am/pm')} */}
+                          {convertTime(item.startTime, 'am/pm') +
+                            ' - ' +
+                            convertTime(item.endTime, 'am/pm')}
                         </Td>
                         <Td display={'flex'} gap={'0.5rem'}>
                           <IconButton

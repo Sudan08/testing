@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ISchedule, IScheduleState } from '../../interfaces';
 
 const initialState: IScheduleState = {
   allSchedules: [],

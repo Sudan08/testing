@@ -35,3 +35,7 @@ interface ISchedule {
 interface IScheduleState {
     allSchedules: ISchedule[];
 }
+
+export interface IDeleteRoutineResponse{
+	error?: Object
+}
