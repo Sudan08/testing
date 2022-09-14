@@ -19,18 +19,18 @@ const AdminLayout = () => {
 
     return (
         <VStack width={`100%`} overflowY={`hidden`}>
-            <Show breakpoint={`(max-width:625px)`}>
+            <Show breakpoint={`(max-width:768px)`}>
                 <TopBar />
             </Show>
             <Box display={`flex`} width={`100%`} overflowY={`hidden`}>
-                <Show breakpoint={`(min-width:625px)`}>
+                <Show breakpoint={`(min-width:768px)`}>
                     <Sidebar />
                 </Show>
                 <Box
-                    height={['100%', '100vh', '100vh', '100vh', `100vh`]}
+                    height={['100%', '100%', '100vh', '100vh', `100vh`]}
                     overflowY={[
                         'hidden',
-                        'scroll',
+                        'hidden',
                         'scroll',
                         'scroll',
                         `scroll`,

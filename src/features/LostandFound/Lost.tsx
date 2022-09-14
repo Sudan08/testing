@@ -16,13 +16,16 @@ import {
     FormLabel,
     Select,
     Input,
+    Flex,
+    IconButton,
+    InputRightAddon,
     
   } from '@chakra-ui/react';
-  import {SearchIcon} from '@chakra-ui/icons';
+  import {PlusSquareIcon, SearchIcon} from '@chakra-ui/icons';
   import { Link } from 'react-router-dom';
   import BreadcrumbNav from '../../components/BreadcrumbNav';
   import {LostandFoundPageBreadcrumbNav} from '../../data/breadcrumbDatas';
-
+import {AiOutlineEdit, AiOutlinePlus} from 'react-icons/ai'
   const LostPage = () => {
     const item = {
       sn:'1',
@@ -34,7 +37,7 @@ import {
       claim : '321'
     } 
     return (
-        <Box width = {`100%`} height = {`100%`}>
+        <Box width={`100%`}>
         <BreadcrumbNav orderedNavItems={LostandFoundPageBreadcrumbNav}/>
             <VStack padding={`1rem`} height = {`100%`}> width ={`100%`}
             <Box
@@ -42,17 +45,16 @@ import {
               width={`100%`}
               boxShadow={[`none`, `none`, `0px 0px 4px rgba(0, 0, 0, 0.25)`]}
               maxW={`1200`}
+              padding={'1rem'}
               height={`100%`}>
-                <Heading fontSize={['1rem', '1.2rem', '1.4rem']} mt={`1rem`} ml={`1rem`}>
+                <Heading fontSize={['1rem', '1.2rem', '1.4rem']} mt={`1rem`} >
                 <HStack alignItems={`left`} justifyContent={`left`}>
                 <p>Items List</p>
                 </HStack>
                 </Heading>
 
-                <Box>
-                <HStack>
-                <Box  alignItems={`flex-start`} justifyContent={`space-between`} width={`100%`} margin={`1rem`}>
-                    <HStack width={`100%`}>
+                <Flex alignItems={'center'} flexDirection={['column', 'column', 'column', 'column', 'row']} width={'100%'} justifyContent={'space-between'}>
+                    <Flex  flexDirection={['column', 'column', 'column', 'row']} gap={'1rem'}  width={`100%`}>
                     <FormControl>
                         <FormLabel>Categories</FormLabel>
                         <Select placeholder='All Categories'>
@@ -63,7 +65,6 @@ import {
                             <option>Clothing</option>
                         </Select>
                     </FormControl>
-
                         
                     <FormControl>
                         <FormLabel>Status</FormLabel>
@@ -89,25 +90,20 @@ import {
                             <option>2023</option>
                         </Select>
                     </FormControl>
-                    </HStack>
-                </Box>
-                <Divider />
+                    </Flex>
                 <Box alignItems={`flex-end`} justifyContent={`flex-end`} width={`100%`} margin={`1rem`}>
-                    <HStack>
-                    <FormControl>
+                    <HStack alignItems={'flex-end'} justifyContent={{sm:'flex-start', xl: 'flex-end'}}>
+                    <FormControl maxWidth={{ lg: '300px'}}>
                         <FormLabel>Search Now</FormLabel>
-                        <Input placeholder='Search Now'/>
+                        <Input placeholder='Search Now'
+                      borderTopEndRadius={0}
+                      borderBottomEndRadius={0}
+                        />
                     </FormControl>
-                    <span>
-                    <Button backgroundColor={'#74C043'}>
-                    <SearchIcon />
-                    </Button>
-                    </span>
+                    <IconButton marginInlineStart={'0 !important'}  borderTopStartRadius={0} borderBottomStartRadius={0} colorScheme={"brand"} aria-label='Search database' icon={<SearchIcon />} />
                     </HStack>
                 </Box>
-                </HStack>
-
-              </Box>
+              </Flex>
 
             <Box id='table' height={'55vh'} width={`100%`}>
             <TableContainer maxH={'60vh'} overflowY={`scroll`} height={'100%'} width={`100%`}>
@@ -148,14 +144,14 @@ import {
             </TableContainer>
           </Box>
           <Divider />
-          <Box justifyContent={`flex-start`} align-items={`end`} margin={`1rem`} >
-                <Button mr={`0.3rem`}>
-                    <Link to='/addItem'>Create New</Link>  
+          <HStack justifyContent={`flex-start`} gap={'0.5rem'} align-items={`end`} margin={`1rem`} >
+                <Button leftIcon={<AiOutlinePlus size={'20px'}/>} colorScheme={'brand'}>
+                    Create New
                 </Button>
-                <Button>
+                <Button leftIcon={<AiOutlineEdit size={'20px'}/>} backgroundColor={'#2F4858'} _hover={{backgroundColor:'#2F4960'}} _focus={{backgroundColor:'#2F4960'}} color={'white'}>
                     Edit Item
                 </Button>
-          </Box>
+          </HStack>
           </Box>
         </VStack>
         </Box>
