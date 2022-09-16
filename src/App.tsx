@@ -7,8 +7,10 @@ import Dashboard from './features/dashboard/Dashboard';
 import FeedbackPage from './features/feedback/Feedback';
 import LecturersPage from './features/lecturers/Lecturer';
 import Login from './features/login/Login';
-import LostPage from './features/LostandFound/Lost';
-import AddItem from './features/LostandFound/addItem';
+import Step1 from './features/LostandFound/addItem/Step1';
+import Step2 from './features/LostandFound/addItem/Step2';
+import Step3 from './features/LostandFound/addItem/Step3';
+import LostAndFound from './features/LostandFound/LostAndFound';
 import AddSchedule from './features/schedules/AddSchedule';
 import ClassesPage from './features/schedules/Classes';
 import EditSchedulePage from './features/schedules/EditSchedule';
@@ -24,7 +26,7 @@ const App = () => {
         <Route element={<AdminLayout />}>
           <Route element={<ProtectedLayout />}>
             <Route index element={<Dashboard />} />
-       <Route path={'/view-schedule'} element={<ViewSchedule />} />
+            <Route path={'/view-schedule'} element={<ViewSchedule />} />
             <Route path={'/add-schedule'} element={<AddSchedule />} />
             <Route path='/schedule/edit/:id' element={<EditSchedulePage />} />
             <Route path={'/classes'} element={<ClassesPage />} />
@@ -34,8 +36,10 @@ const App = () => {
             <Route path={'/add-student'} element={<AddStudentPage />} />
             <Route path={'/feedbacks'} element={<FeedbackPage />} />
             <Route path={'/analytics'} element={<AnalyticsPage />} />
-            <Route path={'/lost'} element ={<LostPage/>} />
-            <Route path={'/addItem'} element ={<AddItem/>} />
+            <Route path={'/lost-and-found'} element={<LostAndFound />} />
+            <Route path={'/lost-and-found/add/1'} element={<Step1 />} />
+            <Route path={'/lost-and-found/add/2'} element={<Step2 />} />
+            <Route path={'/lost-and-found/add/3'} element={<Step3 />} />
           </Route>
         </Route>
         <Route path={'/login'} element={<Login />} />

@@ -209,13 +209,13 @@ const navItems = [
     icon: <Icon as={MdOutlineFeedback} />,
   },
   {
-    label:'Lost And Found',
-    link:'/lost',
-    icon: <Icon as={CgSearchFound}/>
+    label: 'Lost And Found',
+    link: '/lost-and-found',
+    icon: <Icon as={CgSearchFound} />,
   },
   {
     label: 'Add Student',
     link: '/add-student',
     icon: <Icon as={MdAdd} />,
-  }
+  },
 ];
