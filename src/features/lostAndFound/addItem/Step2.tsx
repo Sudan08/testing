@@ -9,21 +9,16 @@ import {
   FormLabel,
   Select,
   Input,
-  NumberInput,
-  NumberInputField,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  NumberInputStepper,
-  Textarea,
   Button,
+  InputGroup,
 } from '@chakra-ui/react';
-
+import { Link } from 'react-router-dom';
 import BreadcrumbNav from '../../../components/BreadcrumbNav';
 import { LostandFoundPageBreadcrumbNav } from '../../../data/breadcrumbDatas';
-import { RiNumber1, RiNumber2, RiNumber3 } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+import { RiNumber2, RiNumber3 } from 'react-icons/ri';
+import { BsCheck2Circle } from 'react-icons/bs';
 
-const Step1 = () => {
+export const Step2 = () => {
   return (
     <Box width={`100%`} height={`100%`}>
       <BreadcrumbNav orderedNavItems={LostandFoundPageBreadcrumbNav} />
@@ -43,10 +38,8 @@ const Step1 = () => {
             <Box alignItems={`center`} justifyContent={`center`}>
               <HStack>
                 <Icon
-                  as={RiNumber1}
-                  backgroundColor={`#74C043`}
-                  padding={`5px`}
-                  color={`#fff`}
+                  as={BsCheck2Circle}
+                  color={`#74C043`}
                   borderRadius={`100%`}
                   mx={`0.33wrem`}
                   height={`30px`}
@@ -59,7 +52,7 @@ const Step1 = () => {
               <HStack>
                 <Icon
                   as={RiNumber2}
-                  backgroundColor={`#606A72`}
+                  backgroundColor={`#74C043`}
                   padding={`5px`}
                   color={`#fff`}
                   borderRadius={`100%`}
@@ -87,63 +80,72 @@ const Step1 = () => {
             </Box>
           </HStack>
           <Box ml={`8.3rem`} height={`70vh`}>
-            <Text>Step 1/3</Text>
+            <Text>Step 2/3</Text>
             <Box my={`2rem`}>
               <Text as={`b`} fontSize={`1.3rem`}>
-                Item Details
+                Found Details
               </Text>
               <Text color={`grey`}>
                 Please fill in the details for all of the following fields
               </Text>
             </Box>
             <Box justifyContent={`space-evenly`} width={`1200px`}>
-              <HStack spacing='150px'>
+              <HStack spacing='120px'>
                 <FormControl w='250px'>
-                  <FormLabel>Item Name</FormLabel>
-                  <Input placeholder='Enter item name' />
-                </FormControl>
-
-                <FormControl w='115px'>
-                  <FormLabel>No of items</FormLabel>
-                  <NumberInput>
-                    <NumberInputField placeholder='0' />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
+                  <FormLabel>Found by</FormLabel>
+                  <Input placeholder='Enter name' />
                 </FormControl>
 
                 <FormControl w='250px'>
-                  <FormLabel>Category</FormLabel>
-                  <Select placeholder='Select a cateogory'>
-                    <option>Books</option>
-                    <option>Phone</option>
-                    <option>Cloth</option>
-                    <option>Keys</option>
-                    <option>Charger</option>
+                  <FormLabel>Location</FormLabel>
+                  <Select placeholder='SR-04 Cromption'>
+                    <option>SR-01 Wolves</option>
+                    <option>WOlverhampton</option>
+                    <option>Lounge</option>
+                    <option>Library</option>
+                    <option>Ground</option>
                   </Select>
+                </FormControl>
+
+                <FormControl w='200px'>
+                  <FormLabel>Date of Found</FormLabel>
+                  <InputGroup>
+                    {/* <InputLeftElement 
+                          children={<CalendarIcon/>}/> */}
+                    <Input
+                      placeholder={`Select Date`}
+                      onFocus={(e: any) => (e.target.type = 'date')}
+                    />
+                  </InputGroup>
                 </FormControl>
               </HStack>
             </Box>
             <Box mt={`2rem`}>
-              <FormControl width={`40%`}>
-                <FormLabel>Item Description</FormLabel>
-                <Textarea height={`150px`}></Textarea>
+              <FormControl width={`250px`}>
+                <FormLabel>Deposited to</FormLabel>
+                <Select placeholder='SR-04 Cromption'>
+                  <option>SR-01 Wolves</option>
+                  <option>WOlverhampton</option>
+                  <option>Lounge</option>
+                  <option>Library</option>
+                  <option>Ground</option>
+                </Select>
               </FormControl>
             </Box>
-            <Box mt={`0.5rem`}>
-              <Button backgroundColor={`#74C043`}>Upload Photos</Button>
-            </Box>
           </Box>
-          <Box>
+          <Box mr={`7rem`} mb={`3rem`}>
             <HStack
               alignItems={`baseline`}
               justifyContent={`flex-end`}
               width={`100%`}
             >
-              <Link to='/lost-and-found/add/2'>
-                <Button backgroundColor={`#74C043`} mr={`7rem`} mb={`3rem`}>
+              <Link to='/lost-and-found/add/1'>
+                <Button backgroundColor={`#fff`} color={`#000`}>
+                  Back
+                </Button>
+              </Link>
+              <Link to='/lost-and-found/add/3'>
+                <Button backgroundColor={`#74C043`} color={`#fff`}>
                   Next
                 </Button>
               </Link>
@@ -154,5 +156,3 @@ const Step1 = () => {
     </Box>
   );
 };
-
-export default Step1;
