@@ -7,7 +7,7 @@ import Dashboard from './features/dashboard/Dashboard';
 import FeedbackPage from './features/feedback/Feedback';
 import LecturersPage from './features/lecturers/Lecturer';
 import Login from './features/login/Login';
-import { Step1, Step2, Step3 } from './features/lostAndFound/addItem';
+import { AddItem } from './features/lostAndFound/addItem';
 import LostAndFound from './features/lostAndFound/LostAndFound';
 import AddSchedule from './features/schedules/AddSchedule';
 import ClassesPage from './features/schedules/Classes';
@@ -35,9 +35,7 @@ const App = () => {
             <Route path={'/feedbacks'} element={<FeedbackPage />} />
             <Route path={'/analytics'} element={<AnalyticsPage />} />
             <Route path={'/lost-and-found'} element={<LostAndFound />} />
-            <Route path={'/lost-and-found/add/1'} element={<Step1 />} />
-            <Route path={'/lost-and-found/add/2'} element={<Step2 />} />
-            <Route path={'/lost-and-found/add/3'} element={<Step3 />} />
+            <Route path={'/lost-and-found/add'} element={<AddItem />} />
           </Route>
         </Route>
         <Route path={'/login'} element={<Login />} />

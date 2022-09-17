@@ -76,7 +76,7 @@ export const Claimed = () => {
         width={['100%', '100%', '45%', '45%']}
         alignItems={`baseline`}
         justifyContent={`flex-start`}
-        paddingTop={'3rem'}
+        paddingTop={'4rem'}
       >
         <Text borderTop={'3px solid black'} textAlign={`center`}>
           Receiver's Digital signature
@@ -102,7 +102,7 @@ export const NumberIndicator: React.FC<INumberIndicatorProps> = ({
 }) => {
   return (
     <HStack alignItems={`center`} justifyContent={`center`}>
-      {completedSteps?.includes(stepNumber) ? (
+      {completedSteps?.includes(stepNumber) && currentStep !== stepNumber ? (
         <Icon
           as={RiCheckboxCircleLine}
           color={`#74C043`}
