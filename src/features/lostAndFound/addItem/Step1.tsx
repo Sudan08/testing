@@ -23,7 +23,7 @@ import { LostandFoundPageBreadcrumbNav } from '../../../data/breadcrumbDatas';
 import { RiNumber1, RiNumber2, RiNumber3 } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
-const Step1 = () => {
+export const Step1 = () => {
   return (
     <Box width={`100%`} height={`100%`}>
       <BreadcrumbNav orderedNavItems={LostandFoundPageBreadcrumbNav} />
@@ -154,5 +154,3 @@ const Step1 = () => {
     </Box>
   );
 };
-
-export default Step1;

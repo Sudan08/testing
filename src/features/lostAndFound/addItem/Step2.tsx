@@ -18,7 +18,7 @@ import { LostandFoundPageBreadcrumbNav } from '../../../data/breadcrumbDatas';
 import { RiNumber2, RiNumber3 } from 'react-icons/ri';
 import { BsCheck2Circle } from 'react-icons/bs';
 
-const Step2 = () => {
+export const Step2 = () => {
   return (
     <Box width={`100%`} height={`100%`}>
       <BreadcrumbNav orderedNavItems={LostandFoundPageBreadcrumbNav} />
@@ -156,5 +156,3 @@ const Step2 = () => {
     </Box>
   );
 };
-
-export default Step2;
