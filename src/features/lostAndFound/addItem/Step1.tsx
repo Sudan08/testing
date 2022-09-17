@@ -22,6 +22,7 @@ import BreadcrumbNav from '../../../components/BreadcrumbNav';
 import { LostandFoundPageBreadcrumbNav } from '../../../data/breadcrumbDatas';
 import { Link } from 'react-router-dom';
 import { StepHeader } from '../../../components/lostAndFound';
+import { BsCloudUpload } from 'react-icons/bs';
 
 export const Step1 = () => {
   const backgroundColor = useColorModeValue('white', 'gray.800');
@@ -95,8 +96,10 @@ export const Step1 = () => {
               <Textarea height={`150px`}></Textarea>
             </FormControl>
           </VStack>
-          <Box mt={`0.5rem`}>
-            <Button colorScheme={'brand'}>Upload Photos</Button>
+          <Box mt={`1rem`}>
+            <Button colorScheme={'brand'} leftIcon={<BsCloudUpload />}>
+              Upload Photos
+            </Button>
           </Box>
         </Box>
         <HStack
@@ -105,7 +108,7 @@ export const Step1 = () => {
           width={`100%`}
         >
           <Link to='/lost-and-found/add/2'>
-            <Button mb={'1rem'} color={`#fff`} colorScheme={'brand'}>
+            <Button m={'1rem 0'} color={`#fff`} colorScheme={'brand'}>
               Next
             </Button>
           </Link>
