@@ -32,7 +32,7 @@ import { FaRegStickyNote } from 'react-icons/fa';
 import { useState} from 'react';
 
 
-import Claimed from '../addItem/Claimed';
+import Claimed from './Claimed';
 
 const Step3 = () => {
 
