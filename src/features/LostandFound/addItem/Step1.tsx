@@ -133,7 +133,7 @@ const Step1 = () => {
               </FormControl>
             </Box>
             <Box mt={`0.5rem`}>
-              <Button backgroundColor={`#74C043`}>Upload Photos</Button>
+              <Button color={`#fff`} backgroundColor={`#74C043`}>Upload Photos</Button>
             </Box>
           </Box>
           <Box>
@@ -143,7 +143,7 @@ const Step1 = () => {
               width={`100%`}
             >
               <Link to='/lost-and-found/add/2'>
-                <Button backgroundColor={`#74C043`} mr={`7rem`} mb={`3rem`}>
+                <Button color={`#fff`} backgroundColor={`#74C043`} mr={`7rem`} mb={`3rem`}>
                   Next
                 </Button>
               </Link>
