@@ -175,9 +175,10 @@ const LostAndFound = () => {
             justifyContent={`flex-start`}
             gap={'0.5rem'}
             align-items={`end`}
-            margin={`1rem`}
+            width={'100%'}
+            margin={'1rem 0'}
           >
-            <Link to={'/lost-and-found/add/1'}>
+            <Link to={'/lost-and-found/add'}>
               <Button
                 leftIcon={<AiOutlinePlus size={'20px'} />}
                 colorScheme={'brand'}

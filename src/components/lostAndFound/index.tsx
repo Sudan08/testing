@@ -8,6 +8,7 @@ import {
   Input,
   Icon,
   Center,
+  Grid,
 } from '@chakra-ui/react';
 import {
   RiNumber1,
@@ -24,52 +25,62 @@ export const Claimed = () => {
           Claim Details
         </Text>
       </Box>
-      <Box justifyContent={`space-evenly`} width={`1200px`} my={`1rem`}>
-        <HStack spacing='120px'>
-          <FormControl w='250px'>
-            <FormLabel>Recieved by</FormLabel>
-            <Input placeholder='Enter name' />
-          </FormControl>
+      <Grid
+        gap={['1rem', '2rem', '3rem']}
+        gridTemplateColumns={`repeat(auto-fit, minmax(250px, 1fr))`}
+      >
+        <FormControl>
+          <FormLabel>Recieved by</FormLabel>
+          <Input placeholder='Enter name' />
+        </FormControl>
 
-          <FormControl w='250px'>
-            <FormLabel>Level</FormLabel>
-            <Select placeholder='Level 4'>
-              <option>Level 5</option>
-              <option>Level 6</option>
-            </Select>
-          </FormControl>
+        <FormControl>
+          <FormLabel>Level</FormLabel>
+          <Select placeholder='Level 4'>
+            <option>Level 5</option>
+            <option>Level 6</option>
+          </Select>
+        </FormControl>
 
-          <FormControl w='250px'>
-            <FormLabel>Group</FormLabel>
-            <Select placeholder='1'>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </Select>
-          </FormControl>
-        </HStack>
-      </Box>
-      <Box justifyContent={`space-evenly`} width={`1200px`}>
-        <HStack spacing='120px'>
-          <FormControl w='250px'>
-            <FormLabel>Semester</FormLabel>
-            <Select placeholder='1'>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-            </Select>
-          </FormControl>
+        <FormControl>
+          <FormLabel>Group</FormLabel>
+          <Select placeholder='1'>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </Select>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Semester</FormLabel>
+          <Select placeholder='1'>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+          </Select>
+        </FormControl>
 
-          <FormControl w='250px'>
-            <FormLabel>Course</FormLabel>
-            <Select placeholder='BIT'>
-              <option>BIBM</option>
-              <option>MBA</option>
-            </Select>
-          </FormControl>
-        </HStack>
+        <FormControl>
+          <FormLabel>Course</FormLabel>
+          <Select placeholder='BIT'>
+            <option>BIBM</option>
+            <option>MBA</option>
+          </Select>
+        </FormControl>
+      </Grid>
+
+      <Box
+        pt={`1rem`}
+        maxWidth={'320px'}
+        width={['100%', '100%', '45%', '45%']}
+        alignItems={`baseline`}
+        justifyContent={`flex-start`}
+        paddingTop={'4rem'}
+      >
+        <Text borderTop={'3px solid black'} textAlign={`center`}>
+          Receiver's Digital signature
+        </Text>
       </Box>
     </Box>
   );
@@ -91,7 +102,7 @@ export const NumberIndicator: React.FC<INumberIndicatorProps> = ({
 }) => {
   return (
     <HStack alignItems={`center`} justifyContent={`center`}>
-      {completedSteps?.includes(stepNumber) ? (
+      {completedSteps?.includes(stepNumber) && currentStep !== stepNumber ? (
         <Icon
           as={RiCheckboxCircleLine}
           color={`#74C043`}
