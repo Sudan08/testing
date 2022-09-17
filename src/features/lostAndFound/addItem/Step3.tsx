@@ -3,12 +3,10 @@ import {
   HStack,
   VStack,
   Icon,
-  Center,
   Text,
   Button,
   RadioGroup,
   Radio,
-  Flex,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -21,11 +19,9 @@ import {
 import { Link } from 'react-router-dom';
 import BreadcrumbNav from '../../../components/BreadcrumbNav';
 import { LostandFoundPageBreadcrumbNav } from '../../../data/breadcrumbDatas';
-import { RiNumber3 } from 'react-icons/ri';
-import { BsCheck2Circle } from 'react-icons/bs';
 import { FaRegStickyNote } from 'react-icons/fa';
 import { useState } from 'react';
-import { Claimed } from './Claimed';
+import { Claimed, StepHeader } from '../../../components/lostAndFound';
 
 export const Step3 = () => {
   const [status, setStatus] = useState('');
@@ -34,65 +30,16 @@ export const Step3 = () => {
   return (
     <Box width={`100%`} height={`100%`}>
       <BreadcrumbNav orderedNavItems={LostandFoundPageBreadcrumbNav} />
-      <VStack>
+      <VStack width={'100%'}>
         <Box
           margin={`1rem`}
           borderRadius={`12px`}
           width={`100%`}
           maxW={`1200`}
           boxShadow={[`none`, `none`, `0px 0px 4px rgba(0,0,0,0.25)`]}
+          padding={'0 4rem'}
         >
-          <HStack
-            alignItems={'center'}
-            justifyContent={'space-around'}
-            my={`2rem`}
-          >
-            <Flex
-              alignItems={`center`}
-              flexDirection={['column', 'column', 'column', 'column', 'row']}
-              justifyContent={`center`}
-            >
-              <HStack>
-                <Icon
-                  as={BsCheck2Circle}
-                  color={`#74C043`}
-                  borderRadius={`100%`}
-                  mx={`0.33wrem`}
-                  height={`30px`}
-                  width={`30px`}
-                />
-                <Center>Item Details</Center>
-              </HStack>
-            </Flex>
-            <Flex>
-              <HStack>
-                <Icon
-                  as={BsCheck2Circle}
-                  color={`#74C043`}
-                  borderRadius={`100%`}
-                  mx={`0.33wrem`}
-                  height={`30px`}
-                  width={`30px`}
-                />
-                <Center>Found Details </Center>
-              </HStack>
-            </Flex>
-            <Flex>
-              <HStack>
-                <Icon
-                  as={RiNumber3}
-                  backgroundColor={`#74C043`}
-                  padding={`5px`}
-                  color={`#fff`}
-                  borderRadius={`100%`}
-                  mx={`0.33wrem`}
-                  height={`30px`}
-                  width={`30px`}
-                />
-                <Center>Item Status</Center>
-              </HStack>
-            </Flex>
-          </HStack>
+          <StepHeader currentStep={3} completedSteps={[1, 2]} />
           <Box ml={`8.3rem`} height={`75vh`}>
             <Text>Step 3/3</Text>
             <Box my={`2rem`}>

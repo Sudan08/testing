@@ -2,8 +2,6 @@ import {
   Box,
   HStack,
   VStack,
-  Icon,
-  Center,
   Text,
   FormControl,
   FormLabel,
@@ -15,8 +13,7 @@ import {
 import { Link } from 'react-router-dom';
 import BreadcrumbNav from '../../../components/BreadcrumbNav';
 import { LostandFoundPageBreadcrumbNav } from '../../../data/breadcrumbDatas';
-import { RiNumber2, RiNumber3 } from 'react-icons/ri';
-import { BsCheck2Circle } from 'react-icons/bs';
+import { StepHeader } from '../../../components/lostAndFound';
 
 export const Step2 = () => {
   return (
@@ -30,55 +27,7 @@ export const Step2 = () => {
           maxW={`1200`}
           boxShadow={[`none`, `none`, `0px 0px 4px rgba(0,0,0,0.25)`]}
         >
-          <HStack
-            alignItems={'center'}
-            justifyContent={'space-around'}
-            my={`2rem`}
-          >
-            <Box alignItems={`center`} justifyContent={`center`}>
-              <HStack>
-                <Icon
-                  as={BsCheck2Circle}
-                  color={`#74C043`}
-                  borderRadius={`100%`}
-                  mx={`0.33wrem`}
-                  height={`30px`}
-                  width={`30px`}
-                />
-                <Center>Item Details</Center>
-              </HStack>
-            </Box>
-            <Box>
-              <HStack>
-                <Icon
-                  as={RiNumber2}
-                  backgroundColor={`#74C043`}
-                  padding={`5px`}
-                  color={`#fff`}
-                  borderRadius={`100%`}
-                  mx={`0.33wrem`}
-                  height={`30px`}
-                  width={`30px`}
-                />
-                <Center>Found Details </Center>
-              </HStack>
-            </Box>
-            <Box>
-              <HStack>
-                <Icon
-                  as={RiNumber3}
-                  backgroundColor={`#606A72`}
-                  padding={`5px`}
-                  color={`#fff`}
-                  borderRadius={`100%`}
-                  mx={`0.33wrem`}
-                  height={`30px`}
-                  width={`30px`}
-                />
-                <Center>Item Status</Center>
-              </HStack>
-            </Box>
-          </HStack>
+          <StepHeader currentStep={2} completedSteps={[1]} />
           <Box ml={`8.3rem`} height={`70vh`}>
             <Text>Step 2/3</Text>
             <Box my={`2rem`}>
