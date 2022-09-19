@@ -1,17 +1,11 @@
-import {
-  Box,
-  Text,
-  RadioGroup,
-  Radio,
-  useDisclosure,
-  Flex,
-} from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box, Text, RadioGroup, Radio, Flex } from '@chakra-ui/react';
 import { Claimed } from '../../../components/lostAndFound';
+import { stepPropType } from './AddItem';
 
-export const Step3 = () => {
-  const [status, setStatus] = useState('');
-  const { isOpen, onOpen, onClose } = useDisclosure();
+export const Step3: React.FC<stepPropType> = ({
+  formState,
+  dispatchFormAction,
+}) => {
   return (
     <>
       <Box width={'100%'}>
@@ -25,7 +19,13 @@ export const Step3 = () => {
           </Text>
         </Box>
 
-        <RadioGroup value={status} justifyContent={`flex-start`}>
+        <RadioGroup
+          value={formState.status}
+          onChange={(value) =>
+            dispatchFormAction({ type: 'SET_STATUS', payload: value })
+          }
+          justifyContent={`flex-start`}
+        >
           <Flex
             flexDirection={['column', 'column', 'row']}
             gap={['0.5rem', '1rem', '2rem']}
@@ -37,10 +37,12 @@ export const Step3 = () => {
               py={`0.5rem`}
               w={`250px`}
               borderRadius={`5px`}
-              onClick={() => setStatus('Claimed')}
+              onClick={() =>
+                dispatchFormAction({ type: 'SET_STATUS', payload: 'CLAIMED' })
+              }
               cursor={'pointer'}
             >
-              <Radio id={'claimedBtn'} value={`Claimed`}>
+              <Radio id={'claimedBtn'} value={`CLAIMED`}>
                 Claimed
               </Radio>
             </Box>
@@ -50,14 +52,16 @@ export const Step3 = () => {
               py={`0.5rem`}
               w={`250px`}
               borderRadius={`5px`}
-              onClick={() => setStatus('Pending')}
+              onClick={() =>
+                dispatchFormAction({ type: 'SET_STATUS', payload: 'PENDING' })
+              }
               cursor={'pointer'}
             >
-              <Radio value={`Pending`}>Pending</Radio>
+              <Radio value={`PENDING`}>Pending</Radio>
             </Box>
           </Flex>
         </RadioGroup>
-        {status === 'Claimed' && <Claimed />}
+        {formState.status === 'CLAIMED' && <Claimed formState={formState} dispatchFormAction={dispatchFormAction} />}
       </Box>
     </>
   );

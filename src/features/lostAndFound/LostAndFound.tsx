@@ -24,17 +24,19 @@ import BreadcrumbNav from '../../components/BreadcrumbNav';
 import { LostandFoundPageBreadcrumbNav } from '../../data/breadcrumbDatas';
 import { AiOutlineEdit, AiOutlinePlus } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { ILostAndFound } from '../../interfaces';
+import { useEffect, useState } from 'react';
 
 const LostAndFound = () => {
-  const item = {
-    sn: '1',
-    item: 'lre',
-    category: 'fd',
-    locatiokn: 'dfdf',
-    status: 'open',
-    found: '12',
-    claim: '321',
-  };
+  const [items, setItems] = useState<ILostAndFound[]>();
+  useEffect(() => {
+    if (window !== undefined) {
+      const item: ILostAndFound[] = JSON.parse(
+        localStorage.getItem('allItems') || '[]'
+      );
+      setItems(item);
+    }
+  }, []);
   return (
     <Box width={`100%`}>
       <BreadcrumbNav orderedNavItems={LostandFoundPageBreadcrumbNav} />
@@ -152,20 +154,22 @@ const LostAndFound = () => {
                     <Th color={'white'}>Location</Th>
                     <Th color={'white'}>Status</Th>
                     <Th color={'white'}>Found Date</Th>
-                    <Th color={'white'}>Claim Date</Th>
+                    <Th color={'white'}>Deposited To</Th>
                   </Tr>
                 </Thead>
 
                 <Tbody position={'sticky'} top={0} zIndex={3}>
-                  <Tr>
-                    <Td>{item.sn}</Td>
-                    <Td>{item.item}</Td>
-                    <Td>{item.sn}</Td>
-                    <Td>{item.sn}</Td>
-                    <Td>{item.sn}</Td>
-                    <Td>{item.sn}</Td>
-                    <Td>{item.sn}</Td>
-                  </Tr>
+                  {items?.map((item, index) => (
+                    <Tr key={index}>
+                      <Td>{index + 1}</Td>
+                      <Td>{item.itemName}</Td>
+                      <Td>{item.category}</Td>
+                      <Td>{item.location}</Td>
+                      <Td>{item.status}</Td>
+                      <Td>{item.foundDate}</Td>
+                      <Td>{item.depositedTo}</Td>
+                    </Tr>
+                  ))}
                 </Tbody>
               </Table>
             </TableContainer>

@@ -16,8 +16,12 @@ import {
   RiNumber3,
   RiCheckboxCircleLine,
 } from 'react-icons/ri';
+import { stepPropType } from '../../features/lostAndFound/addItem';
 
-export const Claimed = () => {
+export const Claimed: React.FC<stepPropType> = ({
+  formState,
+  dispatchFormAction,
+}) => {
   return (
     <Box>
       <Box my={`2rem`}>
@@ -31,12 +35,30 @@ export const Claimed = () => {
       >
         <FormControl>
           <FormLabel>Recieved by</FormLabel>
-          <Input placeholder='Enter name' />
+          <Input
+            value={formState.claimDetails?.receiversName || ''}
+            onChange={(e) =>
+              dispatchFormAction({
+                type: 'SET_RECEIVED_BY',
+                payload: e.target.value,
+              })
+            }
+            placeholder='Enter name'
+          />
         </FormControl>
 
         <FormControl>
           <FormLabel>Level</FormLabel>
-          <Select placeholder='Level 4'>
+          <Select
+            value={formState.claimDetails?.level || ''}
+            onChange={(e) =>
+              dispatchFormAction({
+                type: 'SET_LEVEL',
+                payload: e.target.value,
+              })
+            }
+            placeholder='Level'
+          >
             <option>Level 5</option>
             <option>Level 6</option>
           </Select>
@@ -44,33 +66,48 @@ export const Claimed = () => {
 
         <FormControl>
           <FormLabel>Group</FormLabel>
-          <Select placeholder='1'>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
+          <Select
+            value={formState.claimDetails?.group || ''}
+            onChange={(e) =>
+              dispatchFormAction({
+                type: 'SET_GROUP',
+                payload: e.target.value,
+              })
+            }
+            placeholder='Group'
+          >
+            <option>LGCG7</option>
+            <option>LGCG6</option>
+            <option>LGCG5</option>
           </Select>
         </FormControl>
         <FormControl>
           <FormLabel>Semester</FormLabel>
-          <Select placeholder='1'>
+          <Select
+            value={formState.claimDetails?.semester || ''}
+            onChange={(e) =>
+              dispatchFormAction({
+                type: 'SET_SEMESTER',
+                payload: e.target.value,
+              })
+            }
+            placeholder='Semester'
+          >
+            <option>1</option>
             <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
           </Select>
         </FormControl>
 
         <FormControl>
           <FormLabel>Course</FormLabel>
-          <Select placeholder='BIT'>
+          <Select placeholder='Course'>
             <option>BIBM</option>
             <option>MBA</option>
           </Select>
         </FormControl>
       </Grid>
 
-      <Box
+      {/* <Box
         pt={`1rem`}
         maxWidth={'320px'}
         width={['100%', '100%', '45%', '45%']}
@@ -81,7 +118,7 @@ export const Claimed = () => {
         <Text borderTop={'3px solid black'} textAlign={`center`}>
           Receiver's Digital signature
         </Text>
-      </Box>
+      </Box> */}
     </Box>
   );
 };
