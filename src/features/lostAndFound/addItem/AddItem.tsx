@@ -14,24 +14,97 @@ import {
   ModalBody,
   Icon,
   ModalFooter,
+  useToast,
 } from '@chakra-ui/react';
 
 import BreadcrumbNav from '../../../components/BreadcrumbNav';
 import { LostandFoundPageBreadcrumbNav } from '../../../data/breadcrumbDatas';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { StepHeader } from '../../../components/lostAndFound';
-import { Step1, Step2, Step3, stepperReducer, stepperState } from '.';
+import {
+  formActionType,
+  lostAndFoundFormReducer,
+  Step1,
+  Step2,
+  Step3,
+  stepperReducer,
+  stepperState,
+} from '.';
 import { useReducer } from 'react';
 import { FaRegStickyNote } from 'react-icons/fa';
+import { ILostAndFound } from '../../../interfaces';
 
 const initialStep: stepperState = {
   currentStep: 1,
   completedSteps: [],
 };
+
+const initialFormValues: ILostAndFound = {
+  itemName: '',
+  noOfItems: 0,
+  category: '',
+  itemDescription: '',
+  foundBy: '',
+  location: '',
+  foundDate: '',
+  depositedTo: '',
+  status: 'PENDING',
+  claimDetails: {
+    receiversName: '',
+    level: '',
+    group: '',
+    semester: '',
+    course: '',
+  },
+};
+
+export type stepPropType = {
+  formState: ILostAndFound;
+  dispatchFormAction: React.Dispatch<formActionType>;
+};
+
 export const AddItem = () => {
   const backgroundColor = useColorModeValue('white', 'gray.800');
+  const toast = useToast();
   const [stepperStates, dispatch] = useReducer(stepperReducer, initialStep);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
+  const [formState, dispatchFormAction] = useReducer(
+    lostAndFoundFormReducer,
+    initialFormValues
+  );
+
+  const onSubmit = () => {
+    try {
+      const allItems = JSON.parse(
+        localStorage.getItem('allItems') || '[]'
+      );
+      localStorage.setItem(
+        'allItems',
+        JSON.stringify([...allItems, formState])
+      );
+
+      toast({
+        title: 'Item Added',
+        description: 'Item has been added successfully',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+        position: 'top-right',
+      });
+      navigate('/lost-and-found');
+    } catch (err: any) {
+      toast({
+        title: 'Item not added',
+        description: 'Failed to add item',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+        position: 'top-right',
+      });
+    }
+  };
+
   return (
     <Box width={`100%`} height={`100%`}>
       <BreadcrumbNav orderedNavItems={LostandFoundPageBreadcrumbNav} />
@@ -47,9 +120,24 @@ export const AddItem = () => {
         minH={`80vh`}
       >
         <StepHeader {...stepperStates} />
-        {stepperStates.currentStep === 1 && <Step1 />}
-        {stepperStates.currentStep === 2 && <Step2 />}
-        {stepperStates.currentStep === 3 && <Step3 />}
+        {stepperStates.currentStep === 1 && (
+          <Step1
+            formState={formState}
+            dispatchFormAction={dispatchFormAction}
+          />
+        )}
+        {stepperStates.currentStep === 2 && (
+          <Step2
+            formState={formState}
+            dispatchFormAction={dispatchFormAction}
+          />
+        )}
+        {stepperStates.currentStep === 3 && (
+          <Step3
+            formState={formState}
+            dispatchFormAction={dispatchFormAction}
+          />
+        )}
         {stepperStates.currentStep !== 3 && (
           <HStack
             alignItems={`baseline`}
@@ -104,7 +192,7 @@ export const AddItem = () => {
               justifyContent={`center`}
               alignItems={`center`}
             >
-              <Text>It will be added</Text>
+              <Text>One Item will be added!</Text>
               <Icon
                 as={FaRegStickyNote}
                 height={`50px`}
@@ -113,13 +201,18 @@ export const AddItem = () => {
               />
             </ModalBody>
 
-            <ModalFooter justifyContent={`center`} alignItems={`center`}>
+            <ModalFooter
+              width={'100%'}
+              padding={'1rem 4rem'}
+              justifyContent={`space-between`}
+              alignItems={`center`}
+            >
               <Button backgroundColor={`white`} mr={3} onClick={onClose}>
                 Close
               </Button>
-              <Link to='/lost-and-found'>
-                <Button colorScheme={'brand'}>Add Item</Button>
-              </Link>
+              <Button colorScheme={'brand'} onClick={onSubmit}>
+                Add Item
+              </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>

@@ -28,15 +28,15 @@ const authSlice = createSlice({
         document.cookie = `rmsRefresh=${
           action.payload.refreshToken
         }; expires=${new Date(
-          Date.now() + 1000 * 60 * 60 * 24 * 7
+          Date.now() + 1000 * 60 * 60 * 24
         ).toUTCString()}`;
         document.cookie = `rmsAccess=${
           action.payload.accessToken
         }; expires=${new Date(
-          Date.now() + 1000 * 60 * 60 * 24 * 7
+          Date.now() + 1000 * 60 * 60 * 24
         ).toUTCString()}`;
         document.cookie = `rmsScope=${action.payload.scope}; expires=${new Date(
-          Date.now() + 1000 * 60 * 60 * 24 * 7
+          Date.now() + 1000 * 60 * 60 * 24
         ).toUTCString()}`;
       }
       state.refreshToken = action.payload.refreshToken;

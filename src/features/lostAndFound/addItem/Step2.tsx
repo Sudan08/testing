@@ -9,8 +9,12 @@ import {
   InputGroup,
   Flex,
 } from '@chakra-ui/react';
+import { stepPropType } from './AddItem';
 
-export const Step2 = () => {
+export const Step2: React.FC<stepPropType> = ({
+  formState,
+  dispatchFormAction,
+}) => {
   return (
     <Box width={'100%'}>
       <Text>Step 2/3</Text>
@@ -35,12 +39,30 @@ export const Step2 = () => {
         >
           <FormControl maxWidth={'300px'}>
             <FormLabel>Found by</FormLabel>
-            <Input placeholder='Enter name' />
+            <Input
+              value={formState.foundBy}
+              onChange={(e) =>
+                dispatchFormAction({
+                  type: 'SET_FOUND_BY',
+                  payload: e.target.value,
+                })
+              }
+              placeholder='Enter name'
+            />
           </FormControl>
 
           <FormControl maxWidth={'300px'}>
             <FormLabel>Location</FormLabel>
-            <Select placeholder='SR-04 Cromption'>
+            <Select
+              placeholder='Select location'
+              value={formState.location}
+              onChange={(e) =>
+                dispatchFormAction({
+                  type: 'SET_LOCATION',
+                  payload: e.target.value,
+                })
+              }
+            >
               <option>SR-01 Wolves</option>
               <option>WOlverhampton</option>
               <option>Lounge</option>
@@ -53,6 +75,13 @@ export const Step2 = () => {
             <FormLabel>Date of Found</FormLabel>
             <InputGroup>
               <Input
+                value={formState.foundDate}
+                onChange={(e) =>
+                  dispatchFormAction({
+                    type: 'SET_FOUND_DATE',
+                    payload: e.target.value,
+                  })
+                }
                 placeholder={`Select Date`}
                 onFocus={(e: any) => (e.target.type = 'date')}
               />
@@ -63,7 +92,16 @@ export const Step2 = () => {
       <Box mt={`2rem`}>
         <FormControl maxWidth={`300px`}>
           <FormLabel>Deposited to</FormLabel>
-          <Select placeholder='SR-04 Cromption'>
+          <Select
+            value={formState.depositedTo}
+            onChange={(e) =>
+              dispatchFormAction({
+                type: 'SET_DEPOSITED_TO',
+                payload: e.target.value,
+              })
+            }
+            placeholder='Deposited to'
+          >
             <option>SR-01 Wolves</option>
             <option>WOlverhampton</option>
             <option>Lounge</option>

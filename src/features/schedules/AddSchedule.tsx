@@ -104,7 +104,7 @@ const AddSchedulePage = () => {
         addSchedule({
           courseType: courseType.trim(),
           moduleName: moduleName.trim(),
-          lecturerName: lecturerName.trim(),
+          teacherName: lecturerName.trim(),
           group: group.trim(),
           roomName: room.trim(),
           blockName: block.trim(),
@@ -143,10 +143,14 @@ const AddSchedulePage = () => {
   };
 
   const groups = ['L5CG7', 'L5CG6'];
-  const blocks = ['Wolverhampton', 'HCK'];
+  const blocks = ['Wolverhampton', 'HERALD'];
   const rooms = ['Kirtipur', 'Basantapur', 'Dudley'];
-  const classTypes = ['Lecture', 'Tutorial', 'Workshop'];
-  const modules = ['Human Computer Interaction', 'Object Oriented Programming'];
+  const classTypes = ['LECTURE', 'TUTORIAL', 'WORKSHOP'];
+  const modules = [
+    'Human Computer Interaction',
+    'Object Oriented Programming',
+    'FYP',
+  ];
 
   // form values
   const [group, setGroup] = useState('');
@@ -475,8 +479,8 @@ const AddSchedulePage = () => {
                   borderRadius={'4px'}
                   marginTop={'0.5rem'}
                 >
-                  <option value={'PENDING'}>PENDING</option>
-                  <option value={'ACTIVE'}>ACTIVE</option>
+                  <option value={'UPCOMMING'}>UPCOMMING</option>
+                  <option value={'RUNNING'}>ACTIVE</option>
                 </Select>
               </FormControl>
               <VStack

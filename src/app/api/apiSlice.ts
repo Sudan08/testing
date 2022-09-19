@@ -21,7 +21,7 @@ const baseQueryWithReAuth = async (args: any, api: any, extraOptions: any) => {
   if (result?.error?.status === 401) {
     await api.dispatch(logout());
     result = await baseQuery(args, api, extraOptions);
-  } else if (result?.error?.status === 403) {
+  } else if (result?.error?.status === 404) {
     const res = await baseQuery(
       {
         url: '/RegenerateToken',
