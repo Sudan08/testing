@@ -16,11 +16,12 @@ import {
   IconButton,
   useColorMode,
   Checkbox,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 import { BiLock } from 'react-icons/bi';
 import { chakra } from '@chakra-ui/system';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { useLoginMutation } from '../auth/authApiSlice';
@@ -30,15 +31,28 @@ import {
   setInitialCredentials,
 } from '../auth/authSlice';
 import { ILoginResponse } from '../../interfaces';
+import { useForm } from 'react-hook-form';
+
+type loginPayload = {
+  email: string;
+  password: string;
+  rememberMe?: boolean;
+};
 const Login = () => {
   const toast = useToast();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm<loginPayload>();
   const { colorMode, toggleColorMode } = useColorMode();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const navigate = useNavigate();
+  const rememberMe = watch('rememberMe');
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -57,24 +71,21 @@ const Login = () => {
   const [isDemoClicked, setIsDemoClicked] = useState(false);
 
   const demoValueSetter = async () => {
-    setEmail('rms@gmail.com');
-    setPassword('admin');
+    setValue('email', 'rms@gmail.com');
+    setValue('password', 'admin');
     setIsDemoClicked(true);
   };
 
   useEffect(() => {
-    if (isDemoClicked && email && password) {
-      handleLogin();
+    if (isDemoClicked) {
+      const payload = getValues();
+      handleLogin(payload);
     }
   }, [isDemoClicked]);
 
-  const handleLogin = async () => {
+  const handleLogin = async (values: loginPayload) => {
     try {
-      const data: ILoginResponse = await login({
-        email,
-        password,
-      }).unwrap();
-      console.log(data);
+      const data: ILoginResponse = await login(values).unwrap();
       if (data.scope) {
         dispatch(
           setInitialCredentials({
@@ -159,31 +170,33 @@ const Login = () => {
           marginTop={`2rem !important`}
           gap={`1rem`}
           width={`100%`}
-          onSubmit={(e: FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
-            handleLogin();
-          }}
+          onSubmit={handleSubmit(handleLogin)}
         >
-          <FormControl isRequired>
+          <FormControl isInvalid={Boolean(errors.email)}>
             <FormLabel htmlFor='email'>Email address</FormLabel>
             <Input
+              placeholder='john@doe.com'
               id='email'
-              value={email}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setEmail(e.target.value)
-              }
               type='email'
+              {...register('email', {
+                required: 'Email is required',
+                pattern: {
+                  value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                  message: 'Invalid email address',
+                },
+              })}
             />
+            <FormErrorMessage>
+              {errors.email && errors.email.message}
+            </FormErrorMessage>
           </FormControl>
-          <FormControl isRequired>
+          <FormControl isInvalid={Boolean(errors.password)}>
             <FormLabel htmlFor='password'>Password</FormLabel>
             <InputGroup>
               <Input
                 id='password'
-                value={password}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setPassword(e.target.value)
-                }
+                placeholder='********'
+                {...register('password', { required: 'Password is required' })}
                 type={isPasswordVisible ? 'text' : 'password'}
               />
               <InputRightElement
@@ -195,19 +208,19 @@ const Login = () => {
                 }
               />
             </InputGroup>
+            <FormErrorMessage>
+              {errors.password && errors.password.message}
+            </FormErrorMessage>
           </FormControl>
           <FormControl>
             <HStack width={`full`}>
               <InputGroup display={`flex`} alignItems={`center`} gap={`0.4rem`}>
                 <Checkbox
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setRememberMe(e.target.checked)
-                  }
-                  checked={rememberMe}
                   borderRadius={`16px`}
                   colorScheme={`green`}
                   id={`remember`}
                   bottom={`1px`}
+                  {...register('rememberMe')}
                 />
                 <FormLabel
                   margin={`0 !important`}
