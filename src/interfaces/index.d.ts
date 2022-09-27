@@ -1,3 +1,9 @@
+
+interface loginPayload {
+  email: string;
+  password: string;
+  rememberMe?: boolean;
+};
 interface ILoginResponse {
   message?: string;
   email: string;
