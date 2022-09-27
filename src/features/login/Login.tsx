@@ -30,14 +30,9 @@ import {
   selectIsAuthenticated,
   setInitialCredentials,
 } from '../auth/authSlice';
-import { ILoginResponse } from '../../interfaces';
+import { ILoginResponse, loginPayload } from '../../interfaces';
 import { useForm } from 'react-hook-form';
 
-type loginPayload = {
-  email: string;
-  password: string;
-  rememberMe?: boolean;
-};
 const Login = () => {
   const toast = useToast();
   const {
