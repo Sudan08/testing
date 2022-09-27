@@ -27,6 +27,8 @@ import {
   useColorModeValue,
   ModalCloseButton,
   useDisclosure,
+  FormLabel,
+  FormErrorMessage
 } from '@chakra-ui/react';
 import { Schedule } from 'akar-icons';
 import { TimeIcon } from '@chakra-ui/icons';
@@ -42,6 +44,22 @@ import { useDispatch } from 'react-redux';
 import { addSchedule } from './scheduleSlice';
 import { usePostScheduleMutation } from './scheduleApiSlice';
 import { addSchedulePageBreadcrumbNav } from '../../data/breadcrumbDatas';
+import { useForm } from 'react-hook-form';
+
+
+type schedulePayLoad ={
+  course : string,
+  group : string,
+  block : string,
+  room : string,
+  lecturer_name : string,
+  module_name : string,
+  class_end_time : string,
+  class_type:string,
+  day:string,
+  status : string
+};
+const { register, handleSubmit, watch, formState: { errors } } = useForm<schedulePayLoad>();
 
 const FilePreviewComponent: React.FC<{ acceptedFiles: FileWithPath[] }> = ({
   acceptedFiles,
@@ -55,6 +73,8 @@ const FilePreviewComponent: React.FC<{ acceptedFiles: FileWithPath[] }> = ({
   </>
 );
 
+
+
 const AddSchedulePage = () => {
   const [uploadFile, setUploadFile] = useState<boolean | string>(false);
   const [searchedParams] = useSearchParams();
@@ -64,7 +84,6 @@ const AddSchedulePage = () => {
   const placeholderColor = useColorModeValue('gray', '#fff');
   const [postSchedule, { isLoading }] = usePostScheduleMutation();
   const dispatch = useDispatch();
-
   const backgroundColor = useColorModeValue(
     isFileDragging ? 'green.100' : '#fff',
     isFileDragging ? 'green.500' : 'gray.800'
@@ -80,8 +99,8 @@ const AddSchedulePage = () => {
   });
   const toast = useToast();
 
-  const handleScheduleAdd = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleScheduleAdd = async (values: schedulePayLoad) => {
+
     const formData = {
       courseType: courseType.trim(),
       moduleName: moduleName.trim(),
@@ -171,6 +190,7 @@ const AddSchedulePage = () => {
     }
   }, [queryStartTime]);
 
+  
   return (
     <VStack height={`100%`} width={`100%`}>
       <chakra.div width={`100%`} height={`100%`}>
@@ -218,9 +238,7 @@ const AddSchedulePage = () => {
             <chakra.form
               // mt={`2rem`}
               padding={[`0.5rem`, `0.5rem`, `1rem`, `2rem`, `3rem`]}
-              onSubmit={async (e: FormEvent<HTMLFormElement>) =>
-                handleScheduleAdd(e)
-              }
+              onSubmit={handleSubmit(handleScheduleAdd)}
               display={`grid`}
               gridTemplateColumns={[
                 `repeat(1,1fr)`,
@@ -231,37 +249,32 @@ const AddSchedulePage = () => {
               columnGap={[`1rem`, `2rem`, `2rem`, `4rem`]}
               placeItems={`center`}
             >
+            <FormControl isInvalid={Boolean(errors.course)}>
+            <FormLabel htmlFor='course'>Course</FormLabel>
+            <Select
+              placeholder='Course'
+              id='course'
+              // type='text'
+              {...register('course', {
+                required: 'Course is required',
+              })}
+            >
+              <option value={'BIBM'}>BIBM</option>
+              <option value={'BIT'}>BIT</option>
+              </Select>
+            <FormErrorMessage>
+              {errors.course && errors.course.message}
+            </FormErrorMessage>
+          </FormControl>
               <FormControl isRequired>
-                <label htmlFor='courseType'>Course</label>
+              <FormLabel htmlFor='group'>Group</FormLabel>
                 <Select
-                  id='courseType'
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    setCourseType(e.target.value)
-                  }
-                  value={courseType}
-                  placeholder='Select Course'
-                  backgroundColor={'blackAlpha.50'}
-                  outline={`1px solid #DFDFDF`}
-                  borderRadius={'4px'}
-                  marginTop={'0.5rem'}
-                >
-                  <option value={'BIBM'}>BIBM</option>
-                  <option value={'BIT'}>BIT</option>
-                </Select>
-              </FormControl>
-              <FormControl isRequired>
-                <label htmlFor='group'>Group</label>
-                <Select
-                  id='group'
-                  value={group}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    setGroup(e.target.value)
-                  }
-                  placeholder='Select Group'
-                  backgroundColor={`blackAlpha.50`}
-                  outline={`1px solid #DFDFDF`}
-                  borderRadius={'4px'}
-                  marginTop={'0.5rem'}
+                placeholder='Group'
+                id='group'
+                // type='text'
+                {...register('group', {
+                required: 'Group is required',
+                })}
                 >
                   {groups.map((group, index) => (
                     <option key={index} value={group}>
@@ -269,41 +282,39 @@ const AddSchedulePage = () => {
                     </option>
                   ))}
                 </Select>
+                <FormErrorMessage>
+                {errors.group && errors.group.message}
+                </FormErrorMessage>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='block'>Block</label>
-                <Select
-                  id='block'
-                  value={block}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    setBlock(e.target.value)
-                  }
-                  placeholder='Select Block'
-                  backgroundColor={`blackAlpha.50`}
-                  outline={`1px solid #DFDFDF`}
-                  borderRadius={'4px'}
-                  marginTop={'0.5rem'}
+              <FormLabel htmlFor='block'>Block</FormLabel>
+              <Select
+                placeholder='Block'
+                id='block'
+                // type='text'
+                {...register('block', {
+                required: 'Block is required',
+                })}
                 >
                   {blocks.map((block, index) => (
                     <option key={index} value={block}>
                       {block}
                     </option>
                   ))}
-                </Select>
+                  </Select>
+                  <FormErrorMessage>
+                  {errors.block && errors.block.message}
+                  </FormErrorMessage>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='room'>Room</label>
+              <FormLabel htmlFor='room'>Room</FormLabel>
                 <Select
-                  id='room'
-                  value={room}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    setRoom(e.target.value)
-                  }
-                  placeholder='Select Room'
-                  backgroundColor={`blackAlpha.50`}
-                  outline={`1px solid #DFDFDF`}
-                  borderRadius={'4px'}
-                  marginTop={'0.5rem'}
+                placeholder='Room'
+                id='room'
+                // type='text'
+                {...register('room', {
+                required: 'Room is required',
+                })}
                 >
                   {rooms.map((room, index) => (
                     <option key={index} value={room}>
@@ -311,39 +322,32 @@ const AddSchedulePage = () => {
                     </option>
                   ))}
                 </Select>
+                <FormErrorMessage>
+                  {errors.room && errors.room.message}
+                  </FormErrorMessage>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='lecturer_name'>Lecturer Name</label>
-                <Input
-                  type={`text`}
-                  id={`lecturer_name`}
-                  placeholder={`Lecturer Name`}
-                  value={lecturerName}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setLecturerName(e.target.value)
-                  }
-                  backgroundColor={`blackAlpha.50`}
-                  outline={`1px solid #DFDFDF`}
-                  borderRadius={'4px'}
-                  marginTop={'0.5rem'}
-                  _placeholder={{
-                    color: placeholderColor,
-                  }}
-                />
+              <FormLabel htmlFor='lecturer_name'>Lecturer Name</FormLabel>
+              <Input
+              placeholder='Lecturer Name'
+              id='lecturer_name'
+              type='string'
+              {...register('lecturer_name', {
+                required: 'Lecturer Name is required',
+              })}
+              />
+                <FormErrorMessage>
+                  {errors.lecturer_name && errors.lecturer_name.message}
+                  </FormErrorMessage>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='module_name'>Module Name</label>
+                <FormLabel htmlFor='module_name'>Module Name</FormLabel>
                 <Select
-                  id='module_name'
-                  placeholder='Select Module Name'
-                  value={moduleName}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    setModuleName(e.target.value)
-                  }
-                  backgroundColor={`blackAlpha.50`}
-                  outline={`1px solid #DFDFDF`}
-                  borderRadius={'4px'}
-                  marginTop={'0.5rem'}
+                placeholder='Module Name'
+                id='module_name'
+                {...register('module_name', {
+                required: 'Module Name is required',
+                })}
                 >
                   {modules.map((m, index) => (
                     <option key={index} value={m}>
@@ -351,9 +355,12 @@ const AddSchedulePage = () => {
                     </option>
                   ))}
                 </Select>
+                <FormErrorMessage>
+                  {errors.module_name && errors.module_name.message}
+                  </FormErrorMessage>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='class_start_time'>Class Start Time</label>
+                <FormLabel htmlFor='class_start_time'>Class Start Time</FormLabel>
                 <InputGroup
                   backgroundColor={`blackAlpha.50`}
                   outline={`1px solid #DFDFDF`}
@@ -386,7 +393,7 @@ const AddSchedulePage = () => {
                 </InputGroup>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='class_end_time'>Class End Time</label>
+                <FormLabel htmlFor='class_end_time'>Class End Time</FormLabel>
                 <InputGroup
                   backgroundColor={`blackAlpha.50`}
                   outline={`1px solid #DFDFDF`}
@@ -400,10 +407,10 @@ const AddSchedulePage = () => {
                   <Input
                     id={`class_end_time`}
                     placeholder={`Select Time`}
-                    value={endTime}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      setEndTime(e.target.value)
-                    }
+                    type='string'
+                    {...register('class_end_time', {
+                    required: 'Class End Time is required',
+                    })}
                     onFocus={(e: any) => {
                       if (e.target instanceof HTMLInputElement)
                         e.target.type = 'time';
@@ -417,14 +424,18 @@ const AddSchedulePage = () => {
                     }}
                   />
                 </InputGroup>
+                <FormErrorMessage>
+                  {errors.module_name && errors.module_name.message}
+                </FormErrorMessage>
               </FormControl>{' '}
               <FormControl isRequired>
-                <label htmlFor='class_type'>Class Type</label>
+                <FormLabel htmlFor='class_type'>Class Type</FormLabel>
                 <Select
                   id='class_type'
                   placeholder='Select Class Type'
-                  value={classType}
-                  onChange={(e: any) => setClassType(e.target.value)}
+                  {...register('class_type', {
+                    required: 'Class Type is required',
+                    })}
                   backgroundColor={`blackAlpha.50`}
                   outline={`1px solid #DFDFDF`}
                   borderRadius={'4px'}
@@ -436,16 +447,19 @@ const AddSchedulePage = () => {
                     </option>
                   ))}
                 </Select>
+                <FormErrorMessage>
+                  {errors.class_type && errors.class_type.message}
+                </FormErrorMessage>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='day'>Day</label>
+                <FormLabel htmlFor='day'>Day</FormLabel>
                 <Input
                   id='day'
                   placeholder='Enter Day'
-                  value={day}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setDay(e.target.value)
-                  }
+                  type='string'
+                  {...register('day', {
+                  required: 'Day is required',
+                  })}
                   backgroundColor={`blackAlpha.50`}
                   outline={`1px solid #DFDFDF`}
                   borderRadius={'4px'}
@@ -464,15 +478,17 @@ const AddSchedulePage = () => {
                   <option value='Friday' />
                   <option value='Saturday' />
                 </datalist>
+                <FormErrorMessage>
+                  {errors.day && errors.day.message}
+                </FormErrorMessage>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='status'>Status</label>
+                <FormLabel htmlFor='status'>Status</FormLabel>
                 <Select
                   id='status'
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    setStatus(e.target.value)
-                  }
-                  value={status}
+                  {...register('status', {
+                    required: 'Status is required',
+                  })}
                   placeholder='Select Status'
                   backgroundColor={'blackAlpha.50'}
                   outline={`1px solid #DFDFDF`}
