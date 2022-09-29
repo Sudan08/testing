@@ -9,14 +9,23 @@ import {
   Select,
   useColorModeValue,
   VStack,
+  FormLabel,
+  FormErrorMessage
 } from '@chakra-ui/react';
 import { Person } from 'akar-icons';
 import { useNavigate } from 'react-router-dom';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
 import { addStudentPageBreadcrumbNav } from '../../data/breadcrumbDatas';
+import { useForm } from 'react-hook-form';
+import {IStudent} from '../../interfaces';
+
 
 const StudentPage = () => {
+  const { register, handleSubmit, setValue,  formState: { errors } } = useForm<IStudent>();
+  const handleViewStudent = (values:IStudent) =>{
+    navigate("/view-students")
+   }
   const navigate = useNavigate();
   const backgroundColor = useColorModeValue('#F9F9F9', 'gray.800');
   return (
@@ -40,34 +49,30 @@ const StudentPage = () => {
             <CustomHeading>Students Viewer</CustomHeading>
           </HStack>
           <Divider />
-          <chakra.form width={'100%'} padding={'3rem'} paddingTop={'2rem'}>
-            <FormControl>
-              <chakra.label
-                htmlFor='course'
-                // color={"gray.600"}
-                fontWeight={'semibold'}
-              >
-                Course
-              </chakra.label>
+          <chakra.form width={'100%'} padding={'3rem'} paddingTop={'2rem'} onSubmit={handleSubmit(handleViewStudent)}>
+            <FormControl isInvalid={Boolean(errors.course)}>
+              <FormLabel htmlFor='course'>Course</FormLabel>
               <Select
-                id='course'
-                placeholder='Select Course'
-                backgroundColor={'blackAlpha.50'}
-                borderRadius={'4px'}
-                marginTop={'0.5rem'}
+              placeholder='Course'
+              id='course'
+              {...register('course', {
+                required: 'Course is required',
+              })}
               >
-                <option value={'BIT'}>BIT</option>
-                <option value='BIBM'>BIBM</option>
+              <option value={'BIBM'}>BIBM</option>
+              <option value={'BIT'}>BIT</option>
               </Select>
-            </FormControl>
-            <FormControl marginTop={'1rem'}>
-              <chakra.label
-                htmlFor='group'
-                // color={"gray.600"}
+            <FormErrorMessage>
+              {errors.course && errors.course.message}
+            </FormErrorMessage>
+          </FormControl>
+            <FormControl marginTop={'1rem'} isInvalid={Boolean(errors.level)}>
+              <FormLabel
+                htmlFor='level'
                 fontWeight={'semibold'}
               >
                 Level
-              </chakra.label>
+              </FormLabel>
               <Input
                 id='level'
                 placeholder='Enter/Select Level'
@@ -75,12 +80,18 @@ const StudentPage = () => {
                 borderRadius={'4px'}
                 list={'level_list'}
                 marginTop={'0.5rem'}
+                {...register('level', {
+                  required: 'Level is required',
+                })}
               />
 
               <datalist id='level_list'>
                 <option value='1'></option>
                 <option value='2'></option>
               </datalist>
+              <FormErrorMessage>
+                  {errors.level && errors.level.message}
+                </FormErrorMessage>
             </FormControl>
             <Button
               type='submit'
@@ -92,9 +103,9 @@ const StudentPage = () => {
               backgroundColor='brand.500'
               width={'100%'}
               marginTop={'2rem'}
-              onClick={() => {
-                navigate('/view-students');
-              }}
+              // onClick={() => {
+                // navigate('/view-students');
+              // }}
             >
               View Students
             </Button>

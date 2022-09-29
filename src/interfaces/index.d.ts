@@ -42,6 +42,11 @@ interface IScheduleState {
   allSchedules: ISchedule[];
 }
 
+export interface IStudent{
+  course: string;
+  level : string;
+}
+
 export interface IDeleteRoutineResponse {
   error?: Object;
 }

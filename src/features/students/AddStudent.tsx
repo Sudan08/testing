@@ -13,6 +13,8 @@ import { BiUpload } from 'react-icons/bi';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
 import { addStudentPageBreadcrumbNav } from '../../data/breadcrumbDatas';
 
+
+
 const AddStudentPage = () => {
   const [uploadFile, setUploadFile] = useState<FileWithPath[]>();
   const [isFileDragging, setIsFileDragging] = useState(false);
