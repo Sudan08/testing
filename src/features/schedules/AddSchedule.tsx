@@ -143,7 +143,6 @@ const AddSchedulePage = () => {
           as={Box}
           padding={`1rem`}
           justifyContent={[`flex-start`, `flex-start`, `center`]}
-          height={`100%`}
           width={`100%`}
         >
           <Box width={'100%'} display={'flex'} justifyContent={'flex-end'}>
