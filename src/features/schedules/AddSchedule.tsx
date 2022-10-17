@@ -308,9 +308,9 @@ const AddSchedulePage = () => {
                     color: placeholderColor,
                   }}
                 >
-                  <InputLeftElement pointerEvents={`none`} />
-                  <TimeIcon />
-                  <InputLeftElement />
+                  <InputLeftElement pointerEvents={`none`}>
+                    <TimeIcon />
+                  </InputLeftElement>
                   <Input
                     id={`class_start_time`}
                     placeholder={`Select Time`}
@@ -344,12 +344,7 @@ const AddSchedulePage = () => {
                   borderRadius={'4px'}
                   marginTop={'0.5rem'}
                 >
-                  {/* <InputLeftElement
-                    pointerEvents={`none`}
-                    children={<TimeIcon />}
-                  /> */}
-                  <InputLeftElement>
-                    pointerEvents={`none`}
+                  <InputLeftElement pointerEvents={`none`}>
                     <TimeIcon />
                   </InputLeftElement>
                   <Input
