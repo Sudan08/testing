@@ -79,8 +79,8 @@ const ViewStudentsPage = () => {
           <Box id='table' height={'fit-content'}>
             <TableContainer
               maxH={'60vh'}
-              mr={'8'}
-              ml={'8'}
+              mr={['0','8']}
+              ml={['0','8']}
               mb={'8'}
               overflowY={`scroll`}
               height={'100%'}
