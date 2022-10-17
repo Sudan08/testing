@@ -16,7 +16,7 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { BsCloudUpload } from 'react-icons/bs';
-import { stepPropType } from '.';
+import { stepPropType } from './AddItem';
 
 export const Step1: React.FC<stepPropType> = ({
   formState,

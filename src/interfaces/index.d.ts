@@ -1,9 +1,9 @@
-interface loginPayload {
+export interface loginPayload {
   email: string;
   password: string;
   rememberMe?: boolean;
 }
-interface ILoginResponse {
+export interface ILoginResponse {
   message?: string;
   email: string;
   scope: string;
@@ -11,19 +11,19 @@ interface ILoginResponse {
   refreshToken: string;
 }
 
-interface IBreadcrumNav {
+export interface IBreadcrumNav {
   label: string;
   link?: string;
 }
 
-interface IAuthState {
+export interface IAuthState {
   refreshToken: string | null;
   accessToken: string | null;
   scope: string | null;
   isAuthenticated: boolean;
 }
 
-interface ISchedule {
+export interface ISchedule {
   _id?: string;
   courseType: string;
   moduleName: string;
@@ -37,7 +37,7 @@ interface ISchedule {
   endTime: string;
   status: string;
 }
-interface IScheduleState {
+export interface IScheduleState {
   allSchedules: ISchedule[];
 }
 
@@ -47,7 +47,7 @@ export interface IStudent {
 }
 
 export interface IDeleteRoutineResponse {
-  error?: Object;
+  error?: Record<string, unknown>;
 }
 export interface ILostAndFoundState {
   allItems: ILostAndFound[];

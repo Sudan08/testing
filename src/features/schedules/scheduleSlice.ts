@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 import { ISchedule, IScheduleState } from '../../interfaces';
 
 const initialState: IScheduleState = {
@@ -47,4 +48,5 @@ export const { setAllSchedules, addSchedule, removeSchedule, editSchedule } =
   scheduleSlice.actions;
 export default scheduleSlice.reducer;
 
-export const selectAllSchedules = (state: any) => state.schedules.allSchedules;
+export const selectAllSchedules = (state: RootState) =>
+  state.schedules.allSchedules;

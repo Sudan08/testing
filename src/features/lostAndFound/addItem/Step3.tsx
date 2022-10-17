@@ -12,7 +12,7 @@ export const Step3: React.FC<stepPropType> = ({
         <Text>Step 3/3</Text>
         <Box my={`2rem`}>
           <Text as={`b`} fontSize={`1.3rem`}>
-            What's the status of the item?
+            What&apos;s the status of the item?
           </Text>
           <Text color={`grey`}>
             Please state wheather the item has been claimed or still pending

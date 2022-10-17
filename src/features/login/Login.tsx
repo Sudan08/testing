@@ -101,7 +101,7 @@ const Login = () => {
       } else {
         throw new Error('Something went wrong!');
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
       toast({
         title: 'Invalid credentials!',
         description: 'Please recheck your email and password!',
@@ -176,7 +176,7 @@ const Login = () => {
               {...register('email', {
                 required: 'Email is required',
                 pattern: {
-                  value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                  value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
                   message: 'Invalid email address',
                 },
               })}
@@ -198,10 +198,9 @@ const Login = () => {
                 borderLeft={`1px solid rgba(0, 0, 0, 0.2)`}
                 cursor={`pointer`}
                 onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                children={
-                  <Icon as={!isPasswordVisible ? VscEye : VscEyeClosed} />
-                }
-              />
+              >
+                <Icon as={!isPasswordVisible ? VscEye : VscEyeClosed} />
+              </InputRightElement>
             </InputGroup>
             <FormErrorMessage>
               {errors.password && errors.password.message}

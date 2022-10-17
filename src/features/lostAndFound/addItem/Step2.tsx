@@ -83,7 +83,7 @@ export const Step2: React.FC<stepPropType> = ({
                   })
                 }
                 placeholder={`Select Date`}
-                onFocus={(e: any) => (e.target.type = 'date')}
+                onFocus={(e) => (e.target.type = 'date')}
               />
             </InputGroup>
           </FormControl>

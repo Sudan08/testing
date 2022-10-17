@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Box, Show, VStack } from '@chakra-ui/react';
 import { TopBar } from '../MobileNav';
 import Sidebar from '../Sidebar';

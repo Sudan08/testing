@@ -65,7 +65,7 @@ const ClassesPage = () => {
     try {
       if (itemToDelete) {
         const res = (await deleteSchedule(
-          itemToDelete
+          { routineID: itemToDelete }
         )) as IDeleteRoutineResponse;
         if (res?.error) {
           throw new Error('Failed to delete routine!');

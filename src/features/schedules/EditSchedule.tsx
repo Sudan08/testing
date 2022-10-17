@@ -20,16 +20,12 @@ import {
 import { Schedule } from 'akar-icons';
 import { TimeIcon } from '@chakra-ui/icons';
 import CustomHeading from '../../components/CustomHeading';
-import { ISchedule } from '../../interfaces';
 import { useGetScheduleByIdQuery } from './scheduleApiSlice';
 
 const EditSchedulePage = () => {
   const toast = useToast();
   // getting schedule by id in the params
   const { id } = useParams();
-
-  useEffect(() => {}, []);
-
   const { data, isLoading } = useGetScheduleByIdQuery(id);
   // form values
   const [group, setGroup] = useState('');
@@ -83,21 +79,6 @@ const EditSchedulePage = () => {
       position: 'top-right',
     });
   };
-
-  const levels = [
-    {
-      label: 'Four',
-      value: '4',
-    },
-    {
-      label: 'Five',
-      value: '5',
-    },
-    {
-      label: 'Six',
-      value: '6',
-    },
-  ];
 
   const placeholderColor = useColorModeValue('gray', '#fff');
   const groups = ['L5CG7', 'L5CG6'];
@@ -283,8 +264,9 @@ const EditSchedulePage = () => {
                 >
                   <InputLeftElement
                     pointerEvents={`none`}
+                  >
                     children={<TimeIcon />}
-                  />
+                  </InputLeftElement>
                   <Input
                     id={`class_start_time`}
                     placeholder={`Select Time`}
@@ -397,7 +379,7 @@ const EditSchedulePage = () => {
                   }}
                   backgroundColor="#74C043"
                   width={`100%`}
-                  // isLoading={isLoading}
+                // isLoading={isLoading}
                 >
                   Save Schedule
                 </Button>

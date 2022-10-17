@@ -1,4 +1,4 @@
-import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdminLayout from './components/layouts/AdminLayout';
 import ProtectedLayout from './components/layouts/ProtectedLayout';
 import AnalyticsPage from './features/analytics/Analytics';

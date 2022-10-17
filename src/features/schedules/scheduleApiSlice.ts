@@ -1,16 +1,13 @@
 import { apiSlice } from '../../app/api/apiSlice';
+import { ISchedule } from '../../interfaces';
 
 export const scheduleApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllSchedules: builder.query({
       query: () => '/routines',
       keepUnusedDataFor: 5,
-      transformResponse: (response: any) => {
-        if (response.data) {
-          return response.data;
-        } else {
-          return [];
-        }
+      transformResponse: (response: { data: ISchedule[] }) => {
+        return response.data;
       },
     }),
     getScheduleById: builder.query({
@@ -19,33 +16,27 @@ export const scheduleApiSlice = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
-    postSchedule: builder.mutation({
+    postSchedule: builder.mutation<{ message: string }, Partial<ISchedule>>({
       query: (data) => ({
         url: '/admin/postRoutineData/',
         method: 'POST',
         body: { ...data },
       }),
     }),
-    deleteSchedule: builder.mutation({
+    deleteSchedule: builder.mutation<{ message: string }, Partial<{ routineID: string }>>({
       query: (routineID) => ({
         url: '/admin/deleteRoutineData/',
         method: 'DELETE',
         body: { routineID },
       }),
     }),
-    putSchedule: builder.mutation({
+    putSchedule: builder.mutation<ISchedule, Partial<ISchedule>>({
       query: (data) => ({
         url: '/admin/updateRoutineData/',
         method: 'PUT',
         body: { ...data },
       }),
     }),
-    // getSchedulesByTime: builder.query({
-    //   query: (time) => ({
-    //     url: `/routines/getRoutineData?time=${time}`,
-    //     method: 'GET',
-    //   }),
-    // }),
   }),
 });
 

@@ -24,10 +24,9 @@ const StudentPage = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<IStudent>();
-  const handleViewStudent = (values: IStudent) => {
+  const handleViewStudent = (_: IStudent) => {
     navigate('/view-students');
   };
   const navigate = useNavigate();
@@ -109,9 +108,9 @@ const StudentPage = () => {
               backgroundColor="brand.500"
               width={'100%'}
               marginTop={'2rem'}
-              // onClick={() => {
-              // navigate('/view-students');
-              // }}
+            // onClick={() => {
+            // navigate('/view-students');
+            // }}
             >
               View Students
             </Button>
