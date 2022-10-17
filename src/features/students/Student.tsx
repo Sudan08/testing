@@ -108,9 +108,9 @@ const StudentPage = () => {
               backgroundColor="brand.500"
               width={'100%'}
               marginTop={'2rem'}
-            // onClick={() => {
-            // navigate('/view-students');
-            // }}
+              // onClick={() => {
+              // navigate('/view-students');
+              // }}
             >
               View Students
             </Button>

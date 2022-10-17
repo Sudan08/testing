@@ -36,8 +36,8 @@ import { FileWithPath, useDropzone } from 'react-dropzone';
 import { useForm } from 'react-hook-form';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { BiUpload } from 'react-icons/bi';
-import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
+import { useAppDispatch } from '../../app/store';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
 import { addSchedulePageBreadcrumbNav } from '../../data/breadcrumbDatas';
@@ -72,7 +72,7 @@ const AddSchedulePage = () => {
   const placeholderColor = useColorModeValue('gray', '#fff');
   const containerBgColor = useColorModeValue('white', 'gray.800');
   const [postSchedule, { isLoading }] = usePostScheduleMutation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const backgroundColor = useColorModeValue(
     isFileDragging ? 'green.100' : '#fff',
     isFileDragging ? 'green.500' : 'gray.800'

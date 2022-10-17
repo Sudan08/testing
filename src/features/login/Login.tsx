@@ -1,37 +1,37 @@
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import {
   Button,
+  Checkbox,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Heading,
   HStack,
   Icon,
+  IconButton,
   Image,
   Input,
   InputGroup,
   InputRightElement,
   Link,
-  VStack,
   Spinner,
-  useToast,
-  IconButton,
   useColorMode,
-  Checkbox,
-  FormErrorMessage,
+  useToast,
+  VStack,
 } from '@chakra-ui/react';
-import { VscEye, VscEyeClosed } from 'react-icons/vsc';
-import { BiLock } from 'react-icons/bi';
 import { chakra } from '@chakra-ui/system';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { BiLock } from 'react-icons/bi';
+import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 import { useNavigate } from 'react-router-dom';
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { useAppDispatch, useAppSelector } from '../../app/store';
+import { ILoginResponse, loginPayload } from '../../interfaces';
 import { useLoginMutation } from '../auth/authApiSlice';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   selectIsAuthenticated,
   setInitialCredentials,
 } from '../auth/authSlice';
-import { ILoginResponse, loginPayload } from '../../interfaces';
-import { useForm } from 'react-hook-form';
 
 const Login = () => {
   const toast = useToast();
@@ -45,7 +45,7 @@ const Login = () => {
   } = useForm<loginPayload>();
   const { colorMode, toggleColorMode } = useColorMode();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const navigate = useNavigate();
   const rememberMe = watch('rememberMe');
 
@@ -62,7 +62,7 @@ const Login = () => {
   }, [colorMode]);
 
   const [login, { isLoading }] = useLoginMutation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [isDemoClicked, setIsDemoClicked] = useState(false);
 
   const demoValueSetter = async () => {

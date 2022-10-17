@@ -111,7 +111,7 @@ const AddStudentPage = () => {
                     cursor={'pointer'}
                     htmlFor="excel_file"
                     fontWeight={'bold'}
-                  // color={'green'}
+                    // color={'green'}
                   >
                     {' '}
                     Browse{' '}

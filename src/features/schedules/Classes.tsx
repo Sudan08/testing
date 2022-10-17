@@ -1,42 +1,44 @@
-import { Spinner, useColorModeValue, useToast } from '@chakra-ui/react';
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  IconButton,
-  VStack,
   Box,
-  Heading,
-  HStack,
-  Divider,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   Button,
   chakra,
+  Divider,
+  Heading,
+  HStack,
+  IconButton,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Spinner,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  useColorModeValue,
+  useToast,
+  VStack,
 } from '@chakra-ui/react';
 
-import { VscTrash } from 'react-icons/vsc';
-import { SiGoogleclassroom } from 'react-icons/si';
-import { useNavigate } from 'react-router-dom';
 import { Pencil } from 'akar-icons';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { removeSchedule, selectAllSchedules } from './scheduleSlice';
+import { SiGoogleclassroom } from 'react-icons/si';
+import { VscTrash } from 'react-icons/vsc';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/store';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
-import { convertTime } from '../../helpers';
-import { useDeleteScheduleMutation } from './scheduleApiSlice';
 import { classesPageBreadcrumbNav } from '../../data/breadcrumbDatas';
+import { convertTime } from '../../helpers';
 import { IDeleteRoutineResponse, ISchedule } from '../../interfaces';
+import { useDeleteScheduleMutation } from './scheduleApiSlice';
+import { removeSchedule, selectAllSchedules } from './scheduleSlice';
 type statusType = 'Completed' | 'Ongoing' | 'Cancelled';
 
 const ClassesPage = () => {
@@ -47,9 +49,9 @@ const ClassesPage = () => {
   );
   const toast = useToast();
 
-  const schedules = useSelector(selectAllSchedules);
+  const schedules = useAppSelector(selectAllSchedules);
   const [deleteSchedule, { isLoading }] = useDeleteScheduleMutation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const getClassStatusColor = (status: statusType) => {
@@ -64,9 +66,9 @@ const ClassesPage = () => {
   const handleDelete = async () => {
     try {
       if (itemToDelete) {
-        const res = (await deleteSchedule(
-          { routineID: itemToDelete }
-        )) as IDeleteRoutineResponse;
+        const res = (await deleteSchedule({
+          routineID: itemToDelete,
+        })) as IDeleteRoutineResponse;
         if (res?.error) {
           throw new Error('Failed to delete routine!');
         }
@@ -83,7 +85,7 @@ const ClassesPage = () => {
           setDeleteModal(false);
         }
       }
-    } catch (err: any) {
+    } catch (err) {
       toast({
         title: 'Failed to delete class !!!',
         description: "Class couldn't be deleted.",

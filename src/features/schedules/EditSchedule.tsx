@@ -1,24 +1,24 @@
-import { useParams } from 'react-router-dom';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { chakra } from '@chakra-ui/system';
-import { useColorModeValue } from '@chakra-ui/react';
+import { TimeIcon } from '@chakra-ui/icons';
 import {
-  Spinner,
-  Input,
   Box,
   Button,
   Divider,
   FormControl,
   Heading,
   HStack,
+  Input,
   InputGroup,
   InputLeftElement,
   Select,
-  VStack,
+  Spinner,
+  useColorModeValue,
   useToast,
+  VStack,
 } from '@chakra-ui/react';
+import { chakra } from '@chakra-ui/system';
 import { Schedule } from 'akar-icons';
-import { TimeIcon } from '@chakra-ui/icons';
+import { ChangeEvent, FocusEvent, FormEvent, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import CustomHeading from '../../components/CustomHeading';
 import { useGetScheduleByIdQuery } from './scheduleApiSlice';
 
@@ -262,9 +262,7 @@ const EditSchedulePage = () => {
                     color: placeholderColor,
                   }}
                 >
-                  <InputLeftElement
-                    pointerEvents={`none`}
-                  >
+                  <InputLeftElement pointerEvents={`none`}>
                     children={<TimeIcon />}
                   </InputLeftElement>
                   <Input
@@ -274,11 +272,15 @@ const EditSchedulePage = () => {
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       setStartTime(e.target.value)
                     }
-                    onFocus={(e: any) => (e.target.type = 'time')}
+                    onFocus={(e: FocusEvent<HTMLInputElement>) =>
+                      (e.target.type = 'time')
+                    }
                     backgroundColor={`blackAlpha.50`}
                     outline={`1px solid #DFDFDF`}
                     borderRadius={'4px'}
-                    onBlur={(e: any) => (e.target.type = 'text')}
+                    onBlur={(e: FocusEvent<HTMLInputElement>) =>
+                      (e.target.type = 'text')
+                    }
                     _placeholder={{
                       color: placeholderColor,
                     }}
@@ -293,10 +295,9 @@ const EditSchedulePage = () => {
                   borderRadius={'4px'}
                   marginTop={'0.5rem'}
                 >
-                  <InputLeftElement
-                    pointerEvents={`none`}
-                    children={<TimeIcon />}
-                  />
+                  <InputLeftElement pointerEvents={`none`} />
+                  <TimeIcon />
+                  <InputLeftElement />
                   <Input
                     id={`class_end_time`}
                     placeholder={`Select Time`}
@@ -304,11 +305,13 @@ const EditSchedulePage = () => {
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       setEndTime(e.target.value)
                     }
-                    onFocus={(e: any) => {
+                    onFocus={(e: FocusEvent<HTMLInputElement>) => {
                       if (e.target instanceof HTMLInputElement)
                         e.target.type = 'time';
                     }}
-                    onBlur={(e: any) => (e.target.type = 'text')}
+                    onBlur={(e: FocusEvent<HTMLInputElement>) =>
+                      (e.target.type = 'text')
+                    }
                     backgroundColor={`blackAlpha.50`}
                     outline={`1px solid #DFDFDF`}
                     borderRadius={'4px'}
@@ -324,7 +327,9 @@ const EditSchedulePage = () => {
                   id="class_type"
                   placeholder="Select Class Type"
                   value={classType}
-                  onChange={(e: any) => setClassType(e.target.value)}
+                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                    setClassType(e.target.value)
+                  }
                   backgroundColor={`blackAlpha.50`}
                   outline={`1px solid #DFDFDF`}
                   borderRadius={'4px'}
@@ -379,7 +384,7 @@ const EditSchedulePage = () => {
                   }}
                   backgroundColor="#74C043"
                   width={`100%`}
-                // isLoading={isLoading}
+                  // isLoading={isLoading}
                 >
                   Save Schedule
                 </Button>

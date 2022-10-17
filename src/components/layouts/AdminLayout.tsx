@@ -1,15 +1,15 @@
-import { useEffect } from 'react';
 import { Box, Show, VStack } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import { useAppDispatch } from '../../app/store';
+import { useGetAllSchedulesQuery } from '../../features/schedules/scheduleApiSlice';
+import { setAllSchedules } from '../../features/schedules/scheduleSlice';
 import { TopBar } from '../MobileNav';
 import Sidebar from '../Sidebar';
-import { Outlet } from 'react-router-dom';
-import { useGetAllSchedulesQuery } from '../../features/schedules/scheduleApiSlice';
-import { useDispatch } from 'react-redux';
-import { setAllSchedules } from '../../features/schedules/scheduleSlice';
 
 const AdminLayout = () => {
   const { data: allSchedules } = useGetAllSchedulesQuery(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (allSchedules) {
