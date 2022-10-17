@@ -1,22 +1,21 @@
 import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  PopoverArrow,
-  VStack,
-  useColorModeValue,
-  Divider,
   Button,
   Center,
+  Divider,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
   PopoverCloseButton,
+  PopoverContent,
+  PopoverTrigger,
   Spinner,
+  useColorModeValue,
+  VStack,
 } from '@chakra-ui/react';
 import { chakra } from '@chakra-ui/system';
-import { useState } from 'react';
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../app/store';
 import { selectAllSchedules } from '../features/schedules/scheduleSlice';
 import { convertTime } from '../helpers';
 import { ISchedule } from '../interfaces';
@@ -24,7 +23,7 @@ import { ISchedule } from '../interfaces';
 const ScheduleTime: React.FC<{ time: string }> = ({ time }) => {
   const [isActive, setIsActive] = useState(false);
   const textColor = useColorModeValue('gray.800', 'white');
-  const allSchedules = useSelector(selectAllSchedules);
+  const allSchedules = useAppSelector(selectAllSchedules);
   const routines = useMemo(() => {
     if (allSchedules) {
       return allSchedules.filter(
@@ -93,7 +92,7 @@ const ScheduleTime: React.FC<{ time: string }> = ({ time }) => {
           <PopoverBody marginTop={'1.5rem'} padding={'1rem'}>
             <VStack alignItems={'flex-start'} gap={'0.5rem'}>
               {routines.length > 0 ? (
-                routines.map((routine: any, index: any) => (
+                routines.map((routine, index) => (
                   <VStack key={index} alignItems={'flex-start'}>
                     <PopoverScheduleDetail textColor={textColor} {...routine} />
                     <Divider />

@@ -1,11 +1,4 @@
-import {
-  Box,
-  Divider,
-  Grid,
-  Heading,
-  HStack,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Divider, Grid, Heading, HStack, VStack } from '@chakra-ui/react';
 import { chakra } from '@chakra-ui/system';
 import { BookClose } from 'akar-icons';
 import BreadcrumbNav from '../../components/BreadcrumbNav';

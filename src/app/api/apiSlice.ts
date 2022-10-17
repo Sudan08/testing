@@ -1,12 +1,18 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import {
+  BaseQueryFn,
+  createApi,
+  FetchArgs,
+  fetchBaseQuery,
+} from '@reduxjs/toolkit/query/react';
 import { logout, setNewToken } from '../../features/auth/authSlice';
 import { ILoginResponse } from '../../interfaces';
+import { RootState } from '../store';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://dev-herald-server.herokuapp.com/api/v4',
   // credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
-    const { auth } = getState() as any;
+    const { auth } = getState() as RootState;
     const token = auth.accessToken;
     if (token) {
       headers.set('Authorization', `Bearer ${token}`);
@@ -15,18 +21,23 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithReAuth = async (args: any, api: any, extraOptions: any) => {
+const baseQueryWithReAuth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  object
+> = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.status === 401) {
     await api.dispatch(logout());
     result = await baseQuery(args, api, extraOptions);
   } else if (result?.error?.status === 404) {
+    const { auth } = api.getState() as RootState;
     const res = await baseQuery(
       {
         url: '/RegenerateToken',
         headers: {
-          Authorization: `Bearer ${api.getState().auth.accessToken}`,
+          Authorization: `Bearer ${auth.accessToken}`,
         },
       },
       api,
@@ -53,5 +64,5 @@ const baseQueryWithReAuth = async (args: any, api: any, extraOptions: any) => {
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReAuth,
   reducerPath: 'api',
-  endpoints: (builder) => ({}),
+  endpoints: (_builder) => ({}),
 });

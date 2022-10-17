@@ -13,14 +13,14 @@ import {
 } from '@chakra-ui/react';
 import { chakra } from '@chakra-ui/system';
 import { FormEvent, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../app/store';
 import { selectIsAuthenticated } from './authSlice';
 
 const ForgotPassword = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
-  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const navigate = useNavigate();
 
   useEffect(() => {

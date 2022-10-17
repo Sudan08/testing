@@ -1,40 +1,40 @@
-import {
-  Image,
-  VStack,
-  Icon,
-  Button,
-  useDisclosure,
-  AlertDialogFooter,
-  AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogBody,
-  useToast,
-  Flex,
-  IconButton,
-  useColorMode,
-  HStack,
-} from '@chakra-ui/react';
-import { MdAdd, MdOutlineFeedback } from 'react-icons/md';
-import { AiOutlineUser, AiOutlineLineChart } from 'react-icons/ai';
-import React, { useEffect } from 'react';
-import { chakra } from '@chakra-ui/system';
-import { Schedule, Person } from 'akar-icons';
-import { VscDashboard } from 'react-icons/vsc';
-import { SiGoogleclassroom } from 'react-icons/si';
-import { CgSearchFound } from 'react-icons/cg';
 import { LockIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
-import NavItem from './NavItem';
-import { useDispatch } from 'react-redux';
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Button,
+  Flex,
+  HStack,
+  Icon,
+  IconButton,
+  Image,
+  useColorMode,
+  useDisclosure,
+  useToast,
+  VStack,
+} from '@chakra-ui/react';
+import { chakra } from '@chakra-ui/system';
+import { Person, Schedule } from 'akar-icons';
+import React, { useEffect } from 'react';
+import { AiOutlineLineChart, AiOutlineUser } from 'react-icons/ai';
+import { CgSearchFound } from 'react-icons/cg';
+import { MdAdd, MdOutlineFeedback } from 'react-icons/md';
+import { SiGoogleclassroom } from 'react-icons/si';
+import { VscDashboard } from 'react-icons/vsc';
+import { useAppDispatch } from '../app/store';
 import { logout } from '../features/auth/authSlice';
+import NavItem from './NavItem';
 
 const Sidebar = ({ isMobileView = false }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
   const toast = useToast();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (localStorage) {

@@ -23,7 +23,10 @@ export const scheduleApiSlice = apiSlice.injectEndpoints({
         body: { ...data },
       }),
     }),
-    deleteSchedule: builder.mutation<{ message: string }, Partial<{ routineID: string }>>({
+    deleteSchedule: builder.mutation<
+      { message: string },
+      Partial<{ routineID: string }>
+    >({
       query: (routineID) => ({
         url: '/admin/deleteRoutineData/',
         method: 'DELETE',

@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useAppSelector } from '../../app/store';
 import { selectIsAuthenticated } from '../../features/auth/authSlice';
 
 const ProtectedLayout = () => {
-  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const location = useLocation();
   if (isAuthenticated === undefined) {
     return <h1>Loading...</h1>;

@@ -25,13 +25,19 @@ import {
 } from '@chakra-ui/react';
 import { chakra } from '@chakra-ui/system';
 import { Schedule } from 'akar-icons';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  FocusEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { FileWithPath, useDropzone } from 'react-dropzone';
 import { useForm } from 'react-hook-form';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { BiUpload } from 'react-icons/bi';
-import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
+import { useAppDispatch } from '../../app/store';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
 import { addSchedulePageBreadcrumbNav } from '../../data/breadcrumbDatas';
@@ -66,7 +72,7 @@ const AddSchedulePage = () => {
   const placeholderColor = useColorModeValue('gray', '#fff');
   const containerBgColor = useColorModeValue('white', 'gray.800');
   const [postSchedule, { isLoading }] = usePostScheduleMutation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const backgroundColor = useColorModeValue(
     isFileDragging ? 'green.100' : '#fff',
     isFileDragging ? 'green.500' : 'gray.800'
@@ -302,14 +308,15 @@ const AddSchedulePage = () => {
                     color: placeholderColor,
                   }}
                 >
-                  <InputLeftElement
-                    pointerEvents={`none`}
-                    children={<TimeIcon />}
-                  />
+                  <InputLeftElement pointerEvents={`none`}>
+                    <TimeIcon />
+                  </InputLeftElement>
                   <Input
                     id={`class_start_time`}
                     placeholder={`Select Time`}
-                    onFocus={(e: any) => (e.target.type = 'time')}
+                    onFocus={(e: React.FocusEvent<HTMLInputElement>) =>
+                      (e.target.type = 'time')
+                    }
                     backgroundColor={`blackAlpha.50`}
                     outline={`1px solid #DFDFDF`}
                     borderRadius={'4px'}
@@ -319,7 +326,9 @@ const AddSchedulePage = () => {
                     {...register('startTime', {
                       required: 'Start time is required',
                     })}
-                    onBlur={(e: any) => (e.target.type = 'text')}
+                    onBlur={(e: React.FocusEvent<HTMLInputElement>) =>
+                      (e.target.type = 'text')
+                    }
                   />
                 </InputGroup>
 
@@ -335,10 +344,9 @@ const AddSchedulePage = () => {
                   borderRadius={'4px'}
                   marginTop={'0.5rem'}
                 >
-                  <InputLeftElement
-                    pointerEvents={`none`}
-                    children={<TimeIcon />}
-                  />
+                  <InputLeftElement pointerEvents={`none`}>
+                    <TimeIcon />
+                  </InputLeftElement>
                   <Input
                     id={`class_end_time`}
                     placeholder={`Select Time`}
@@ -346,11 +354,13 @@ const AddSchedulePage = () => {
                     {...register('endTime', {
                       required: 'Class End Time is required',
                     })}
-                    onFocus={(e: any) => {
+                    onFocus={(e: FocusEvent<HTMLInputElement>) => {
                       if (e.target instanceof HTMLInputElement)
                         e.target.type = 'time';
                     }}
-                    onBlur={(e: any) => (e.target.type = 'text')}
+                    onBlur={(e: FocusEvent<HTMLInputElement>) =>
+                      (e.target.type = 'text')
+                    }
                     backgroundColor={`blackAlpha.50`}
                     outline={`1px solid #DFDFDF`}
                     borderRadius={'4px'}
