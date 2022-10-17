@@ -24,7 +24,7 @@ const StudentPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<IStudent>();
   const handleViewStudent = (_: IStudent) => {
     navigate('/view-students');

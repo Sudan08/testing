@@ -33,77 +33,85 @@ import {
 import { useReducer } from 'react';
 import { FaRegStickyNote } from 'react-icons/fa';
 import { ILostAndFound } from '../../../interfaces';
+import { FieldErrorsImpl, useForm, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
+
 
 const initialStep: stepperState = {
   currentStep: 1,
   completedSteps: [],
 };
 
-const initialFormValues: ILostAndFound = {
-  itemName: '',
-  noOfItems: 0,
-  category: '',
-  itemDescription: '',
-  foundBy: '',
-  location: '',
-  foundDate: '',
-  depositedTo: '',
-  status: 'PENDING',
-  claimDetails: {
-    receiversName: '',
-    level: '',
-    group: '',
-    semester: '',
-    course: '',
-  },
-};
+// const initialFormValues: ILostAndFound = {
+//   itemName: '',
+//   noOfItems: 0,
+//   category: '',
+//   itemDescription: '',
+//   foundBy: '',
+//   location: '',
+//   foundDate: '',
+//   depositedTo: '',
+//   status: 'PENDING',
+//   claimDetails: {
+//     receiversName: '',
+//     level: '',
+//     group: '',
+//     semester: '',
+//     course: '',
+//   },
+// };
 
 export type stepPropType = {
-  formState: ILostAndFound;
-  dispatchFormAction: React.Dispatch<formActionType>;
+  register: UseFormRegister<ILostAndFound>,
+  handleSubmit:UseFormHandleSubmit<ILostAndFound>
+  errors: FieldErrorsImpl<ILostAndFound>
 };
 
 export const AddItem = () => {
+  const {register,handleSubmit,formState: { errors }} = useForm<ILostAndFound>();
+  const handleAddItem = (_: ILostAndFound) =>{
+    navigate('/LostAndFound')
+  }
   const backgroundColor = useColorModeValue('white', 'gray.800');
   const toast = useToast();
   const [stepperStates, dispatch] = useReducer(stepperReducer, initialStep);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
-  const [formState, dispatchFormAction] = useReducer(
-    lostAndFoundFormReducer,
-    initialFormValues
-  );
+  // const [formState, dispatchFormAction] = useReducer(
+  //   lostAndFoundFormReducer,
+  //   initialFormValues
+  // );
 
-  const onSubmit = () => {
-    try {
-      const allItems = JSON.parse(localStorage.getItem('allItems') || '[]');
-      localStorage.setItem(
-        'allItems',
-        JSON.stringify([...allItems, formState])
-      );
+  // const onSubmit = () => {
+  //   try {
+  //     const allItems = JSON.parse(localStorage.getItem('allItems') || '[]');
+  //     localStorage.setItem(
+  //       'allItems',
+  //       JSON.stringify([...allItems, formState])
+  //     );
 
-      toast({
-        title: 'Item Added',
-        description: 'Item has been added successfully',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-        position: 'top-right',
-      });
-      navigate('/lost-and-found');
-    } catch (err: unknown) {
-      toast({
-        title: 'Item not added',
-        description: 'Failed to add item',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-        position: 'top-right',
-      });
-    }
-  };
+  //     toast({
+  //       title: 'Item Added',
+  //       description: 'Item has been added successfully',
+  //       status: 'success',
+  //       duration: 5000,
+  //       isClosable: true,
+  //       position: 'top-right',
+  //     });
+  //     navigate('/lost-and-found');
+  //   } catch (err: unknown) {
+  //     toast({
+  //       title: 'Item not added',
+  //       description: 'Failed to add item',
+  //       status: 'error',
+  //       duration: 5000,
+  //       isClosable: true,
+  //       position: 'top-right',
+  //     });
+  //   }
+  // };
 
   return (
+    
     <Box width={`100%`} height={`100%`}>
       <BreadcrumbNav orderedNavItems={LostandFoundPageBreadcrumbNav} />
       <VStack
@@ -120,20 +128,26 @@ export const AddItem = () => {
         <StepHeader {...stepperStates} />
         {stepperStates.currentStep === 1 && (
           <Step1
-            formState={formState}
-            dispatchFormAction={dispatchFormAction}
+          register ={register} 
+          handleSubmit={handleSubmit}
+          formState = {errors}
+            // formState={formState}
+            // dispatchFormAction={dispatchFormAction}
           />
         )}
         {stepperStates.currentStep === 2 && (
           <Step2
-            formState={formState}
-            dispatchFormAction={dispatchFormAction}
+          register
+            // formState={formState}
+            // dispatchFormAction={dispatchFormAction}
           />
         )}
         {stepperStates.currentStep === 3 && (
           <Step3
-            formState={formState}
-            dispatchFormAction={dispatchFormAction}
+          register ={register}
+          handleSubmit ={handleSubmit}
+            // formState={formState}
+            // dispatchFormAction={dispatchFormAction}
           />
         )}
         {stepperStates.currentStep !== 3 && (
@@ -208,7 +222,7 @@ export const AddItem = () => {
               <Button backgroundColor={`white`} mr={3} onClick={onClose}>
                 Close
               </Button>
-              <Button colorScheme={'brand'} onClick={onSubmit}>
+              <Button colorScheme={'brand'}>
                 Add Item
               </Button>
             </ModalFooter>
