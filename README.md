@@ -36,5 +36,5 @@ yarn dev
 # Contribution guidelines
 
 - [x] Make sure the code doesn't break.
-- [x] Build sucess is compulsory for merging to main branch (TODO: setup automation for checking in github).
+- [x] Make sure github workflow build is successfull.
 - [x] Before creating issues, please checkout existing issues if there are any duplicates.
