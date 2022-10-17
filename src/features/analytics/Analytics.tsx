@@ -168,13 +168,13 @@ const AnalyticsPage = () => {
               justifyContent={`left`}
               padding={`0 1rem`}
             >
-              <IoAnalyticsSharp color='84dd22' />
+              <IoAnalyticsSharp color="84dd22" />
               <CustomHeading>Login Analytics</CustomHeading>
             </HStack>
           </Heading>
           <Divider />
           <Box width={`100%`} height={`400px`}>
-            <ResponsiveContainer width='100%' height='100%'>
+            <ResponsiveContainer width="100%" height="100%">
               <LineChart
                 width={500}
                 height={300}
@@ -186,20 +186,20 @@ const AnalyticsPage = () => {
                   bottom: 5,
                 }}
               >
-                <CartesianGrid strokeDasharray='3 3' />
-                <XAxis dataKey='name' />
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
                 <Line
-                  type='monotone'
-                  dataKey='Teachers Login'
-                  stroke='#8884d8'
+                  type="monotone"
+                  dataKey="Teachers Login"
+                  stroke="#8884d8"
                 />
                 <Line
-                  type='monotone'
-                  dataKey='Students Login'
-                  stroke='#82ca9d'
+                  type="monotone"
+                  dataKey="Students Login"
+                  stroke="#82ca9d"
                 />
               </LineChart>
             </ResponsiveContainer>

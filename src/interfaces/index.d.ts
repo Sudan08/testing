@@ -1,9 +1,8 @@
-
 interface loginPayload {
   email: string;
   password: string;
   rememberMe?: boolean;
-};
+}
 interface ILoginResponse {
   message?: string;
   email: string;
@@ -42,9 +41,9 @@ interface IScheduleState {
   allSchedules: ISchedule[];
 }
 
-export interface IStudent{
+export interface IStudent {
   course: string;
-  level : string;
+  level: string;
 }
 
 export interface IDeleteRoutineResponse {

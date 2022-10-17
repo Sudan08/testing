@@ -37,7 +37,7 @@ const NavItem: React.FC<navItemPropType> = ({
           color: `#74C040`,
         }}
       >
-        <Link className='nav_link' to={link}>
+        <Link className="nav_link" to={link}>
           {icon}
           {label}
         </Link>
@@ -51,7 +51,7 @@ const NavItem: React.FC<navItemPropType> = ({
       >
         {subItems
           ? subItems.map((item, index) => {
-              let is_active = location.pathname === item.link;
+              const is_active = location.pathname === item.link;
               return (
                 <chakra.div
                   fontSize={'inherit'}

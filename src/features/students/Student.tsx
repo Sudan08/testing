@@ -10,7 +10,7 @@ import {
   useColorModeValue,
   VStack,
   FormLabel,
-  FormErrorMessage
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import { Person } from 'akar-icons';
 import { useNavigate } from 'react-router-dom';
@@ -18,14 +18,18 @@ import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
 import { addStudentPageBreadcrumbNav } from '../../data/breadcrumbDatas';
 import { useForm } from 'react-hook-form';
-import {IStudent} from '../../interfaces';
-
+import { IStudent } from '../../interfaces';
 
 const StudentPage = () => {
-  const { register, handleSubmit, setValue,  formState: { errors } } = useForm<IStudent>();
-  const handleViewStudent = (values:IStudent) =>{
-    navigate("/view-students")
-   }
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<IStudent>();
+  const handleViewStudent = (values: IStudent) => {
+    navigate('/view-students');
+  };
   const navigate = useNavigate();
   const backgroundColor = useColorModeValue('#F9F9F9', 'gray.800');
   return (
@@ -49,33 +53,35 @@ const StudentPage = () => {
             <CustomHeading>Students Viewer</CustomHeading>
           </HStack>
           <Divider />
-          <chakra.form width={'100%'} padding={'3rem'} paddingTop={'2rem'} onSubmit={handleSubmit(handleViewStudent)}>
+          <chakra.form
+            width={'100%'}
+            padding={'3rem'}
+            paddingTop={'2rem'}
+            onSubmit={handleSubmit(handleViewStudent)}
+          >
             <FormControl isInvalid={Boolean(errors.course)}>
-              <FormLabel htmlFor='course'>Course</FormLabel>
+              <FormLabel htmlFor="course">Course</FormLabel>
               <Select
-              placeholder='Course'
-              id='course'
-              {...register('course', {
-                required: 'Course is required',
-              })}
+                placeholder="Course"
+                id="course"
+                {...register('course', {
+                  required: 'Course is required',
+                })}
               >
-              <option value={'BIBM'}>BIBM</option>
-              <option value={'BIT'}>BIT</option>
+                <option value={'BIBM'}>BIBM</option>
+                <option value={'BIT'}>BIT</option>
               </Select>
-            <FormErrorMessage>
-              {errors.course && errors.course.message}
-            </FormErrorMessage>
-          </FormControl>
+              <FormErrorMessage>
+                {errors.course && errors.course.message}
+              </FormErrorMessage>
+            </FormControl>
             <FormControl marginTop={'1rem'} isInvalid={Boolean(errors.level)}>
-              <FormLabel
-                htmlFor='level'
-                fontWeight={'semibold'}
-              >
+              <FormLabel htmlFor="level" fontWeight={'semibold'}>
                 Level
               </FormLabel>
               <Input
-                id='level'
-                placeholder='Enter/Select Level'
+                id="level"
+                placeholder="Enter/Select Level"
                 backgroundColor={'blackAlpha.50'}
                 borderRadius={'4px'}
                 list={'level_list'}
@@ -85,26 +91,26 @@ const StudentPage = () => {
                 })}
               />
 
-              <datalist id='level_list'>
-                <option value='1'></option>
-                <option value='2'></option>
+              <datalist id="level_list">
+                <option value="1"></option>
+                <option value="2"></option>
               </datalist>
               <FormErrorMessage>
-                  {errors.level && errors.level.message}
-                </FormErrorMessage>
+                {errors.level && errors.level.message}
+              </FormErrorMessage>
             </FormControl>
             <Button
-              type='submit'
+              type="submit"
               display={'block'}
-              color='white'
+              color="white"
               _hover={{
                 backgroundColor: `brand.700`,
               }}
-              backgroundColor='brand.500'
+              backgroundColor="brand.500"
               width={'100%'}
               marginTop={'2rem'}
               // onClick={() => {
-                // navigate('/view-students');
+              // navigate('/view-students');
               // }}
             >
               View Students

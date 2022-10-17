@@ -1,4 +1,4 @@
-import { Checkbox, chakra,HStack, useColorModeValue } from '@chakra-ui/react';
+import { Checkbox, chakra, HStack, useColorModeValue } from '@chakra-ui/react';
 import React from 'react';
 export type feedbackComponentType = {
   done: boolean;

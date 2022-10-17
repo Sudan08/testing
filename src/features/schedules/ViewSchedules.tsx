@@ -49,7 +49,7 @@ const ViewSchedulePage = () => {
         >
           <Heading margin={`1rem 0`}>
             <HStack alignItems={`center`} justifyContent={`center`}>
-              <BookClose color='green' strokeWidth={3} size={24} />
+              <BookClose color="green" strokeWidth={3} size={24} />
               <CustomHeading>View Schedule</CustomHeading>
             </HStack>
           </Heading>

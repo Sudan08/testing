@@ -95,11 +95,11 @@ const LecturersPage = () => {
               borderRadius={`6px`}
               type={`submit`}
               transition={`0.2s`}
-              color='white'
+              color="white"
               _hover={{
                 backgroundColor: `brand.700`,
               }}
-              backgroundColor='brand.500'
+              backgroundColor="brand.500"
             >
               View All
             </Button>

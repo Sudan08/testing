@@ -131,7 +131,7 @@ const Login = () => {
         <HStack width={`100%`} justifyContent={`flex-end`}>
           <IconButton
             margin={'0.5rem 0'}
-            aria-label='Toggle theme'
+            aria-label="Toggle theme"
             onClick={toggleColorMode}
             icon={colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}
           />
@@ -168,11 +168,11 @@ const Login = () => {
           onSubmit={handleSubmit(handleLogin)}
         >
           <FormControl isInvalid={Boolean(errors.email)}>
-            <FormLabel htmlFor='email'>Email address</FormLabel>
+            <FormLabel htmlFor="email">Email address</FormLabel>
             <Input
-              placeholder='john@doe.com'
-              id='email'
-              type='email'
+              placeholder="john@doe.com"
+              id="email"
+              type="email"
               {...register('email', {
                 required: 'Email is required',
                 pattern: {
@@ -186,11 +186,11 @@ const Login = () => {
             </FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={Boolean(errors.password)}>
-            <FormLabel htmlFor='password'>Password</FormLabel>
+            <FormLabel htmlFor="password">Password</FormLabel>
             <InputGroup>
               <Input
-                id='password'
-                placeholder='********'
+                id="password"
+                placeholder="********"
                 {...register('password', { required: 'Password is required' })}
                 type={isPasswordVisible ? 'text' : 'password'}
               />
@@ -220,7 +220,7 @@ const Login = () => {
                 <FormLabel
                   margin={`0 !important`}
                   cursor={`pointer`}
-                  htmlFor='remember'
+                  htmlFor="remember"
                 >
                   Remember Me?
                 </FormLabel>
@@ -247,7 +247,7 @@ const Login = () => {
         </chakra.form>
         <HStack width={`100%`} marginTop={`3rem !important`}>
           <Icon as={BiLock} />
-          <Link href='/forgot-password'>Forgot Your Password?</Link>
+          <Link href="/forgot-password">Forgot Your Password?</Link>
         </HStack>
       </VStack>
       <chakra.p

@@ -1,19 +1,18 @@
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Text,
-  VStack,
   Box,
+  chakra,
   Heading,
   HStack,
-  Divider,
-  chakra,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
   useColorModeValue,
+  VStack,
 } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
@@ -70,17 +69,17 @@ const ViewStudentsPage = () => {
           <Heading fontSize={['1.4rem', '1.6rem', '2rem']} margin={`1.8rem 0`}>
             <HStack alignItems={`center`} justifyContent={`center`}>
               <CustomHeading>BIT </CustomHeading>
-              <Text fontSize='2xl' color='#74C043'>
+              <Text fontSize="2xl" color="#74C043">
                 (Level X)
               </Text>
             </HStack>
           </Heading>
 
-          <Box id='table' height={'fit-content'}>
+          <Box id="table" height={'fit-content'}>
             <TableContainer
               maxH={'60vh'}
-              mr={['0','8']}
-              ml={['0','8']}
+              mr={['0', '8']}
+              ml={['0', '8']}
               mb={'8'}
               overflowY={`scroll`}
               height={'100%'}

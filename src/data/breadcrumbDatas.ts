@@ -26,7 +26,6 @@ export const LostandFoundPageBreadcrumbNav = [
     link: '/',
   },
   { label: 'Lost And Found', link: '/lost' },
-
 ];
 
 export const feedbacksPageBreadcrumbNav = [
@@ -86,7 +85,4 @@ export const viewStudentPageBreadcrumbNav = [
     link: '/',
   },
   { label: 'View Students', link: '/view-students' },
-
 ];
-
-

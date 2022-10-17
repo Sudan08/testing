@@ -92,7 +92,7 @@ const Sidebar = ({ isMobileView = false }) => {
         />
         <IconButton
           margin={'0.5rem 0'}
-          aria-label='Toggle theme'
+          aria-label="Toggle theme"
           onClick={toggleColorMode}
           icon={colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}
         />
@@ -122,7 +122,7 @@ const Sidebar = ({ isMobileView = false }) => {
             borderRadius={'20px'}
             cursor={'pointer'}
             justifyContent={'flex-start'}
-            transition='0.2s ease-in-out'
+            transition="0.2s ease-in-out"
             _hover={{
               backgroundColor: 'red.400',
               color: '#fff',
@@ -138,12 +138,12 @@ const Sidebar = ({ isMobileView = false }) => {
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}
         isCentered
-        motionPreset='scale'
+        motionPreset="scale"
         onClose={onClose}
       >
         <AlertDialogOverlay>
           <AlertDialogContent>
-            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
               Confirm Logout?
             </AlertDialogHeader>
 
@@ -153,7 +153,7 @@ const Sidebar = ({ isMobileView = false }) => {
               <Button ref={cancelRef} onClick={handleCancelLogout}>
                 Cancel
               </Button>
-              <Button colorScheme='red' onClick={() => handleLogout()} ml={3}>
+              <Button colorScheme="red" onClick={() => handleLogout()} ml={3}>
                 Confirm
               </Button>
             </AlertDialogFooter>

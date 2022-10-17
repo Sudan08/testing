@@ -13,7 +13,7 @@ export const scheduleApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
-    getScheduleById: builder.query({ 
+    getScheduleById: builder.query({
       query: (routineID) => ({
         url: `/admin/routines/${routineID}`,
         method: 'GET',

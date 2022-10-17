@@ -1,22 +1,22 @@
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import {
   Button,
   FormControl,
   FormLabel,
   Heading,
   HStack,
+  IconButton,
   Image,
   Input,
-  VStack,
-  useToast,
-  IconButton,
   useColorMode,
+  useToast,
+  VStack,
 } from '@chakra-ui/react';
 import { chakra } from '@chakra-ui/system';
 import { FormEvent, useEffect, useState } from 'react';
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { useSelector } from 'react-redux';
-import { selectIsAuthenticated } from './authSlice';
 import { useNavigate } from 'react-router-dom';
+import { selectIsAuthenticated } from './authSlice';
 
 const ForgotPassword = () => {
   const toast = useToast();
@@ -79,7 +79,7 @@ const ForgotPassword = () => {
         <HStack width={`100%`} justifyContent={`flex-end`}>
           <IconButton
             margin={'0.5rem 0'}
-            aria-label='Toggle theme'
+            aria-label="Toggle theme"
             onClick={toggleColorMode}
             icon={colorMode === 'dark' ? <SunIcon /> : <MoonIcon />}
           />
@@ -91,7 +91,7 @@ const ForgotPassword = () => {
           width={`100%`}
         >
           <Image
-            src='./images/logo_full.png'
+            src="./images/logo_full.png"
             height={`62px`}
             margin={'4'}
             width={`auto`}
@@ -120,13 +120,13 @@ const ForgotPassword = () => {
           onSubmit={(e) => handleFormSubmit(e)}
         >
           <FormControl isRequired>
-            <FormLabel htmlFor='email'>Email</FormLabel>
+            <FormLabel htmlFor="email">Email</FormLabel>
             <Input
-              id='email'
+              id="email"
               value={email}
               placeholder={'Enter Email'}
               onChange={(e) => setEmail(e.target.value)}
-              type='email'
+              type="email"
             />
             <Button
               borderRadius={`8px`}
@@ -144,7 +144,7 @@ const ForgotPassword = () => {
               width={'100%'}
               type={`submit`}
               marginTop={'4'}
-							onClick={() => navigate('/login')}
+              onClick={() => navigate('/login')}
             >
               Back to login
             </Button>

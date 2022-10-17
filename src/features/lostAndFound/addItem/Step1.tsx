@@ -34,7 +34,7 @@ export const Step1: React.FC<stepPropType> = ({
         </Text>
       </Box>
       <VStack
-        spacing='1rem'
+        spacing="1rem"
         width={'100%'}
         alignItems={'flex-start'}
         gap={'1rem'}
@@ -54,7 +54,7 @@ export const Step1: React.FC<stepPropType> = ({
                   payload: e.target.value,
                 })
               }
-              placeholder='Enter item name'
+              placeholder="Enter item name"
             />
           </FormControl>
 
@@ -66,7 +66,7 @@ export const Step1: React.FC<stepPropType> = ({
                 dispatchFormAction({ type: 'SET_NO_OF_ITEMS', payload: value })
               }
             >
-              <NumberInputField placeholder='0' />
+              <NumberInputField placeholder="0" />
               <NumberInputStepper>
                 <NumberIncrementStepper />
                 <NumberDecrementStepper />
@@ -77,7 +77,7 @@ export const Step1: React.FC<stepPropType> = ({
           <FormControl maxWidth={'300px'}>
             <FormLabel>Category</FormLabel>
             <Select
-              placeholder='Select a cateogory'
+              placeholder="Select a cateogory"
               value={formState.category}
               onChange={(e) =>
                 dispatchFormAction({
