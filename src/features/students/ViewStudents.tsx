@@ -32,7 +32,7 @@ type tRowProps = {
 
 const THead: React.FC<tHeadProps> = ({ children, noBorder = false }) => (
   <Th
-    fontSize={'20px'}
+    fontSize={'1rem'}
     fontWeight={'bold'}
     borderRight={noBorder ? 'none' : '1px solid #BCBCBC'}
     py={'1.5rem'}
@@ -79,8 +79,8 @@ const ViewStudentsPage = () => {
           <Box id='table' height={'fit-content'}>
             <TableContainer
               maxH={'60vh'}
-              mr={'8'}
-              ml={'8'}
+              mr={['0','8']}
+              ml={['0','8']}
               mb={'8'}
               overflowY={`scroll`}
               height={'100%'}
@@ -97,7 +97,7 @@ const ViewStudentsPage = () => {
                     <THead noBorder={true}>Student ID</THead>
                   </Tr>
                 </Thead>
-                <Tbody fontSize={'1.1rem'} fontWeight={'medium'}>
+                <Tbody fontSize={'1rem'} fontWeight={'medium'}>
                   <TRow index={0}>
                     <TData>Student 1</TData>
                     <TData>LXCGY</TData>
