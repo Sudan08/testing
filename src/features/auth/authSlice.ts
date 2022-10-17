@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 import CookieProvider from '../../helpers/cookieHelper';
 import { IAuthState } from '../../interfaces';
 
@@ -25,12 +26,10 @@ const authSlice = createSlice({
       document.cookie = `rmsRefresh=${action.payload.refreshToken}`;
       document.cookie = `rmsAccess=${action.payload.accessToken}`;
       if (action.payload.rememberMe) {
-        document.cookie = `rmsRefresh=${
-          action.payload.refreshToken
-        }; expires=${new Date(Date.now() + 1000 * 60 * 60 * 24).toUTCString()}`;
-        document.cookie = `rmsAccess=${
-          action.payload.accessToken
-        }; expires=${new Date(Date.now() + 1000 * 60 * 60 * 24).toUTCString()}`;
+        document.cookie = `rmsRefresh=${action.payload.refreshToken};
+        expires=${new Date(Date.now() + 1000 * 60 * 60 * 24).toUTCString()}`;
+        document.cookie = `rmsAccess=${action.payload.accessToken};
+        expires=${new Date(Date.now() + 1000 * 60 * 60 * 24).toUTCString()}`;
         document.cookie = `rmsScope=${action.payload.scope}; expires=${new Date(
           Date.now() + 1000 * 60 * 60 * 24
         ).toUTCString()}`;
@@ -52,7 +51,7 @@ const authSlice = createSlice({
     },
 
     // logout
-    logout: (state: IAuthState, action: PayloadAction) => {
+    logout: (state: IAuthState, _: PayloadAction) => {
       document.cookie = `rmsRefresh=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
       document.cookie = `rmsAccess=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
       state.accessToken = null;
@@ -64,6 +63,7 @@ const authSlice = createSlice({
 export const { setInitialCredentials, logout, setNewToken } = authSlice.actions;
 export default authSlice.reducer;
 
-export const selectIsAuthenticated = (state: any) => state.auth.isAuthenticated;
-export const selectAccessToken = (state: any) => state.auth.accessToken;
-export const selectRefreshToken = (state: any) => state.auth.refreshToken;
+export const selectIsAuthenticated = (state: RootState) =>
+  state.auth.isAuthenticated;
+export const selectAccessToken = (state: RootState) => state.auth.accessToken;
+export const selectRefreshToken = (state: RootState) => state.auth.refreshToken;

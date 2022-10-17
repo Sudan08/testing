@@ -93,7 +93,7 @@ const AddStudentPage = () => {
             <VStack
               {...getRootProps({
                 className: 'dropzone',
-                onDrop: (e) => console.log('ehloo'),
+                onDrop: () => console.log('ehloo'),
               })}
               width={`100%`}
               justifyContent={'center'}
@@ -111,7 +111,7 @@ const AddStudentPage = () => {
                     cursor={'pointer'}
                     htmlFor="excel_file"
                     fontWeight={'bold'}
-                    // color={'green'}
+                  // color={'green'}
                   >
                     {' '}
                     Browse{' '}

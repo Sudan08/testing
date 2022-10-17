@@ -19,7 +19,7 @@ import {
 
 import BreadcrumbNav from '../../../components/BreadcrumbNav';
 import { LostandFoundPageBreadcrumbNav } from '../../../data/breadcrumbDatas';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { StepHeader } from '../../../components/lostAndFound';
 import {
   formActionType,
@@ -91,7 +91,7 @@ export const AddItem = () => {
         position: 'top-right',
       });
       navigate('/lost-and-found');
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast({
         title: 'Item not added',
         description: 'Failed to add item',

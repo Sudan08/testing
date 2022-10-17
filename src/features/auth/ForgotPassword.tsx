@@ -9,7 +9,6 @@ import {
   Image,
   Input,
   useColorMode,
-  useToast,
   VStack,
 } from '@chakra-ui/react';
 import { chakra } from '@chakra-ui/system';
@@ -19,7 +18,6 @@ import { useNavigate } from 'react-router-dom';
 import { selectIsAuthenticated } from './authSlice';
 
 const ForgotPassword = () => {
-  const toast = useToast();
   const { colorMode, toggleColorMode } = useColorMode();
 
   const isAuthenticated = useSelector(selectIsAuthenticated);

@@ -89,15 +89,12 @@ const AddSchedulePage = () => {
   const toast = useToast();
 
   const handleScheduleAdd = async (values: ISchedule) => {
-    console.log(values);
-    const response: { data?: Object; error?: Object } = await postSchedule(
-      values
-    );
-    if (response.data) {
+    const response = await postSchedule(values).unwrap();
+    if (response.message) {
       dispatch(addSchedule(values));
       toast({
         title: 'Schedule Added',
-        description: 'Schedule has been added successfully',
+        description: response.message,
         status: 'success',
         duration: 5000,
         isClosable: true,
@@ -106,7 +103,7 @@ const AddSchedulePage = () => {
     } else {
       toast({
         title: 'Failed to add schedule',
-        description: response.data,
+        description: response.message,
         status: 'error',
         duration: 5000,
         isClosable: true,

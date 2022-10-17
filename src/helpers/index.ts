@@ -9,8 +9,10 @@ export const convertTime = (
     return `${hour12}:${minutes} ${ampm}`;
   }
   const [time, modifier] = time12h.split(' ');
+  const splittedTime = time.split(':');
 
-  let [hours, minutes] = time.split(':');
+  let hours = splittedTime[0];
+  const minutes = splittedTime[1];
 
   if (hours === '12' && modifier === 'PM') {
     hours = '00';
