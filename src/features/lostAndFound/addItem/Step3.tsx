@@ -2,10 +2,7 @@ import { Box, Text, RadioGroup, Radio, Flex } from '@chakra-ui/react';
 import { Claimed } from '../../../components/lostAndFound';
 import { stepPropType } from './AddItem';
 
-export const Step3: React.FC<stepPropType> = ({
-  formState,
-  dispatchFormAction,
-}) => {
+export const Step3: React.FC<stepPropType> = () => {
   return (
     <>
       <Box width={'100%'}>

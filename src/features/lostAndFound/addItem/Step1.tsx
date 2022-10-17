@@ -15,15 +15,13 @@ import {
   Textarea,
   Button,
   Flex,
-  FormErrorMessage
+  FormErrorMessage,
 } from '@chakra-ui/react';
+import { FC } from 'react';
 import { BsCloudUpload } from 'react-icons/bs';
+import { stepPropType } from './AddItem';
 
-
-export const Step1 = ({
-  register,
-  handleSubmit
-}) => {
+export const Step1: FC<stepPropType> = ({ register, errors }) => {
   return (
     <Box width={'100%'}>
       <Text>Step 1/3</Text>
@@ -41,17 +39,21 @@ export const Step1 = ({
         alignItems={'flex-start'}
         gap={'1rem'}
       >
-      <chakra.form 
-           width={'100%'}
-           padding={'3rem'}
-           paddingTop={'2rem'}
-           onSubmit={handleSubmit()}>
-        <Flex
-          flexDirection={['column', 'column', 'row']}
-          gap={['0.5rem', '1rem', '2rem']}
+        <chakra.form
           width={'100%'}
+          padding={'3rem'}
+          paddingTop={'2rem'}
+          height={'auto'}
         >
-       <FormControl marginTop={'1rem'} isInvalid={Boolean(errors.itemName)}>
+          <Flex
+            flexDirection={['column', 'column', 'row']}
+            gap={['0.5rem', '1rem', '2rem']}
+            width={'100%'}
+          >
+            <FormControl
+              marginTop={'1rem'}
+              isInvalid={Boolean(errors.itemName)}
+            >
               <FormLabel htmlFor="ItemName" fontWeight={'semibold'}>
                 Item Name
               </FormLabel>
@@ -73,12 +75,7 @@ export const Step1 = ({
 
             <FormControl maxWidth={['300px', '300px', '150px']}>
               <FormLabel>No of items</FormLabel>
-              <NumberInput
-                value={formState.noOfItems}
-                onChange={(value) =>
-                  dispatchFormAction({ type: 'SET_NO_OF_ITEMS', payload: value })
-                }
-              >
+              <NumberInput>
                 <NumberInputField placeholder="0" />
                 <NumberInputStepper>
                   <NumberIncrementStepper />
@@ -89,16 +86,7 @@ export const Step1 = ({
 
             <FormControl maxWidth={'300px'}>
               <FormLabel>Category</FormLabel>
-              <Select
-                placeholder="Select a cateogory"
-                value={formState.category}
-                onChange={(e) =>
-                  dispatchFormAction({
-                    type: 'SET_CATEGORY',
-                    payload: e.target.value,
-                  })
-                }
-              >
+              <Select placeholder="Select a cateogory">
                 <option>Books</option>
                 <option>Phone</option>
                 <option>Cloth</option>
@@ -106,23 +94,14 @@ export const Step1 = ({
                 <option>Charger</option>
               </Select>
             </FormControl>
-        </Flex>
-        <FormControl
-          maxWidth={['300px', '300px', '500px']}
-          width={['100%', '100%', '100%', '50%']}
-        >
-          <FormLabel>Item Description</FormLabel>
-          <Textarea
-            value={formState.itemDescription}
-            onChange={(e) =>
-              dispatchFormAction({
-                type: 'SET_ITEM_DESCRIPTION',
-                payload: e.target.value,
-              })
-            }
-            height={`150px`}
-          ></Textarea>
-        </FormControl>
+          </Flex>
+          <FormControl
+            maxWidth={['300px', '300px', '500px']}
+            width={['100%', '100%', '100%', '50%']}
+          >
+            <FormLabel>Item Description</FormLabel>
+            <Textarea height={`150px`}></Textarea>
+          </FormControl>
         </chakra.form>
       </VStack>
       <Box mt={`1rem`}>

@@ -11,10 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { stepPropType } from './AddItem';
 
-export const Step2: React.FC<stepPropType> = ({
-  formState,
-  dispatchFormAction,
-}) => {
+export const Step2: React.FC<stepPropType> = () => {
   return (
     <Box width={'100%'}>
       <Text>Step 2/3</Text>
