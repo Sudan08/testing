@@ -2,8 +2,6 @@ import { useSelector } from 'react-redux';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { selectIsAuthenticated } from '../../features/auth/authSlice';
 
-
-
 const ProtectedLayout = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const location = useLocation();
@@ -15,7 +13,7 @@ const ProtectedLayout = () => {
   return isAuthenticated ? (
     <Outlet />
   ) : (
-    <Navigate to='/login' state={{ from: location }} replace />
+    <Navigate to="/login" state={{ from: location }} replace />
   );
 };
 

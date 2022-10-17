@@ -76,9 +76,7 @@ export const AddItem = () => {
 
   const onSubmit = () => {
     try {
-      const allItems = JSON.parse(
-        localStorage.getItem('allItems') || '[]'
-      );
+      const allItems = JSON.parse(localStorage.getItem('allItems') || '[]');
       localStorage.setItem(
         'allItems',
         JSON.stringify([...allItems, formState])

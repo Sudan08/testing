@@ -61,7 +61,12 @@ export const Step3: React.FC<stepPropType> = ({
             </Box>
           </Flex>
         </RadioGroup>
-        {formState.status === 'CLAIMED' && <Claimed formState={formState} dispatchFormAction={dispatchFormAction} />}
+        {formState.status === 'CLAIMED' && (
+          <Claimed
+            formState={formState}
+            dispatchFormAction={dispatchFormAction}
+          />
+        )}
       </Box>
     </>
   );

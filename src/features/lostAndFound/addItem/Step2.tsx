@@ -27,7 +27,7 @@ export const Step2: React.FC<stepPropType> = ({
         </Text>
       </Box>
       <VStack
-        spacing='1rem'
+        spacing="1rem"
         width={'100%'}
         alignItems={'flex-start'}
         gap={'1rem'}
@@ -47,14 +47,14 @@ export const Step2: React.FC<stepPropType> = ({
                   payload: e.target.value,
                 })
               }
-              placeholder='Enter name'
+              placeholder="Enter name"
             />
           </FormControl>
 
           <FormControl maxWidth={'300px'}>
             <FormLabel>Location</FormLabel>
             <Select
-              placeholder='Select location'
+              placeholder="Select location"
               value={formState.location}
               onChange={(e) =>
                 dispatchFormAction({
@@ -100,7 +100,7 @@ export const Step2: React.FC<stepPropType> = ({
                 payload: e.target.value,
               })
             }
-            placeholder='Deposited to'
+            placeholder="Deposited to"
           >
             <option>SR-01 Wolves</option>
             <option>WOlverhampton</option>

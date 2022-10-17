@@ -43,7 +43,7 @@ export const Claimed: React.FC<stepPropType> = ({
                 payload: e.target.value,
               })
             }
-            placeholder='Enter name'
+            placeholder="Enter name"
           />
         </FormControl>
 
@@ -57,7 +57,7 @@ export const Claimed: React.FC<stepPropType> = ({
                 payload: e.target.value,
               })
             }
-            placeholder='Level'
+            placeholder="Level"
           >
             <option>Level 5</option>
             <option>Level 6</option>
@@ -74,7 +74,7 @@ export const Claimed: React.FC<stepPropType> = ({
                 payload: e.target.value,
               })
             }
-            placeholder='Group'
+            placeholder="Group"
           >
             <option>LGCG7</option>
             <option>LGCG6</option>
@@ -91,7 +91,7 @@ export const Claimed: React.FC<stepPropType> = ({
                 payload: e.target.value,
               })
             }
-            placeholder='Semester'
+            placeholder="Semester"
           >
             <option>1</option>
             <option>2</option>
@@ -100,7 +100,7 @@ export const Claimed: React.FC<stepPropType> = ({
 
         <FormControl>
           <FormLabel>Course</FormLabel>
-          <Select placeholder='Course'>
+          <Select placeholder="Course">
             <option>BIBM</option>
             <option>MBA</option>
           </Select>

@@ -50,7 +50,7 @@ const ScheduleTime: React.FC<{ time: string }> = ({ time }) => {
             // borderRadius={'0'}
             display={'flex'}
             cursor={`pointer`}
-            transition='all 0.2s ease-in-out'
+            transition="all 0.2s ease-in-out"
             // outline={`1px solid #e6e6e6`}
             alignItems={`center`}
             justifyContent={`center`}

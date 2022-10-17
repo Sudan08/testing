@@ -113,13 +113,13 @@ const Dashboard = () => {
                 width={`100%`}
                 padding={`1.5rem 0`}
                 borderRadius={`6px`}
-                color='white'
+                color="white"
                 type={`submit`}
                 transition={`0.2s`}
                 _hover={{
                   backgroundColor: `brand.700`,
                 }}
-                backgroundColor='brand.500'
+                backgroundColor="brand.500"
               >
                 View All
               </Button>
@@ -171,12 +171,12 @@ const Dashboard = () => {
                 padding={`1.5rem 0`}
                 borderRadius={`6px`}
                 type={`submit`}
-                color='white'
+                color="white"
                 transition={`0.2s`}
                 _hover={{
                   backgroundColor: 'brand.700',
                 }}
-                backgroundColor='brand.500'
+                backgroundColor="brand.500"
                 marginTop={`auto`}
               >
                 View All

@@ -70,7 +70,7 @@ const LostAndFound = () => {
             >
               <FormControl>
                 <FormLabel>Categories</FormLabel>
-                <Select placeholder='All Categories'>
+                <Select placeholder="All Categories">
                   <option>Electronics</option>
                   <option>Books</option>
                   <option>Accessories</option>
@@ -81,7 +81,7 @@ const LostAndFound = () => {
 
               <FormControl>
                 <FormLabel>Status</FormLabel>
-                <Select placeholder='All'>
+                <Select placeholder="All">
                   <option>Completed</option>
                   <option>Pending</option>
                 </Select>
@@ -89,7 +89,7 @@ const LostAndFound = () => {
 
               <FormControl>
                 <FormLabel>Month</FormLabel>
-                <Select placeholder='Jan'>
+                <Select placeholder="Jan">
                   <option>Feb</option>
                   <option>March</option>
                 </Select>
@@ -97,7 +97,7 @@ const LostAndFound = () => {
 
               <FormControl>
                 <FormLabel>Year</FormLabel>
-                <Select placeholder='2022'>
+                <Select placeholder="2022">
                   <option>2021</option>
                   <option>2023</option>
                 </Select>
@@ -116,7 +116,7 @@ const LostAndFound = () => {
                 <FormControl maxWidth={{ lg: '300px' }}>
                   <FormLabel>Search Now</FormLabel>
                   <Input
-                    placeholder='Search Now'
+                    placeholder="Search Now"
                     borderTopEndRadius={0}
                     borderBottomEndRadius={0}
                   />
@@ -126,21 +126,21 @@ const LostAndFound = () => {
                   borderTopStartRadius={0}
                   borderBottomStartRadius={0}
                   colorScheme={'brand'}
-                  aria-label='Search database'
+                  aria-label="Search database"
                   icon={<SearchIcon />}
                 />
               </HStack>
             </Box>
           </Flex>
 
-          <Box id='table' height={'55vh'} width={`100%`}>
+          <Box id="table" height={'55vh'} width={`100%`}>
             <TableContainer
               maxH={'60vh'}
               overflowY={`scroll`}
               height={'100%'}
               width={`100%`}
             >
-              <Table variant='simple' height={'auto'}>
+              <Table variant="simple" height={'auto'}>
                 <Thead
                   backgroundColor={'brand.700'}
                   position={'sticky'}

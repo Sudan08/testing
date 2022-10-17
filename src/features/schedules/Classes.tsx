@@ -109,20 +109,20 @@ const ClassesPage = () => {
         >
           <Heading fontSize={['1.4rem', '1.6rem', '2rem']} margin={`1rem 0`}>
             <HStack alignItems={`center`} justifyContent={`center`}>
-              <SiGoogleclassroom color='#74C043' />
+              <SiGoogleclassroom color="#74C043" />
               <CustomHeading>Classes</CustomHeading>
             </HStack>
           </Heading>
           <Divider />
 
           <Box
-            id='table'
+            id="table"
             height={'fit-content'}
             boxShadow={[`none`, `none`, `0px 0px 15px rgba(0, 0, 0, 0.10)`]}
             backgroundColor={backgroundColor}
           >
             <TableContainer maxH={'60vh'} overflowY={`scroll`} height={'100%'}>
-              <Table variant='simple' height={'100%'}>
+              <Table variant="simple" height={'100%'}>
                 <Thead
                   backgroundColor={'brand.700'}
                   position={'sticky'}
@@ -174,22 +174,22 @@ const ClassesPage = () => {
                         <Td display={'flex'} gap={'0.5rem'}>
                           <IconButton
                             icon={<Pencil />}
-                            aria-label='Edit'
-                            size='sm'
+                            aria-label="Edit"
+                            size="sm"
                             colorScheme={'blue'}
                             onClick={() =>
                               navigate(`/schedule/edit/${item._id}`)
                             }
                           />
                           <IconButton
-                            aria-label='Delete'
+                            aria-label="Delete"
                             onClick={() => {
                               setItemToDelete(item._id);
                               setDeleteModal(true);
                             }}
-                            className='btn-modal'
+                            className="btn-modal"
                             icon={<VscTrash />}
-                            size='sm'
+                            size="sm"
                             colorScheme={'red'}
                           />
                         </Td>
@@ -223,7 +223,7 @@ const ClassesPage = () => {
 
           <ModalFooter>
             <Button
-              colorScheme='blue'
+              colorScheme="blue"
               mr={3}
               onClick={() => setDeleteModal(false)}
             >
@@ -232,7 +232,7 @@ const ClassesPage = () => {
 
             <Button
               isLoading={isLoading}
-              colorScheme='red'
+              colorScheme="red"
               mr={3}
               onClick={handleDelete}
             >

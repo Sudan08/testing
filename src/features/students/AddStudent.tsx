@@ -13,8 +13,6 @@ import { BiUpload } from 'react-icons/bi';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
 import { addStudentPageBreadcrumbNav } from '../../data/breadcrumbDatas';
 
-
-
 const AddStudentPage = () => {
   const [uploadFile, setUploadFile] = useState<FileWithPath[]>();
   const [isFileDragging, setIsFileDragging] = useState(false);
@@ -111,7 +109,7 @@ const AddStudentPage = () => {
                   Drag and Drop or click to
                   <chakra.label
                     cursor={'pointer'}
-                    htmlFor='excel_file'
+                    htmlFor="excel_file"
                     fontWeight={'bold'}
                     // color={'green'}
                   >
@@ -125,8 +123,8 @@ const AddStudentPage = () => {
               _hover={{
                 backgroundColor: `brand.700`,
               }}
-              backgroundColor='brand.500'
-              color='#fff'
+              backgroundColor="brand.500"
+              color="#fff"
               marginTop={'2rem'}
               padding={'0.5rem 2rem'}
               type={'submit'}

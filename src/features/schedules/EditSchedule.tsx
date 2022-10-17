@@ -26,13 +26,11 @@ import { useGetScheduleByIdQuery } from './scheduleApiSlice';
 const EditSchedulePage = () => {
   const toast = useToast();
   // getting schedule by id in the params
-  const {id} = useParams()
+  const { id } = useParams();
 
-  useEffect(() => {
+  useEffect(() => {}, []);
 
-    }, [])
-
-  const { data, isLoading } = useGetScheduleByIdQuery(id);     
+  const { data, isLoading } = useGetScheduleByIdQuery(id);
   // form values
   const [group, setGroup] = useState('');
   const [block, setBlock] = useState('');
@@ -108,8 +106,7 @@ const EditSchedulePage = () => {
   const classTypes = ['Lecture', 'Tutorial', 'Workshop'];
   const modules = ['Human Computer Interaction', 'Object Oriented Programming'];
 
-
-  if ( data === null || isLoading) {
+  if (data === null || isLoading) {
     return <Spinner />;
   }
 
@@ -153,14 +150,14 @@ const EditSchedulePage = () => {
               placeItems={`center`}
             >
               <FormControl isRequired>
-                <label htmlFor='courseType'>Course</label>
+                <label htmlFor="courseType">Course</label>
                 <Select
-                  id='courseType'
+                  id="courseType"
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     setCourseType(e.target.value)
                   }
                   value={courseType}
-                  placeholder='Select Course'
+                  placeholder="Select Course"
                   backgroundColor={'blackAlpha.50'}
                   outline={`1px solid #DFDFDF`}
                   borderRadius={'4px'}
@@ -171,14 +168,14 @@ const EditSchedulePage = () => {
                 </Select>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='group'>Group</label>
+                <label htmlFor="group">Group</label>
                 <Select
-                  id='group'
+                  id="group"
                   value={group}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     setGroup(e.target.value)
                   }
-                  placeholder='Select Group'
+                  placeholder="Select Group"
                   backgroundColor={`blackAlpha.50`}
                   outline={`1px solid #DFDFDF`}
                   borderRadius={'4px'}
@@ -192,14 +189,14 @@ const EditSchedulePage = () => {
                 </Select>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='block'>Block</label>
+                <label htmlFor="block">Block</label>
                 <Select
-                  id='block'
+                  id="block"
                   value={block}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     setBlock(e.target.value)
                   }
-                  placeholder='Select Block'
+                  placeholder="Select Block"
                   backgroundColor={`blackAlpha.50`}
                   outline={`1px solid #DFDFDF`}
                   borderRadius={'4px'}
@@ -213,14 +210,14 @@ const EditSchedulePage = () => {
                 </Select>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='room'>Room</label>
+                <label htmlFor="room">Room</label>
                 <Select
-                  id='room'
+                  id="room"
                   value={room}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     setRoom(e.target.value)
                   }
-                  placeholder='Select Room'
+                  placeholder="Select Room"
                   backgroundColor={`blackAlpha.50`}
                   outline={`1px solid #DFDFDF`}
                   borderRadius={'4px'}
@@ -234,7 +231,7 @@ const EditSchedulePage = () => {
                 </Select>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='lecturer_name'>Lecturer Name</label>
+                <label htmlFor="lecturer_name">Lecturer Name</label>
                 <Input
                   type={`text`}
                   id={`lecturer_name`}
@@ -253,10 +250,10 @@ const EditSchedulePage = () => {
                 />
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='module_name'>Module Name</label>
+                <label htmlFor="module_name">Module Name</label>
                 <Select
-                  id='module_name'
-                  placeholder='Select Module Name'
+                  id="module_name"
+                  placeholder="Select Module Name"
                   value={moduleName}
                   onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                     setModuleName(e.target.value)
@@ -274,7 +271,7 @@ const EditSchedulePage = () => {
                 </Select>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='class_start_time'>Class Start Time</label>
+                <label htmlFor="class_start_time">Class Start Time</label>
                 <InputGroup
                   backgroundColor={`blackAlpha.50`}
                   outline={`1px solid #DFDFDF`}
@@ -307,7 +304,7 @@ const EditSchedulePage = () => {
                 </InputGroup>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='class_end_time'>Class End Time</label>
+                <label htmlFor="class_end_time">Class End Time</label>
                 <InputGroup
                   backgroundColor={`blackAlpha.50`}
                   outline={`1px solid #DFDFDF`}
@@ -340,10 +337,10 @@ const EditSchedulePage = () => {
                 </InputGroup>
               </FormControl>{' '}
               <FormControl isRequired>
-                <label htmlFor='class_type'>Class Type</label>
+                <label htmlFor="class_type">Class Type</label>
                 <Select
-                  id='class_type'
-                  placeholder='Select Class Type'
+                  id="class_type"
+                  placeholder="Select Class Type"
                   value={classType}
                   onChange={(e: any) => setClassType(e.target.value)}
                   backgroundColor={`blackAlpha.50`}
@@ -359,10 +356,10 @@ const EditSchedulePage = () => {
                 </Select>
               </FormControl>
               <FormControl isRequired>
-                <label htmlFor='day'>Day</label>
+                <label htmlFor="day">Day</label>
                 <Input
-                  id='day'
-                  placeholder='Enter Day'
+                  id="day"
+                  placeholder="Enter Day"
                   value={day}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     setDay(e.target.value)
@@ -376,14 +373,14 @@ const EditSchedulePage = () => {
                     color: placeholderColor,
                   }}
                 />
-                <datalist id='days'>
-                  <option value='Sunday' />
-                  <option value='Monday' />
-                  <option value='Tuesday' />
-                  <option value='Wednesday' />
-                  <option value='Thursday' />
-                  <option value='Friday' />
-                  <option value='Saturday' />
+                <datalist id="days">
+                  <option value="Sunday" />
+                  <option value="Monday" />
+                  <option value="Tuesday" />
+                  <option value="Wednesday" />
+                  <option value="Thursday" />
+                  <option value="Friday" />
+                  <option value="Saturday" />
                 </datalist>
               </FormControl>
               <VStack
@@ -394,11 +391,11 @@ const EditSchedulePage = () => {
                 <Button
                   type={`submit`}
                   transition={`0.2s`}
-                  color='white'
+                  color="white"
                   _hover={{
                     backgroundColor: `#4bbd00`,
                   }}
-                  backgroundColor='#74C043'
+                  backgroundColor="#74C043"
                   width={`100%`}
                   // isLoading={isLoading}
                 >

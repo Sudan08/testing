@@ -27,14 +27,10 @@ const authSlice = createSlice({
       if (action.payload.rememberMe) {
         document.cookie = `rmsRefresh=${
           action.payload.refreshToken
-        }; expires=${new Date(
-          Date.now() + 1000 * 60 * 60 * 24
-        ).toUTCString()}`;
+        }; expires=${new Date(Date.now() + 1000 * 60 * 60 * 24).toUTCString()}`;
         document.cookie = `rmsAccess=${
           action.payload.accessToken
-        }; expires=${new Date(
-          Date.now() + 1000 * 60 * 60 * 24
-        ).toUTCString()}`;
+        }; expires=${new Date(Date.now() + 1000 * 60 * 60 * 24).toUTCString()}`;
         document.cookie = `rmsScope=${action.payload.scope}; expires=${new Date(
           Date.now() + 1000 * 60 * 60 * 24
         ).toUTCString()}`;
