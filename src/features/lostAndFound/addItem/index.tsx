@@ -1,3 +1,5 @@
+import { AddItem } from './AddItem';
+
 export type stepFormAction = {
   type: 'NEXT' | 'PREV';
   payload?: number | number[];
@@ -28,3 +30,4 @@ export * from './Step1';
 export * from './Step2';
 export * from './Step3';
 export * from './AddItem';
+export default AddItem;

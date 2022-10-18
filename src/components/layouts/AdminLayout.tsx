@@ -1,5 +1,5 @@
-import { Box, Show, VStack } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { Box, Center, Show, Spinner, VStack } from '@chakra-ui/react';
+import { Suspense, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAppDispatch } from '../../app/store';
 import { useGetAllSchedulesQuery } from '../../features/schedules/scheduleApiSlice';
@@ -36,7 +36,15 @@ const AdminLayout = () => {
           backgroundPosition={'center'}
           backgroundRepeat={'no-repeat'}
         >
-          <Outlet />
+          <Suspense
+            fallback={
+              <Center minH={'60vh'}>
+                <Spinner />
+              </Center>
+            }
+          >
+            <Outlet />
+          </Suspense>
         </Box>
       </Box>
     </VStack>
