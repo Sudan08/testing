@@ -19,88 +19,49 @@ import {
 
 import BreadcrumbNav from '../../../components/BreadcrumbNav';
 import { LostandFoundPageBreadcrumbNav } from '../../../data/breadcrumbDatas';
-import { useNavigate } from 'react-router-dom';
 import { StepHeader } from '../../../components/lostAndFound';
-import {
-  formActionType,
-  lostAndFoundFormReducer,
-  Step1,
-  Step2,
-  Step3,
-  stepperReducer,
-  stepperState,
-} from '.';
+import { Step1, Step2, Step3, stepperReducer, stepperState } from '.';
 import { useReducer } from 'react';
 import { FaRegStickyNote } from 'react-icons/fa';
 import { ILostAndFound } from '../../../interfaces';
+import {
+  FieldErrorsImpl,
+  useForm,
+  UseFormHandleSubmit,
+  UseFormRegister,
+  UseFormWatch,
+} from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 const initialStep: stepperState = {
   currentStep: 1,
   completedSteps: [],
 };
 
-const initialFormValues: ILostAndFound = {
-  itemName: '',
-  noOfItems: 0,
-  category: '',
-  itemDescription: '',
-  foundBy: '',
-  location: '',
-  foundDate: '',
-  depositedTo: '',
-  status: 'PENDING',
-  claimDetails: {
-    receiversName: '',
-    level: '',
-    group: '',
-    semester: '',
-    course: '',
-  },
-};
-
 export type stepPropType = {
-  formState: ILostAndFound;
-  dispatchFormAction: React.Dispatch<formActionType>;
+  register: UseFormRegister<ILostAndFound>;
+  handleSubmit: UseFormHandleSubmit<ILostAndFound>;
+  errors: FieldErrorsImpl<ILostAndFound>;
+  watch: UseFormWatch<ILostAndFound>;
 };
 
 export const AddItem = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<ILostAndFound>();
   const backgroundColor = useColorModeValue('white', 'gray.800');
-  const toast = useToast();
   const [stepperStates, dispatch] = useReducer(stepperReducer, initialStep);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onClose } = useDisclosure();
+  const toast = useToast();
   const navigate = useNavigate();
-  const [formState, dispatchFormAction] = useReducer(
-    lostAndFoundFormReducer,
-    initialFormValues
-  );
-
-  const onSubmit = () => {
-    try {
-      const allItems = JSON.parse(localStorage.getItem('allItems') || '[]');
-      localStorage.setItem(
-        'allItems',
-        JSON.stringify([...allItems, formState])
-      );
-
-      toast({
-        title: 'Item Added',
-        description: 'Item has been added successfully',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-        position: 'top-right',
-      });
-      navigate('/lost-and-found');
-    } catch (err: unknown) {
-      toast({
-        title: 'Item not added',
-        description: 'Failed to add item',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-        position: 'top-right',
-      });
-    }
+  const handleAddItem = () => {
+    toast({
+      title: 'Your Item will be added soon',
+    });
+    navigate('/lost-and-found');
   };
 
   return (
@@ -120,20 +81,26 @@ export const AddItem = () => {
         <StepHeader {...stepperStates} />
         {stepperStates.currentStep === 1 && (
           <Step1
-            formState={formState}
-            dispatchFormAction={dispatchFormAction}
+            register={register}
+            handleSubmit={handleSubmit}
+            errors={errors}
+            watch={watch}
           />
         )}
         {stepperStates.currentStep === 2 && (
           <Step2
-            formState={formState}
-            dispatchFormAction={dispatchFormAction}
+            register={register}
+            handleSubmit={handleSubmit}
+            errors={errors}
+            watch={watch}
           />
         )}
         {stepperStates.currentStep === 3 && (
           <Step3
-            formState={formState}
-            dispatchFormAction={dispatchFormAction}
+            register={register}
+            handleSubmit={handleSubmit}
+            errors={errors}
+            watch={watch}
           />
         )}
         {stepperStates.currentStep !== 3 && (
@@ -146,13 +113,22 @@ export const AddItem = () => {
             marginTop={'auto !important'}
           >
             {stepperStates.currentStep !== 1 && (
-              <Button onClick={() => dispatch({ type: 'PREV' })}>Back</Button>
+              <Button
+                type={'button'}
+                m={'1rem 0'}
+                color={`#fff`}
+                onClick={() => dispatch({ type: 'PREV' })}
+                colorScheme={'blackAlpha'}
+              >
+                Back
+              </Button>
             )}
             <Button
-              onClick={() => dispatch({ type: 'NEXT' })}
               m={'1rem 0'}
               color={`#fff`}
               colorScheme={'brand'}
+              type={'button'}
+              onClick={() => dispatch({ type: 'NEXT' })}
             >
               Next
             </Button>
@@ -171,11 +147,16 @@ export const AddItem = () => {
               backgroundColor={`#fff`}
               onClick={() => dispatch({ type: 'PREV' })}
               color={`#000`}
+              type={'button'}
             >
               Back
             </Button>
 
-            <Button colorScheme={'brand'} onClick={onOpen}>
+            <Button
+              type={'submit'}
+              colorScheme={'brand'}
+              onClick={handleSubmit(handleAddItem)}
+            >
               Submit
             </Button>
           </HStack>
@@ -205,12 +186,15 @@ export const AddItem = () => {
               justifyContent={`space-between`}
               alignItems={`center`}
             >
-              <Button backgroundColor={`white`} mr={3} onClick={onClose}>
+              <Button
+                type={'button'}
+                backgroundColor={`white`}
+                mr={3}
+                onClick={onClose}
+              >
                 Close
               </Button>
-              <Button colorScheme={'brand'} onClick={onSubmit}>
-                Add Item
-              </Button>
+              <Button colorScheme={'brand'}>Add Item</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>

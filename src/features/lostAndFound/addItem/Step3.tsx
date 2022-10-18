@@ -1,11 +1,23 @@
-import { Box, Text, RadioGroup, Radio, Flex } from '@chakra-ui/react';
+import {
+  Box,
+  Text,
+  RadioGroup,
+  Radio,
+  Flex,
+  chakra,
+  FormErrorMessage,
+  FormControl,
+} from '@chakra-ui/react';
 import { Claimed } from '../../../components/lostAndFound';
 import { stepPropType } from './AddItem';
 
 export const Step3: React.FC<stepPropType> = ({
-  formState,
-  dispatchFormAction,
+  register,
+  errors,
+  handleSubmit,
+  watch,
 }) => {
+  const status = watch('status');
   return (
     <>
       <Box width={'100%'}>
@@ -18,55 +30,65 @@ export const Step3: React.FC<stepPropType> = ({
             Please state wheather the item has been claimed or still pending
           </Text>
         </Box>
+        <chakra.form>
+          <FormControl isInvalid={Boolean(errors.status)}>
+            <RadioGroup defaultValue={'PENDING'} justifyContent={`flex-start`}>
+              <Flex
+                flexDirection={['column', 'column', 'row']}
+                gap={['0.5rem', '1rem', '2rem']}
+                width={'100%'}
+              >
+                <Box
+                  border={`1px solid #DFDFDF`}
+                  px={`1rem`}
+                  py={`0.5rem`}
+                  w={`250px`}
+                  borderRadius={`5px`}
+                  cursor={'pointer'}
+                >
+                  <Radio
+                    id={'claimedBtn'}
+                    value={'CLAIMED'}
+                    {...register('status', {
+                      required: 'Status is required',
+                    })}
+                  >
+                    Claimed
+                  </Radio>
+                </Box>
+                <Box
+                  border={`1px solid #DFDFDF`}
+                  px={`1rem`}
+                  py={`0.5rem`}
+                  w={`250px`}
+                  borderRadius={`5px`}
+                  cursor={'pointer'}
+                >
+                  <Radio
+                    value={`PENDING`}
+                    {...register('status', {
+                      required: 'Status is required',
+                    })}
+                  >
+                    Pending
+                  </Radio>
+                </Box>
+              </Flex>
+            </RadioGroup>
+            <FormErrorMessage>
+              {errors.status && errors.status.message}
+            </FormErrorMessage>
+          </FormControl>
 
-        <RadioGroup
-          value={formState.status}
-          onChange={(value) =>
-            dispatchFormAction({ type: 'SET_STATUS', payload: value })
-          }
-          justifyContent={`flex-start`}
-        >
-          <Flex
-            flexDirection={['column', 'column', 'row']}
-            gap={['0.5rem', '1rem', '2rem']}
-            width={'100%'}
-          >
-            <Box
-              border={`1px solid #DFDFDF`}
-              px={`1rem`}
-              py={`0.5rem`}
-              w={`250px`}
-              borderRadius={`5px`}
-              onClick={() =>
-                dispatchFormAction({ type: 'SET_STATUS', payload: 'CLAIMED' })
-              }
-              cursor={'pointer'}
-            >
-              <Radio id={'claimedBtn'} value={`CLAIMED`}>
-                Claimed
-              </Radio>
-            </Box>
-            <Box
-              border={`1px solid #DFDFDF`}
-              px={`1rem`}
-              py={`0.5rem`}
-              w={`250px`}
-              borderRadius={`5px`}
-              onClick={() =>
-                dispatchFormAction({ type: 'SET_STATUS', payload: 'PENDING' })
-              }
-              cursor={'pointer'}
-            >
-              <Radio value={`PENDING`}>Pending</Radio>
-            </Box>
-          </Flex>
-        </RadioGroup>
-        {formState.status === 'CLAIMED' && (
-          <Claimed
-            formState={formState}
-            dispatchFormAction={dispatchFormAction}
-          />
-        )}
+          {status === 'CLAIMED' && (
+            <Claimed
+              register={register}
+              handleSubmit={handleSubmit}
+              errors={errors}
+              watch={watch}
+            />
+          )}
+        </chakra.form>
       </Box>
     </>
   );

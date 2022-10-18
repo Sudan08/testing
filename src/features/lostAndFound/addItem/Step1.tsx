@@ -2,6 +2,7 @@ import {
   Box,
   VStack,
   Text,
+  chakra,
   FormControl,
   FormLabel,
   Select,
@@ -14,14 +15,13 @@ import {
   Textarea,
   Button,
   Flex,
+  FormErrorMessage,
 } from '@chakra-ui/react';
+import { FC } from 'react';
 import { BsCloudUpload } from 'react-icons/bs';
 import { stepPropType } from './AddItem';
 
-export const Step1: React.FC<stepPropType> = ({
-  formState,
-  dispatchFormAction,
-}) => {
+export const Step1: FC<stepPropType> = ({ register, errors }) => {
   return (
     <Box width={'100%'}>
       <Text>Step 1/3</Text>
@@ -39,77 +39,94 @@ export const Step1: React.FC<stepPropType> = ({
         alignItems={'flex-start'}
         gap={'1rem'}
       >
-        <Flex
-          flexDirection={['column', 'column', 'row']}
-          gap={['0.5rem', '1rem', '2rem']}
+        <chakra.form
           width={'100%'}
+          paddingTop={'2rem'}
+          height={'auto'}
         >
-          <FormControl maxWidth={'300px'}>
-            <FormLabel>Item Name</FormLabel>
-            <Input
-              value={formState.itemName}
-              onChange={(e) =>
-                dispatchFormAction({
-                  type: 'SET_ITEM_NAME',
-                  payload: e.target.value,
-                })
-              }
-              placeholder="Enter item name"
-            />
-          </FormControl>
+          <Flex
+            flexDirection={['column', 'column', 'row']}
+            gap={['0.5rem', '1rem', '2rem']}
+            width={'100%'}
+          >
+            <FormControl isInvalid={Boolean(errors.itemName)}>
+              <FormLabel htmlFor="ItemName" fontWeight={'semibold'}>
+                Item Name
+              </FormLabel>
+              <Input
+                id="itemName"
+                placeholder="Enter/Select Item Name"
+                {...register('itemName', {
+                  required: 'Item Name is required',
+                })}
+              />
+              <FormErrorMessage>
+                {errors.itemName && errors.itemName.message}
+              </FormErrorMessage>
+            </FormControl>
 
-          <FormControl maxWidth={['300px', '300px', '150px']}>
-            <FormLabel>No of items</FormLabel>
-            <NumberInput
-              value={formState.noOfItems}
-              onChange={(value) =>
-                dispatchFormAction({ type: 'SET_NO_OF_ITEMS', payload: value })
-              }
+            <FormControl
+              maxWidth={['300px', '300px', '150px']}
+              isInvalid={Boolean(errors.noOfItems)}
             >
-              <NumberInputField placeholder="0" />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-          </FormControl>
+              <FormLabel htmlFor="No of items">No of items</FormLabel>
+              <NumberInput>
+                <NumberInputField
+                  id="noOfItems"
+                  placeholder="0"
+                  {...register('noOfItems', {
+                    required: 'No of items is required',
+                  })}
+                />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+              <FormErrorMessage>
+                {errors.noOfItems && errors.noOfItems.message}
+              </FormErrorMessage>
+            </FormControl>
 
-          <FormControl maxWidth={'300px'}>
-            <FormLabel>Category</FormLabel>
-            <Select
-              placeholder="Select a cateogory"
-              value={formState.category}
-              onChange={(e) =>
-                dispatchFormAction({
-                  type: 'SET_CATEGORY',
-                  payload: e.target.value,
-                })
-              }
-            >
-              <option>Books</option>
-              <option>Phone</option>
-              <option>Cloth</option>
-              <option>Keys</option>
-              <option>Charger</option>
-            </Select>
+            <FormControl isInvalid={Boolean(errors.category)}>
+              <FormLabel htmlFor="category">Category</FormLabel>
+              <Select
+                id="category"
+                {...register('category', {
+                  required: 'Category is required',
+                })}
+              >
+                <option>Books</option>
+                <option>Phone</option>
+                <option>Cloth</option>
+                <option>Keys</option>
+                <option>Charger</option>
+              </Select>
+              <FormErrorMessage>
+                {errors.category && errors.category.message}
+              </FormErrorMessage>
+            </FormControl>
+          </Flex>
+          <FormControl
+            marginTop={`1rem`}
+            maxWidth={['300px', '300px', '500px']}
+            width={['100%', '100%', '100%', '50%']}
+            isInvalid={Boolean(errors.itemDescription)}
+          >
+            <FormLabel htmlFor="itemDescription">Item Description</FormLabel>
+            <Textarea
+              placeholder="Item Description"
+              height={`150px`}
+              id="itemDescription"
+              {...register('itemDescription', {
+                required: 'Item Description is required',
+              })}
+            ></Textarea>
+            <FormErrorMessage>
+              {errors.itemDescription && errors.itemDescription.message}
+            </FormErrorMessage>
           </FormControl>
-        </Flex>
-        <FormControl
-          maxWidth={['300px', '300px', '500px']}
-          width={['100%', '100%', '100%', '50%']}
-        >
-          <FormLabel>Item Description</FormLabel>
-          <Textarea
-            value={formState.itemDescription}
-            onChange={(e) =>
-              dispatchFormAction({
-                type: 'SET_ITEM_DESCRIPTION',
-                payload: e.target.value,
-              })
-            }
-            height={`150px`}
-          ></Textarea>
-        </FormControl>
+        </chakra.form>
       </VStack>
       <Box mt={`1rem`}>
         <Button colorScheme={'brand'} leftIcon={<BsCloudUpload />}>
