@@ -6,7 +6,6 @@ import ForgotPassword from './features/auth/ForgotPassword';
 import Dashboard from './features/dashboard/Dashboard';
 import FeedbackPage from './features/feedback/Feedback';
 import LecturersPage from './features/lecturers/Lecturer';
-import Login from './features/login/Login';
 import { AddItem } from './features/lostAndFound/addItem';
 import LostAndFound from './features/lostAndFound/LostAndFound';
 import AddSchedule from './features/schedules/AddSchedule';
@@ -21,8 +20,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<AdminLayout />}>
-          <Route element={<ProtectedLayout />}>
+        <Route element={<ProtectedLayout />}>
+          <Route element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
             <Route path={'/view-schedule'} element={<ViewSchedule />} />
             <Route path={'/add-schedule'} element={<AddSchedule />} />
@@ -38,7 +37,6 @@ const App = () => {
             <Route path={'/lost-and-found/add'} element={<AddItem />} />
           </Route>
         </Route>
-        <Route path={'/login'} element={<Login />} />
         <Route path={'/forgot-password'} element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
