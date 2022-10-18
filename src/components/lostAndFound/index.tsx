@@ -9,7 +9,6 @@ import {
   Icon,
   Center,
   Grid,
-  chakra,
   FormErrorMessage,
 } from '@chakra-ui/react';
 import {
@@ -20,7 +19,7 @@ import {
 } from 'react-icons/ri';
 import { stepPropType } from '../../features/lostAndFound/addItem';
 
-export const Claimed: React.FC<stepPropType> = ({ register, errors }) => {
+const Claimed: React.FC<stepPropType> = ({ register, errors }) => {
   return (
     <Box>
       <Box my={`2rem`}>
@@ -28,60 +27,58 @@ export const Claimed: React.FC<stepPropType> = ({ register, errors }) => {
           Claim Details
         </Text>
       </Box>
-      <chakra.form>
-        <Grid
-          gap={['1rem', '2rem', '3rem']}
-          gridTemplateColumns={`repeat(auto-fit, minmax(250px, 1fr))`}
-        >
-          <FormControl isInvalid={Boolean(errors?.receiversName)}>
-            <FormLabel htmlFor="Recieved by" fontWeight={'semibold'}>
-              Item Name
-            </FormLabel>
-            <Input
-              id="recievedby"
-              placeholder="Enter/Select Item Name"
-              {...register('receiversName', {
-                required: 'Item Name is required',
-              })}
-            />
-            <FormErrorMessage>
-              {errors.receiversName && errors.receiversName.message}
-            </FormErrorMessage>
-          </FormControl>
+      <Grid
+        gap={['1rem', '2rem', '3rem']}
+        gridTemplateColumns={`repeat(auto-fit, minmax(250px, 1fr))`}
+      >
+        <FormControl isInvalid={Boolean(errors?.receiversName)}>
+          <FormLabel htmlFor="Recieved by" fontWeight={'semibold'}>
+            Item Name
+          </FormLabel>
+          <Input
+            id="recievedby"
+            placeholder="Enter/Select Item Name"
+            {...register('receiversName', {
+              required: 'Item Name is required',
+            })}
+          />
+          <FormErrorMessage>
+            {errors.receiversName && errors.receiversName.message}
+          </FormErrorMessage>
+        </FormControl>
 
-          <FormControl>
-            <FormLabel>Level</FormLabel>
-            <Select placeholder="Level" {...register('level')}>
-              <option>Level 5</option>
-              <option>Level 6</option>
-            </Select>
-          </FormControl>
+        <FormControl>
+          <FormLabel>Level</FormLabel>
+          <Select placeholder="Level" {...register('level')}>
+            <option>Level 5</option>
+            <option>Level 6</option>
+          </Select>
+        </FormControl>
 
-          <FormControl>
-            <FormLabel>Group</FormLabel>
-            <Select {...register('group')} placeholder="Group">
-              <option>LGCG7</option>
-              <option>LGCG6</option>
-              <option>LGCG5</option>
-            </Select>
-          </FormControl>
-          <FormControl>
-            <FormLabel>Semester</FormLabel>
-            <Select {...register('semester')} placeholder="Semester">
-              <option>1</option>
-              <option>2</option>
-            </Select>
-          </FormControl>
+        <FormControl>
+          <FormLabel>Group</FormLabel>
+          <Select {...register('group')} placeholder="Group">
+            <option>LGCG7</option>
+            <option>LGCG6</option>
+            <option>LGCG5</option>
+          </Select>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Semester</FormLabel>
+          <Select {...register('semester')} placeholder="Semester">
+            <option>1</option>
+            <option>2</option>
+          </Select>
+        </FormControl>
 
-          <FormControl>
-            <FormLabel>Course</FormLabel>
-            <Select placeholder="Course">
-              <option>BIBM</option>
-              <option>MBA</option>
-            </Select>
-          </FormControl>
-        </Grid>
-      </chakra.form>
+        <FormControl>
+          <FormLabel>Course</FormLabel>
+          <Select placeholder="Course">
+            <option>BIBM</option>
+            <option>MBA</option>
+          </Select>
+        </FormControl>
+      </Grid>
 
       {/* <Box
         pt={`1rem`}
@@ -130,8 +127,8 @@ export const NumberIndicator: React.FC<INumberIndicatorProps> = ({
             stepNumber === 1
               ? RiNumber1
               : stepNumber === 2
-              ? RiNumber2
-              : RiNumber3
+                ? RiNumber2
+                : RiNumber3
           }
           backgroundColor={currentStep === stepNumber ? `#74C043` : `#606A72`}
           padding={`5px`}
@@ -171,3 +168,4 @@ export const StepHeader: React.FC<IStepHeaderProps> = ({
     </HStack>
   );
 };
+export default Claimed;

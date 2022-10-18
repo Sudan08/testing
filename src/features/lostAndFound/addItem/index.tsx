@@ -26,8 +26,5 @@ export const stepperReducer = (state: stepperState, action: stepFormAction) => {
   }
 };
 
-export * from './Step1';
-export * from './Step2';
-export * from './Step3';
 export * from './AddItem';
 export default AddItem;

@@ -7,11 +7,14 @@ import {
   chakra,
   FormErrorMessage,
   FormControl,
+  Spinner,
 } from '@chakra-ui/react';
-import { Claimed } from '../../../components/lostAndFound';
+import { lazy, Suspense } from 'react';
 import { stepPropType } from './AddItem';
 
-export const Step3: React.FC<stepPropType> = ({
+const DClaimed = lazy(() => import('../../../components/lostAndFound/index'));
+
+const Step3: React.FC<stepPropType> = ({
   register,
   errors,
   handleSubmit,
@@ -80,16 +83,19 @@ export const Step3: React.FC<stepPropType> = ({
             </FormErrorMessage>
           </FormControl>
 
-          {status === 'CLAIMED' && (
-            <Claimed
-              register={register}
-              handleSubmit={handleSubmit}
-              errors={errors}
-              watch={watch}
-            />
-          )}
+          <Suspense fallback={<Spinner />}>
+            {status === 'CLAIMED' && (
+              <DClaimed
+                register={register}
+                handleSubmit={handleSubmit}
+                errors={errors}
+                watch={watch}
+              />
+            )}
+          </Suspense>
         </chakra.form>
       </Box>
     </>
   );
 };
+export default Step3;

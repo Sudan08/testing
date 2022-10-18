@@ -21,7 +21,7 @@ import { FC } from 'react';
 import { BsCloudUpload } from 'react-icons/bs';
 import { stepPropType } from './AddItem';
 
-export const Step1: FC<stepPropType> = ({ register, errors }) => {
+const Step1: FC<stepPropType> = ({ register, errors }) => {
   return (
     <Box width={'100%'}>
       <Text>Step 1/3</Text>
@@ -136,3 +136,4 @@ export const Step1: FC<stepPropType> = ({ register, errors }) => {
     </Box>
   );
 };
+export default Step1;

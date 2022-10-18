@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { stepPropType } from './AddItem';
 
-export const Step2: React.FC<stepPropType> = ({ register, errors }) => {
+const Step2: React.FC<stepPropType> = ({ register, errors }) => {
   return (
     <Box width={'100%'}>
       <chakra.form>
@@ -114,3 +114,4 @@ export const Step2: React.FC<stepPropType> = ({ register, errors }) => {
     </Box>
   );
 };
+export default Step2;
