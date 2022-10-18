@@ -10,14 +10,15 @@ import {
   Button,
   useDisclosure,
   useColorModeValue,
+  Spinner,
 } from '@chakra-ui/react';
 import { ThreeLineHorizontal } from 'akar-icons';
-import { useRef } from 'react';
-import Sidebar from './Sidebar';
+import { lazy, Suspense, useRef } from 'react';
 type mobileNavPropType = {
   isOpen: boolean;
   onClose: () => void;
 };
+const DSidebar = lazy(() => import('./Sidebar'));
 export const MobileNav: React.FC<mobileNavPropType> = ({ isOpen, onClose }) => {
   return (
     <Drawer placement={`left`} onClose={onClose} isOpen={isOpen}>
@@ -27,7 +28,9 @@ export const MobileNav: React.FC<mobileNavPropType> = ({ isOpen, onClose }) => {
           <DrawerCloseButton zIndex={`2`} />
         </DrawerHeader>
         <DrawerBody padding={`0`}>
-          <Sidebar isMobileView={true} />
+          <Suspense fallback={<Spinner />}>
+            <DSidebar isMobileView={true} />
+          </Suspense>
         </DrawerBody>
       </DrawerContent>
     </Drawer>

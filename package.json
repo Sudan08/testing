@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --port 3000",
     "build": "tsc && vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --port 3000",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
@@ -16,9 +16,7 @@
     "@chakra-ui/react": "^2.2.6",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
-    "@faker-js/faker": "^7.4.0",
     "@reduxjs/toolkit": "^1.8.4",
-    "@types/node": "^18.7.8",
     "akar-icons": "^1.9.20",
     "framer-motion": "^7.1.0",
     "react": "^18.2.0",
@@ -31,6 +29,7 @@
     "recharts": "^2.1.13"
   },
   "devDependencies": {
+    "@types/node": "^18.11.0",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
@@ -44,6 +43,6 @@
     "prettier": "^2.7.1",
     "typescript": "^4.6.4",
     "vite": "^3.0.7",
-    "vite-plugin-pwa": "^0.12.3"
+    "vite-plugin-pwa": "^0.13.1"
   }
 }

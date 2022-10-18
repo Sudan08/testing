@@ -83,17 +83,22 @@ const ScheduleTime: React.FC<{ time: string }> = ({ time }) => {
           boxShadow={'0px 0px 4px rgba(0 0 0 / 0.25)'}
           width={'100%'}
           color={'black'}
-          maxH={'400px'}
+          maxH={'300px'}
           overflowY={'scroll'}
         >
           <PopoverArrow height={'20px'} />
           <PopoverCloseButton color={textColor} />
 
-          <PopoverBody marginTop={'1.5rem'} padding={'1rem'}>
-            <VStack alignItems={'flex-start'} gap={'0.5rem'}>
+          <PopoverBody
+            minW={'250px'}
+            marginTop={'1.5rem'}
+            padding={'1rem'}
+            paddingTop={'0rem'}
+          >
+            <VStack width={'100%'} alignItems={'flex-start'} gap={'0.5rem'}>
               {routines.length > 0 ? (
                 routines.map((routine, index) => (
-                  <VStack key={index} alignItems={'flex-start'}>
+                  <VStack width={'100%'} key={index} alignItems={'flex-start'}>
                     <PopoverScheduleDetail textColor={textColor} {...routine} />
                     <Divider />
                   </VStack>
