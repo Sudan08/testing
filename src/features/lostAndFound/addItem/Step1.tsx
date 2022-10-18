@@ -41,7 +41,6 @@ export const Step1: FC<stepPropType> = ({ register, errors }) => {
       >
         <chakra.form
           width={'100%'}
-          padding={'3rem'}
           paddingTop={'2rem'}
           height={'auto'}
         >
@@ -50,9 +49,7 @@ export const Step1: FC<stepPropType> = ({ register, errors }) => {
             gap={['0.5rem', '1rem', '2rem']}
             width={'100%'}
           >
-            <FormControl
-              isInvalid={Boolean(errors.itemName)}
-            >
+            <FormControl isInvalid={Boolean(errors.itemName)}>
               <FormLabel htmlFor="ItemName" fontWeight={'semibold'}>
                 Item Name
               </FormLabel>
@@ -68,15 +65,19 @@ export const Step1: FC<stepPropType> = ({ register, errors }) => {
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl maxWidth={['300px', '300px', '150px']} isInvalid={Boolean(errors.noOfItems)}>
-              <FormLabel htmlFor='No of items'>No of items</FormLabel>
+            <FormControl
+              maxWidth={['300px', '300px', '150px']}
+              isInvalid={Boolean(errors.noOfItems)}
+            >
+              <FormLabel htmlFor="No of items">No of items</FormLabel>
               <NumberInput>
                 <NumberInputField
-                id='noOfItems'
-                placeholder="0"
-                {...register('noOfItems', {
-                  required:'No of items is required'
-                })} />
+                  id="noOfItems"
+                  placeholder="0"
+                  {...register('noOfItems', {
+                    required: 'No of items is required',
+                  })}
+                />
                 <NumberInputStepper>
                   <NumberIncrementStepper />
                   <NumberDecrementStepper />
@@ -88,23 +89,23 @@ export const Step1: FC<stepPropType> = ({ register, errors }) => {
             </FormControl>
 
             <FormControl isInvalid={Boolean(errors.category)}>
-                <FormLabel htmlFor="category">Category</FormLabel>
-                <Select
-                  id="category"
-                  {...register('category', {
-                    required: 'Category is required',
-                  })}
-                >
+              <FormLabel htmlFor="category">Category</FormLabel>
+              <Select
+                id="category"
+                {...register('category', {
+                  required: 'Category is required',
+                })}
+              >
                 <option>Books</option>
                 <option>Phone</option>
                 <option>Cloth</option>
                 <option>Keys</option>
                 <option>Charger</option>
-                </Select>
-                <FormErrorMessage>
-                  {errors.category && errors.category.message}
-                </FormErrorMessage>
-              </FormControl>
+              </Select>
+              <FormErrorMessage>
+                {errors.category && errors.category.message}
+              </FormErrorMessage>
+            </FormControl>
           </Flex>
           <FormControl
             marginTop={`1rem`}
@@ -112,14 +113,14 @@ export const Step1: FC<stepPropType> = ({ register, errors }) => {
             width={['100%', '100%', '100%', '50%']}
             isInvalid={Boolean(errors.itemDescription)}
           >
-            <FormLabel htmlFor='itemDescription'>Item Description</FormLabel>
+            <FormLabel htmlFor="itemDescription">Item Description</FormLabel>
             <Textarea
-            placeholder='Item Description'
-            height={`150px`}
-            id='itemDescription'
-            {...register('itemDescription', {
-              required: 'Item Description is required',
-            })}
+              placeholder="Item Description"
+              height={`150px`}
+              id="itemDescription"
+              {...register('itemDescription', {
+                required: 'Item Description is required',
+              })}
             ></Textarea>
             <FormErrorMessage>
               {errors.itemDescription && errors.itemDescription.message}

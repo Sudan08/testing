@@ -14,6 +14,7 @@ import {
   ModalBody,
   Icon,
   ModalFooter,
+  useToast,
 } from '@chakra-ui/react';
 
 import BreadcrumbNav from '../../../components/BreadcrumbNav';
@@ -30,6 +31,7 @@ import {
   UseFormRegister,
   UseFormWatch,
 } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 const initialStep: stepperState = {
   currentStep: 1,
@@ -40,7 +42,7 @@ export type stepPropType = {
   register: UseFormRegister<ILostAndFound>;
   handleSubmit: UseFormHandleSubmit<ILostAndFound>;
   errors: FieldErrorsImpl<ILostAndFound>;
-  watch: UseFormWatch<ILostAndFound>
+  watch: UseFormWatch<ILostAndFound>;
 };
 
 export const AddItem = () => {
@@ -50,16 +52,17 @@ export const AddItem = () => {
     formState: { errors },
     watch,
   } = useForm<ILostAndFound>();
-  const watchAllFields = watch();
   const backgroundColor = useColorModeValue('white', 'gray.800');
   const [stepperStates, dispatch] = useReducer(stepperReducer, initialStep);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const handleAddItem = () =>{
-    dispatch({
-      type: "NEXT"
-    })
-  }
-
+  const { isOpen, onClose } = useDisclosure();
+  const toast = useToast();
+  const navigate = useNavigate();
+  const handleAddItem = () => {
+    toast({
+      title: 'Your Item will be added soon',
+    });
+    navigate('/lost-and-found');
+  };
 
   return (
     <Box width={`100%`} height={`100%`}>
@@ -81,7 +84,7 @@ export const AddItem = () => {
             register={register}
             handleSubmit={handleSubmit}
             errors={errors}
-            watch ={watch}
+            watch={watch}
           />
         )}
         {stepperStates.currentStep === 2 && (
@@ -89,7 +92,7 @@ export const AddItem = () => {
             register={register}
             handleSubmit={handleSubmit}
             errors={errors}
-            watch ={watch}
+            watch={watch}
           />
         )}
         {stepperStates.currentStep === 3 && (
@@ -97,8 +100,7 @@ export const AddItem = () => {
             register={register}
             handleSubmit={handleSubmit}
             errors={errors}
-            watch ={watch}
-            
+            watch={watch}
           />
         )}
         {stepperStates.currentStep !== 3 && (
@@ -110,17 +112,23 @@ export const AddItem = () => {
             padding={'1rem 0'}
             marginTop={'auto !important'}
           >
-               <Button
-              m={'1rem 0'}
-              color={`#fff`}
-              colorScheme={'blackAlpha'}>
-              Back
+            {stepperStates.currentStep !== 1 && (
+              <Button
+                type={'button'}
+                m={'1rem 0'}
+                color={`#fff`}
+                onClick={() => dispatch({ type: 'PREV' })}
+                colorScheme={'blackAlpha'}
+              >
+                Back
               </Button>
+            )}
             <Button
-              onClick={handleSubmit(handleAddItem)}
               m={'1rem 0'}
               color={`#fff`}
               colorScheme={'brand'}
+              type={'button'}
+              onClick={() => dispatch({ type: 'NEXT' })}
             >
               Next
             </Button>
@@ -139,11 +147,16 @@ export const AddItem = () => {
               backgroundColor={`#fff`}
               onClick={() => dispatch({ type: 'PREV' })}
               color={`#000`}
+              type={'button'}
             >
               Back
             </Button>
 
-            <Button colorScheme={'brand'} onClick={handleSubmit(handleAddItem)}>
+            <Button
+              type={'submit'}
+              colorScheme={'brand'}
+              onClick={handleSubmit(handleAddItem)}
+            >
               Submit
             </Button>
           </HStack>
@@ -173,7 +186,12 @@ export const AddItem = () => {
               justifyContent={`space-between`}
               alignItems={`center`}
             >
-              <Button backgroundColor={`white`} mr={3} onClick={onClose}>
+              <Button
+                type={'button'}
+                backgroundColor={`white`}
+                mr={3}
+                onClick={onClose}
+              >
                 Close
               </Button>
               <Button colorScheme={'brand'}>Add Item</Button>

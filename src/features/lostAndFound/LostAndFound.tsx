@@ -41,8 +41,6 @@ const LostAndFound = () => {
     <Box width={`100%`}>
       <BreadcrumbNav orderedNavItems={LostandFoundPageBreadcrumbNav} />
       <VStack padding={`1rem`} height={`100%`}>
-        {' '}
-        width ={`100%`}
         <Box
           borderRadius={`12px`}
           width={`100%`}

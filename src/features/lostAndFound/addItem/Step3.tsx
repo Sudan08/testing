@@ -1,17 +1,23 @@
 import {
   Box,
   Text,
-  RadioGroup, 
-  Radio, 
-  Flex ,
-  chakra , 
-  FormErrorMessage,  
+  RadioGroup,
+  Radio,
+  Flex,
+  chakra,
+  FormErrorMessage,
   FormControl,
-  FormLabel,} from '@chakra-ui/react';
+} from '@chakra-ui/react';
 import { Claimed } from '../../../components/lostAndFound';
 import { stepPropType } from './AddItem';
 
-export const Step3: React.FC<stepPropType> = ({register , errors, handleSubmit ,watch}) => {
+export const Step3: React.FC<stepPropType> = ({
+  register,
+  errors,
+  handleSubmit,
+  watch,
+}) => {
+  const status = watch('status');
   return (
     <>
       <Box width={'100%'}>
@@ -25,61 +31,63 @@ export const Step3: React.FC<stepPropType> = ({register , errors, handleSubmit ,
           </Text>
         </Box>
         <chakra.form>
-        <FormControl isInvalid={Boolean(errors.status)}>
-        <RadioGroup
-          justifyContent={`flex-start`}
-        >
-          <Flex
-            flexDirection={['column', 'column', 'row']}
-            gap={['0.5rem', '1rem', '2rem']}
-            width={'100%'}
-          >
-            <Box
-              border={`1px solid #DFDFDF`}
-              px={`1rem`}
-              py={`0.5rem`}
-              w={`250px`}
-              borderRadius={`5px`}
-              
-              cursor={'pointer'}
-            >
-              <Radio id={'claimedBtn'} 
-              value={'CLAIMED'}
-              {...register('status', {
-              required: 'Status is required',
-              })}>
-                Claimed
-              </Radio>
-            </Box>
-            <Box
-              border={`1px solid #DFDFDF`}
-              px={`1rem`}
-              py={`0.5rem`}
-              w={`250px`}
-              borderRadius={`5px`}
-              
-              cursor={'pointer'}
-            >
-            <Radio value={`PENDING`}
-            {...register('status', {
-            required: 'Status is required',
-            })}>Pending</Radio>
-            </Box>
-          </Flex>
-        </RadioGroup>
-        <FormErrorMessage>
-          {errors.status && errors.status.message}
-        </FormErrorMessage>
-        </FormControl>
-            
-        {watch().status === 'CLAIMED' && (
-          <Claimed 
-          register={register}
-          handleSubmit={handleSubmit}
-          errors={errors}
-          watch ={watch}
-           />
-        )}
+          <FormControl isInvalid={Boolean(errors.status)}>
+            <RadioGroup defaultValue={'PENDING'} justifyContent={`flex-start`}>
+              <Flex
+                flexDirection={['column', 'column', 'row']}
+                gap={['0.5rem', '1rem', '2rem']}
+                width={'100%'}
+              >
+                <Box
+                  border={`1px solid #DFDFDF`}
+                  px={`1rem`}
+                  py={`0.5rem`}
+                  w={`250px`}
+                  borderRadius={`5px`}
+                  cursor={'pointer'}
+                >
+                  <Radio
+                    id={'claimedBtn'}
+                    value={'CLAIMED'}
+                    {...register('status', {
+                      required: 'Status is required',
+                    })}
+                  >
+                    Claimed
+                  </Radio>
+                </Box>
+                <Box
+                  border={`1px solid #DFDFDF`}
+                  px={`1rem`}
+                  py={`0.5rem`}
+                  w={`250px`}
+                  borderRadius={`5px`}
+                  cursor={'pointer'}
+                >
+                  <Radio
+                    value={`PENDING`}
+                    {...register('status', {
+                      required: 'Status is required',
+                    })}
+                  >
+                    Pending
+                  </Radio>
+                </Box>
+              </Flex>
+            </RadioGroup>
+            <FormErrorMessage>
+              {errors.status && errors.status.message}
+            </FormErrorMessage>
+          </FormControl>
+
+          {status === 'CLAIMED' && (
+            <Claimed
+              register={register}
+              handleSubmit={handleSubmit}
+              errors={errors}
+              watch={watch}
+            />
+          )}
         </chakra.form>
       </Box>
     </>
