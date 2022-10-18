@@ -64,7 +64,7 @@ export interface ILostAndFound {
   depositedTo: string;
   status: 'CLAIMED' | 'PENDING';
   claimDetails?: {
-    receiversName?: string;
+    receiversName: string;
     level?: string;
     group?: string;
     semester?: string;

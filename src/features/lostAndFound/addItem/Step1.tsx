@@ -51,7 +51,6 @@ export const Step1: FC<stepPropType> = ({ register, errors }) => {
             width={'100%'}
           >
             <FormControl
-              marginTop={'1rem'}
               isInvalid={Boolean(errors.itemName)}
             >
               <FormLabel htmlFor="ItemName" fontWeight={'semibold'}>
@@ -60,10 +59,6 @@ export const Step1: FC<stepPropType> = ({ register, errors }) => {
               <Input
                 id="itemName"
                 placeholder="Enter/Select Item Name"
-                backgroundColor={'blackAlpha.50'}
-                borderRadius={'4px'}
-                list={'Item Name_list'}
-                marginTop={'0.5rem'}
                 {...register('itemName', {
                   required: 'Item Name is required',
                 })}
@@ -73,34 +68,62 @@ export const Step1: FC<stepPropType> = ({ register, errors }) => {
               </FormErrorMessage>
             </FormControl>
 
-            <FormControl maxWidth={['300px', '300px', '150px']}>
-              <FormLabel>No of items</FormLabel>
+            <FormControl maxWidth={['300px', '300px', '150px']} isInvalid={Boolean(errors.noOfItems)}>
+              <FormLabel htmlFor='No of items'>No of items</FormLabel>
               <NumberInput>
-                <NumberInputField placeholder="0" />
+                <NumberInputField
+                id='noOfItems'
+                placeholder="0"
+                {...register('noOfItems', {
+                  required:'No of items is required'
+                })} />
                 <NumberInputStepper>
                   <NumberIncrementStepper />
                   <NumberDecrementStepper />
                 </NumberInputStepper>
               </NumberInput>
+              <FormErrorMessage>
+                {errors.noOfItems && errors.noOfItems.message}
+              </FormErrorMessage>
             </FormControl>
 
-            <FormControl maxWidth={'300px'}>
-              <FormLabel>Category</FormLabel>
-              <Select placeholder="Select a cateogory">
+            <FormControl isInvalid={Boolean(errors.category)}>
+                <FormLabel htmlFor="category">Category</FormLabel>
+                <Select
+                  id="category"
+                  {...register('category', {
+                    required: 'Category is required',
+                  })}
+                >
                 <option>Books</option>
                 <option>Phone</option>
                 <option>Cloth</option>
                 <option>Keys</option>
                 <option>Charger</option>
-              </Select>
-            </FormControl>
+                </Select>
+                <FormErrorMessage>
+                  {errors.category && errors.category.message}
+                </FormErrorMessage>
+              </FormControl>
           </Flex>
           <FormControl
+            marginTop={`1rem`}
             maxWidth={['300px', '300px', '500px']}
             width={['100%', '100%', '100%', '50%']}
+            isInvalid={Boolean(errors.itemDescription)}
           >
-            <FormLabel>Item Description</FormLabel>
-            <Textarea height={`150px`}></Textarea>
+            <FormLabel htmlFor='itemDescription'>Item Description</FormLabel>
+            <Textarea
+            placeholder='Item Description'
+            height={`150px`}
+            id='itemDescription'
+            {...register('itemDescription', {
+              required: 'Item Description is required',
+            })}
+            ></Textarea>
+            <FormErrorMessage>
+              {errors.itemDescription && errors.itemDescription.message}
+            </FormErrorMessage>
           </FormControl>
         </chakra.form>
       </VStack>

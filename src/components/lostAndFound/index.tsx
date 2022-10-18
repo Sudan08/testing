@@ -9,6 +9,8 @@ import {
   Icon,
   Center,
   Grid,
+  chakra,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import {
   RiNumber1,
@@ -18,10 +20,7 @@ import {
 } from 'react-icons/ri';
 import { stepPropType } from '../../features/lostAndFound/addItem';
 
-export const Claimed: React.FC<stepPropType> = ({
-  formState,
-  dispatchFormAction,
-}) => {
+export const Claimed: React.FC<stepPropType> = ({register,errors}) => {
   return (
     <Box>
       <Box my={`2rem`}>
@@ -29,23 +28,29 @@ export const Claimed: React.FC<stepPropType> = ({
           Claim Details
         </Text>
       </Box>
+      <chakra.form>
       <Grid
         gap={['1rem', '2rem', '3rem']}
         gridTemplateColumns={`repeat(auto-fit, minmax(250px, 1fr))`}
       >
-        <FormControl>
-          <FormLabel>Recieved by</FormLabel>
-          <Input
-            value={formState.claimDetails?.receiversName || ''}
-            onChange={(e) =>
-              dispatchFormAction({
-                type: 'SET_RECEIVED_BY',
-                payload: e.target.value,
-              })
-            }
-            placeholder="Enter name"
-          />
-        </FormControl>
+        <FormControl
+              isInvalid={Boolean(errors?.claimDetails)}
+            >
+              <FormLabel htmlFor="Recieved by" fontWeight={'semibold'}>
+                Item Name
+              </FormLabel>
+              <Input
+              
+                id="recievedby"
+                placeholder="Enter/Select Item Name"
+                {...register('claimDetails.receiversName', {
+                  required: 'Item Name is required',
+                })}
+              />
+              <FormErrorMessage>
+                {errors.receiversName && errors.receiversName.message}
+              </FormErrorMessage>
+            </FormControl>
 
         <FormControl>
           <FormLabel>Level</FormLabel>
@@ -106,6 +111,7 @@ export const Claimed: React.FC<stepPropType> = ({
           </Select>
         </FormControl>
       </Grid>
+      </chakra.form>
 
       {/* <Box
         pt={`1rem`}

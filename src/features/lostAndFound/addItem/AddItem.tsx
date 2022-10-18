@@ -28,6 +28,7 @@ import {
   useForm,
   UseFormHandleSubmit,
   UseFormRegister,
+  UseFormWatch,
 } from 'react-hook-form';
 
 const initialStep: stepperState = {
@@ -39,6 +40,7 @@ export type stepPropType = {
   register: UseFormRegister<ILostAndFound>;
   handleSubmit: UseFormHandleSubmit<ILostAndFound>;
   errors: FieldErrorsImpl<ILostAndFound>;
+  watch: UseFormWatch<ILostAndFound>
 };
 
 export const AddItem = () => {
@@ -46,11 +48,19 @@ export const AddItem = () => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<ILostAndFound>();
-
+  const watchAllFields = watch();
   const backgroundColor = useColorModeValue('white', 'gray.800');
   const [stepperStates, dispatch] = useReducer(stepperReducer, initialStep);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const handleAddItem = () =>{
+    dispatch({
+      type: "NEXT"
+    })
+  }
+
+
   return (
     <Box width={`100%`} height={`100%`}>
       <BreadcrumbNav orderedNavItems={LostandFoundPageBreadcrumbNav} />
@@ -71,6 +81,7 @@ export const AddItem = () => {
             register={register}
             handleSubmit={handleSubmit}
             errors={errors}
+            watch ={watch}
           />
         )}
         {stepperStates.currentStep === 2 && (
@@ -78,6 +89,7 @@ export const AddItem = () => {
             register={register}
             handleSubmit={handleSubmit}
             errors={errors}
+            watch ={watch}
           />
         )}
         {stepperStates.currentStep === 3 && (
@@ -85,6 +97,8 @@ export const AddItem = () => {
             register={register}
             handleSubmit={handleSubmit}
             errors={errors}
+            watch ={watch}
+            
           />
         )}
         {stepperStates.currentStep !== 3 && (
@@ -96,11 +110,14 @@ export const AddItem = () => {
             padding={'1rem 0'}
             marginTop={'auto !important'}
           >
-            {stepperStates.currentStep !== 1 && (
-              <Button onClick={() => dispatch({ type: 'PREV' })}>Back</Button>
-            )}
+               <Button
+              m={'1rem 0'}
+              color={`#fff`}
+              colorScheme={'blackAlpha'}>
+              Back
+              </Button>
             <Button
-              onClick={() => dispatch({ type: 'NEXT' })}
+              onClick={handleSubmit(handleAddItem)}
               m={'1rem 0'}
               color={`#fff`}
               colorScheme={'brand'}
@@ -126,7 +143,7 @@ export const AddItem = () => {
               Back
             </Button>
 
-            <Button colorScheme={'brand'} onClick={onOpen}>
+            <Button colorScheme={'brand'} onClick={handleSubmit(handleAddItem)}>
               Submit
             </Button>
           </HStack>

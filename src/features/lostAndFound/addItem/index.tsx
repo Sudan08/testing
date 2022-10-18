@@ -1,6 +1,6 @@
 import { ILostAndFound } from '../../../interfaces';
 export type stepFormAction = {
-  type: 'NEXT' | 'PREV' | 'RESET' | 'SET_STEP' | 'SET_COMPLETED_STEPS';
+  type: 'NEXT' | 'PREV' ;
   payload?: number | number[];
 };
 export type stepperState = {
@@ -19,21 +19,6 @@ export const stepperReducer = (state: stepperState, action: stepFormAction) => {
       return {
         ...state,
         currentStep: state.currentStep - 1,
-      };
-    case 'RESET':
-      return {
-        currentStep: 1,
-        completedSteps: [],
-      };
-    case 'SET_STEP':
-      return {
-        ...state,
-        currentStep: action.payload as number,
-      };
-    case 'SET_COMPLETED_STEPS':
-      return {
-        ...state,
-        completedSteps: action.payload as number[],
       };
     default:
       return state;

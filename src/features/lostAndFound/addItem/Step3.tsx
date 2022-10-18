@@ -1,8 +1,17 @@
-import { Box, Text, RadioGroup, Radio, Flex } from '@chakra-ui/react';
+import {
+  Box,
+  Text,
+  RadioGroup, 
+  Radio, 
+  Flex ,
+  chakra , 
+  FormErrorMessage,  
+  FormControl,
+  FormLabel,} from '@chakra-ui/react';
 import { Claimed } from '../../../components/lostAndFound';
 import { stepPropType } from './AddItem';
 
-export const Step3: React.FC<stepPropType> = () => {
+export const Step3: React.FC<stepPropType> = ({register , errors, handleSubmit ,watch}) => {
   return (
     <>
       <Box width={'100%'}>
@@ -15,12 +24,9 @@ export const Step3: React.FC<stepPropType> = () => {
             Please state wheather the item has been claimed or still pending
           </Text>
         </Box>
-
+        <chakra.form>
+        <FormControl isInvalid={Boolean(errors.status)}>
         <RadioGroup
-          value={formState.status}
-          onChange={(value) =>
-            dispatchFormAction({ type: 'SET_STATUS', payload: value })
-          }
           justifyContent={`flex-start`}
         >
           <Flex
@@ -34,12 +40,14 @@ export const Step3: React.FC<stepPropType> = () => {
               py={`0.5rem`}
               w={`250px`}
               borderRadius={`5px`}
-              onClick={() =>
-                dispatchFormAction({ type: 'SET_STATUS', payload: 'CLAIMED' })
-              }
+              
               cursor={'pointer'}
             >
-              <Radio id={'claimedBtn'} value={`CLAIMED`}>
+              <Radio id={'claimedBtn'} 
+              value={'CLAIMED'}
+              {...register('status', {
+              required: 'Status is required',
+              })}>
                 Claimed
               </Radio>
             </Box>
@@ -49,21 +57,30 @@ export const Step3: React.FC<stepPropType> = () => {
               py={`0.5rem`}
               w={`250px`}
               borderRadius={`5px`}
-              onClick={() =>
-                dispatchFormAction({ type: 'SET_STATUS', payload: 'PENDING' })
-              }
+              
               cursor={'pointer'}
             >
-              <Radio value={`PENDING`}>Pending</Radio>
+            <Radio value={`PENDING`}
+            {...register('status', {
+            required: 'Status is required',
+            })}>Pending</Radio>
             </Box>
           </Flex>
         </RadioGroup>
-        {formState.status === 'CLAIMED' && (
-          <Claimed
-            formState={formState}
-            dispatchFormAction={dispatchFormAction}
-          />
+        <FormErrorMessage>
+          {errors.status && errors.status.message}
+        </FormErrorMessage>
+        </FormControl>
+            
+        {watch().status === 'CLAIMED' && (
+          <Claimed 
+          register={register}
+          handleSubmit={handleSubmit}
+          errors={errors}
+          watch ={watch}
+           />
         )}
+        </chakra.form>
       </Box>
     </>
   );
