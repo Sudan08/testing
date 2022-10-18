@@ -18,7 +18,6 @@ import {
   FaGraduationCap,
 } from 'react-icons/fa';
 import { IoAnalyticsSharp } from 'react-icons/io5';
-import { faker } from '@faker-js/faker';
 import {
   LineChart,
   Line,
@@ -33,44 +32,45 @@ import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
 import { analyticsPageBreadcrumbNav } from '../../data/breadcrumbDatas';
 
+const data = [
+  {
+    name: 'Sunday',
+    'Teachers Login': (Math.random() * 100).toFixed(),
+    'Students Login': (Math.random() * 100).toFixed(),
+  },
+  {
+    name: 'Monday',
+    'Teachers Login': (Math.random() * 100).toFixed(),
+    'Students Login': (Math.random() * 100).toFixed(),
+  },
+  {
+    name: 'Tuesday',
+    'Teachers Login': (Math.random() * 100).toFixed(),
+    'Students Login': (Math.random() * 100).toFixed(),
+  },
+  {
+    name: 'Wednesday',
+    'Teachers Login': (Math.random() * 100).toFixed(),
+    'Students Login': (Math.random() * 100).toFixed(),
+  },
+  {
+    name: 'Thursday',
+    'Teachers Login': (Math.random() * 100).toFixed(),
+    'Students Login': (Math.random() * 100).toFixed(),
+  },
+  {
+    name: 'Friday',
+    'Teachers Login': (Math.random() * 100).toFixed(),
+    'Students Login': (Math.random() * 100).toFixed(),
+  },
+  {
+    name: 'Saturday',
+    'Teachers Login': (Math.random() * 100).toFixed(),
+    'Students Login': (Math.random() * 100).toFixed(),
+  },
+];
+
 const AnalyticsPage = () => {
-  const data = [
-    {
-      name: 'Sunday',
-      'Teachers Login': faker.datatype.number(100),
-      'Students Login': faker.datatype.number(100),
-    },
-    {
-      name: 'Monday',
-      'Teachers Login': faker.datatype.number(100),
-      'Students Login': faker.datatype.number(100),
-    },
-    {
-      name: 'Tuesday',
-      'Teachers Login': faker.datatype.number(100),
-      'Students Login': faker.datatype.number(100),
-    },
-    {
-      name: 'Wednesday',
-      'Teachers Login': faker.datatype.number(100),
-      'Students Login': faker.datatype.number(100),
-    },
-    {
-      name: 'Thursday',
-      'Teachers Login': faker.datatype.number(100),
-      'Students Login': faker.datatype.number(100),
-    },
-    {
-      name: 'Friday',
-      'Teachers Login': faker.datatype.number(100),
-      'Students Login': faker.datatype.number(100),
-    },
-    {
-      name: 'Saturday',
-      'Teachers Login': faker.datatype.number(100),
-      'Students Login': faker.datatype.number(100),
-    },
-  ];
   return (
     <chakra.div width={`100%`} height={`100%`}>
       <BreadcrumbNav orderedNavItems={analyticsPageBreadcrumbNav} />

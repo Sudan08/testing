@@ -151,6 +151,7 @@ const Login = () => {
             height={`62px`}
             width={`auto`}
             objectFit={`contain`}
+            alt={'Hearld Logo'}
           />
         </HStack>
         <Heading fontSize={[`1.4rem`, `1.6rem`, `2rem`]} margin={0}>

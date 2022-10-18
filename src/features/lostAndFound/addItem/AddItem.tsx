@@ -15,13 +15,13 @@ import {
   Icon,
   ModalFooter,
   useToast,
+  Spinner,
 } from '@chakra-ui/react';
 
 import BreadcrumbNav from '../../../components/BreadcrumbNav';
 import { LostandFoundPageBreadcrumbNav } from '../../../data/breadcrumbDatas';
 import { StepHeader } from '../../../components/lostAndFound';
-import { Step1, Step2, Step3, stepperReducer, stepperState } from '.';
-import { useReducer } from 'react';
+import { lazy, Suspense, useReducer } from 'react';
 import { FaRegStickyNote } from 'react-icons/fa';
 import { ILostAndFound } from '../../../interfaces';
 import {
@@ -32,7 +32,11 @@ import {
   UseFormWatch,
 } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { stepperReducer, stepperState } from '.';
 
+const DStep1 = lazy(() => import('./Step1'));
+const DStep2 = lazy(() => import('./Step2'));
+const DStep3 = lazy(() => import('./Step3'));
 const initialStep: stepperState = {
   currentStep: 1,
   completedSteps: [],
@@ -79,30 +83,35 @@ export const AddItem = () => {
         minH={`80vh`}
       >
         <StepHeader {...stepperStates} />
-        {stepperStates.currentStep === 1 && (
-          <Step1
-            register={register}
-            handleSubmit={handleSubmit}
-            errors={errors}
-            watch={watch}
-          />
-        )}
+
+        <Suspense fallback={<Spinner />}>
+          {stepperStates.currentStep === 1 && (
+            <DStep1
+              register={register}
+              handleSubmit={handleSubmit}
+              errors={errors}
+              watch={watch}
+            />
+          )}
+        </Suspense>
         {stepperStates.currentStep === 2 && (
-          <Step2
+          <DStep2
             register={register}
             handleSubmit={handleSubmit}
             errors={errors}
             watch={watch}
           />
         )}
-        {stepperStates.currentStep === 3 && (
-          <Step3
-            register={register}
-            handleSubmit={handleSubmit}
-            errors={errors}
-            watch={watch}
-          />
-        )}
+        <Suspense fallback={<Spinner />}>
+          {stepperStates.currentStep === 3 && (
+            <DStep3
+              register={register}
+              handleSubmit={handleSubmit}
+              errors={errors}
+              watch={watch}
+            />
+          )}
+        </Suspense>
         {stepperStates.currentStep !== 3 && (
           <HStack
             alignItems={`baseline`}
