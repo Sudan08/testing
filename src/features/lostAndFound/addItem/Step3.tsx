@@ -48,6 +48,8 @@ const Step3: React.FC<stepPropType> = ({
                   w={`250px`}
                   borderRadius={`5px`}
                   cursor={'pointer'}
+                  as={'label'}
+                  htmlFor={'claimedBtn'}
                 >
                   <Radio
                     id={'claimedBtn'}
@@ -66,9 +68,12 @@ const Step3: React.FC<stepPropType> = ({
                   w={`250px`}
                   borderRadius={`5px`}
                   cursor={'pointer'}
+                  as={'label'}
+                  htmlFor={'pendingBtn'}
                 >
                   <Radio
                     value={`PENDING`}
+                    id={'pendingBtn'}
                     {...register('status', {
                       required: 'Status is required',
                     })}

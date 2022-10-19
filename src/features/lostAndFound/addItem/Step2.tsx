@@ -1,5 +1,4 @@
 import {
-  Box,
   VStack,
   Text,
   FormControl,
@@ -9,6 +8,7 @@ import {
   Flex,
   FormErrorMessage,
   chakra,
+  Box,
 } from '@chakra-ui/react';
 import { stepPropType } from './AddItem';
 
@@ -79,6 +79,8 @@ const Step2: React.FC<stepPropType> = ({ register, errors }) => {
               <Input
                 id="foundDate"
                 type={'date'}
+                min={'2017-01-01'}
+                max={new Date().toISOString().split('T')[0]}
                 placeholder="Enter/Select Date Found"
                 {...register('foundDate', {
                   required: 'Date Found is required',
