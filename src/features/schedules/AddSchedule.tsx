@@ -449,7 +449,7 @@ const AddSchedulePage = () => {
                 </FormErrorMessage>
               </FormControl>
               <VStack
-                justifyContent={`flex-end`}
+                justifyContent={errors.status ? 'center' : 'flex-end'}
                 width={`100%`}
                 height={`100%`}
               >

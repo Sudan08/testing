@@ -136,7 +136,7 @@ export const AddItem = () => {
               m={'1rem 0'}
               color={`#fff`}
               colorScheme={'brand'}
-              type={'button'}
+              type={'submit'}
               onClick={() => dispatch({ type: 'NEXT' })}
             >
               Next
