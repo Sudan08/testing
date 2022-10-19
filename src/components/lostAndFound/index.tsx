@@ -49,7 +49,8 @@ const Claimed: React.FC<stepPropType> = ({ register, errors }) => {
 
         <FormControl>
           <FormLabel>Level</FormLabel>
-          <Select placeholder="Level" {...register('level')}>
+          <Select {...register('level')}>
+            <option>Level 4</option>
             <option>Level 5</option>
             <option>Level 6</option>
           </Select>
@@ -57,7 +58,7 @@ const Claimed: React.FC<stepPropType> = ({ register, errors }) => {
 
         <FormControl>
           <FormLabel>Group</FormLabel>
-          <Select {...register('group')} placeholder="Group">
+          <Select {...register('group')}>
             <option>LGCG7</option>
             <option>LGCG6</option>
             <option>LGCG5</option>
@@ -65,7 +66,7 @@ const Claimed: React.FC<stepPropType> = ({ register, errors }) => {
         </FormControl>
         <FormControl>
           <FormLabel>Semester</FormLabel>
-          <Select {...register('semester')} placeholder="Semester">
+          <Select {...register('semester')}>
             <option>1</option>
             <option>2</option>
           </Select>
@@ -73,7 +74,7 @@ const Claimed: React.FC<stepPropType> = ({ register, errors }) => {
 
         <FormControl>
           <FormLabel>Course</FormLabel>
-          <Select placeholder="Course">
+          <Select>
             <option>BIBM</option>
             <option>MBA</option>
           </Select>

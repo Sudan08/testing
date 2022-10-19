@@ -37,6 +37,7 @@ import { stepperReducer, stepperState } from '.';
 const DStep1 = lazy(() => import('./Step1'));
 const DStep2 = lazy(() => import('./Step2'));
 const DStep3 = lazy(() => import('./Step3'));
+
 const initialStep: stepperState = {
   currentStep: 1,
   completedSteps: [],
@@ -61,7 +62,9 @@ export const AddItem = () => {
   const { isOpen, onClose } = useDisclosure();
   const toast = useToast();
   const navigate = useNavigate();
-  const handleAddItem = () => {
+
+  const handleAddItem = (data: ILostAndFound) => {
+    console.log(data);
     toast({
       title: 'Your Item will be added soon',
     });
@@ -137,7 +140,7 @@ export const AddItem = () => {
               color={`#fff`}
               colorScheme={'brand'}
               type={'button'}
-              onClick={() => dispatch({ type: 'NEXT' })}
+              onClick={handleSubmit(async () => dispatch({ type: 'NEXT' }))}
             >
               Next
             </Button>
