@@ -5,6 +5,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
 import './styles/index.css';
+import ShortcutProvider from './app/providers/ShortcutProvider';
 
 const themeConfig = {
   config: {
@@ -50,7 +51,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <ChakraProvider theme={theme}>
-        <App />
+        <ShortcutProvider>
+          <App />
+        </ShortcutProvider>
       </ChakraProvider>
     </Provider>
   </React.StrictMode>
