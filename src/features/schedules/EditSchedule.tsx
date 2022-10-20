@@ -263,7 +263,7 @@ const EditSchedulePage = () => {
                   }}
                 >
                   <InputLeftElement pointerEvents={`none`}>
-                    children={<TimeIcon />}
+                    <TimeIcon />
                   </InputLeftElement>
                   <Input
                     id={`class_start_time`}
@@ -295,9 +295,9 @@ const EditSchedulePage = () => {
                   borderRadius={'4px'}
                   marginTop={'0.5rem'}
                 >
-                  <InputLeftElement pointerEvents={`none`} />
-                  <TimeIcon />
-                  <InputLeftElement />
+                  <InputLeftElement pointerEvents={`none`}>
+                    <TimeIcon />
+                  </InputLeftElement>
                   <Input
                     id={`class_end_time`}
                     placeholder={`Select Time`}
