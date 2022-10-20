@@ -94,6 +94,9 @@ const Step1: FC<stepPropType> = ({ register, errors }) => {
                   required: 'Category is required',
                 })}
               >
+                <option value="" disabled hidden selected>
+                  Select Category
+                </option>
                 <option>Books</option>
                 <option>Phone</option>
                 <option>Cloth</option>

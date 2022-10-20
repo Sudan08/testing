@@ -188,13 +188,14 @@ const AddSchedulePage = () => {
               <FormControl isInvalid={Boolean(errors.courseType)}>
                 <FormLabel htmlFor="course">Course</FormLabel>
                 <Select
-                  placeholder="Course"
                   id="course"
-                  // type='text'
                   {...register('courseType', {
                     required: 'Course is required',
                   })}
                 >
+                  <option value="" disabled hidden selected>
+                    Select Course
+                  </option>
                   <option value={'BIBM'}>BIBM</option>
                   <option value={'BIT'}>BIT</option>
                 </Select>
@@ -205,13 +206,15 @@ const AddSchedulePage = () => {
               <FormControl isInvalid={Boolean(errors.group)}>
                 <FormLabel htmlFor="group">Group</FormLabel>
                 <Select
-                  placeholder="Group"
                   id="group"
                   // type='text'
                   {...register('group', {
                     required: 'Group is required',
                   })}
                 >
+                  <option value="" disabled hidden selected>
+                    Select Group
+                  </option>
                   {groups.map((group, index) => (
                     <option key={index} value={group}>
                       {group}
@@ -225,13 +228,15 @@ const AddSchedulePage = () => {
               <FormControl isInvalid={Boolean(errors.blockName)}>
                 <FormLabel htmlFor="block">Block</FormLabel>
                 <Select
-                  placeholder="Block"
                   id="block"
                   // type='text'
                   {...register('blockName', {
                     required: 'Block is required',
                   })}
                 >
+                  <option value="" disabled hidden selected>
+                    Select block
+                  </option>
                   {blocks.map((block, index) => (
                     <option key={index} value={block}>
                       {block}
@@ -245,13 +250,15 @@ const AddSchedulePage = () => {
               <FormControl isInvalid={Boolean(errors.roomName)}>
                 <FormLabel htmlFor="room">Room</FormLabel>
                 <Select
-                  placeholder="Room"
                   id="room"
                   // type='text'
                   {...register('roomName', {
                     required: 'Room is required',
                   })}
                 >
+                  <option value="" disabled hidden selected>
+                    Select Room
+                  </option>
                   {rooms.map((room, index) => (
                     <option key={index} value={room}>
                       {room}
@@ -279,12 +286,14 @@ const AddSchedulePage = () => {
               <FormControl isInvalid={Boolean(errors.moduleName)}>
                 <FormLabel htmlFor="module_name">Module Name</FormLabel>
                 <Select
-                  placeholder="Module Name"
                   id="module_name"
                   {...register('moduleName', {
                     required: 'Module Name is required',
                   })}
                 >
+                  <option value="" disabled hidden selected>
+                    Select Module Name
+                  </option>
                   {modules.map((m, index) => (
                     <option key={index} value={m}>
                       {m}
@@ -377,7 +386,6 @@ const AddSchedulePage = () => {
                 <FormLabel htmlFor="class_type">Class Type</FormLabel>
                 <Select
                   id="class_type"
-                  placeholder="Select Class Type"
                   {...register('classType', {
                     required: 'Class Type is required',
                   })}
@@ -386,6 +394,9 @@ const AddSchedulePage = () => {
                   borderRadius={'4px'}
                   marginTop={'0.5rem'}
                 >
+                  <option value="" disabled hidden selected>
+                    Select Class Type
+                  </option>
                   {classTypes.map((c, index) => (
                     <option key={index} value={c}>
                       {c}
@@ -434,12 +445,14 @@ const AddSchedulePage = () => {
                   {...register('status', {
                     required: 'Status is required',
                   })}
-                  placeholder="Select Status"
                   backgroundColor={'blackAlpha.50'}
                   outline={`1px solid #DFDFDF`}
                   borderRadius={'4px'}
                   marginTop={'0.5rem'}
                 >
+                  <option value="" disabled hidden selected>
+                    Select Status
+                  </option>
                   <option value={'UPCOMMING'}>UPCOMMING</option>
                   <option value={'RUNNING'}>ACTIVE</option>
                 </Select>

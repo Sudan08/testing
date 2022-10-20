@@ -24,7 +24,7 @@ const StudentPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<IStudent>();
   const handleViewStudent = (_: IStudent) => {
     navigate('/view-students');
@@ -61,12 +61,14 @@ const StudentPage = () => {
             <FormControl isInvalid={Boolean(errors.course)}>
               <FormLabel htmlFor="course">Course</FormLabel>
               <Select
-                placeholder="Course"
                 id="course"
                 {...register('course', {
                   required: 'Course is required',
                 })}
               >
+                <option value="" disabled hidden selected>
+                  Select Course
+                </option>
                 <option value={'BIBM'}>BIBM</option>
                 <option value={'BIT'}>BIT</option>
               </Select>
