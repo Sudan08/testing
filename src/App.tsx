@@ -2,7 +2,6 @@ import { lazy } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdminLayout from './components/layouts/AdminLayout';
 import ProtectedLayout from './components/layouts/ProtectedLayout';
-
 const DDashboard = lazy(() => import('./features/dashboard/Dashboard'));
 const DAddSchedule = lazy(() => import('./features/schedules/AddSchedule'));
 const DViewSchedule = lazy(() => import('./features/schedules/ViewSchedules'));

@@ -39,11 +39,7 @@ const Step1: FC<stepPropType> = ({ register, errors }) => {
         alignItems={'flex-start'}
         gap={'1rem'}
       >
-        <chakra.form
-          width={'100%'}
-          paddingTop={'2rem'}
-          height={'auto'}
-        >
+        <chakra.form width={'100%'} paddingTop={'2rem'} height={'auto'}>
           <Flex
             flexDirection={['column', 'column', 'row']}
             gap={['0.5rem', '1rem', '2rem']}
@@ -70,12 +66,14 @@ const Step1: FC<stepPropType> = ({ register, errors }) => {
               isInvalid={Boolean(errors.noOfItems)}
             >
               <FormLabel htmlFor="No of items">No of items</FormLabel>
-              <NumberInput>
+              <NumberInput min={1} defaultValue={1}>
                 <NumberInputField
-                  id="noOfItems"
-                  placeholder="0"
                   {...register('noOfItems', {
                     required: 'No of items is required',
+                    min: {
+                      value: 1,
+                      message: 'Minimum value is 1',
+                    },
                   })}
                 />
                 <NumberInputStepper>
