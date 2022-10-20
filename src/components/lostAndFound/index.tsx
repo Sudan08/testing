@@ -47,37 +47,64 @@ const Claimed: React.FC<stepPropType> = ({ register, errors }) => {
           </FormErrorMessage>
         </FormControl>
 
-        <FormControl>
-          <FormLabel>Level</FormLabel>
-          <Select {...register('level')}>
+        <FormControl isInvalid={Boolean(errors.level)}>
+          <FormLabel htmlFor="Level">Level</FormLabel>
+          <Select {...register('level', { required: 'Level is required' })}>
+            <option value="" disabled hidden selected>
+              Select Level
+            </option>
             <option>Level 4</option>
             <option>Level 5</option>
             <option>Level 6</option>
           </Select>
+          <FormErrorMessage>
+            {errors.level && errors.level.message}
+          </FormErrorMessage>
         </FormControl>
 
-        <FormControl>
+        <FormControl isInvalid={Boolean(errors.group)}>
           <FormLabel>Group</FormLabel>
-          <Select {...register('group')}>
+          <Select {...register('group', { required: 'Group is required' })}>
+            <option value="" disabled hidden selected>
+              Select Group
+            </option>
             <option>LGCG7</option>
             <option>LGCG6</option>
             <option>LGCG5</option>
           </Select>
+          <FormErrorMessage>
+            {errors.group && errors.group.message}
+          </FormErrorMessage>
         </FormControl>
-        <FormControl>
+
+        <FormControl isInvalid={Boolean(errors.semester)}>
           <FormLabel>Semester</FormLabel>
-          <Select {...register('semester')}>
+          <Select
+            {...register('semester', { required: 'Semester is required' })}
+          >
+            <option value="" disabled hidden selected>
+              Select Semester
+            </option>
             <option>1</option>
             <option>2</option>
           </Select>
+          <FormErrorMessage>
+            {errors.semester && errors.semester.message}
+          </FormErrorMessage>
         </FormControl>
 
-        <FormControl>
+        <FormControl isInvalid={Boolean(errors.course)}>
           <FormLabel>Course</FormLabel>
-          <Select>
+          <Select {...register('course', { required: 'Course is required' })}>
+            <option value="" disabled hidden selected>
+              Select Course
+            </option>
             <option>BIBM</option>
             <option>MBA</option>
           </Select>
+          <FormErrorMessage>
+            {errors.course && errors.course.message}
+          </FormErrorMessage>
         </FormControl>
       </Grid>
 
@@ -128,8 +155,8 @@ export const NumberIndicator: React.FC<INumberIndicatorProps> = ({
             stepNumber === 1
               ? RiNumber1
               : stepNumber === 2
-                ? RiNumber2
-                : RiNumber3
+              ? RiNumber2
+              : RiNumber3
           }
           backgroundColor={currentStep === stepNumber ? `#74C043` : `#606A72`}
           padding={`5px`}

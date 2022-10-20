@@ -61,6 +61,9 @@ const Step2: React.FC<stepPropType> = ({ register, errors }) => {
                   required: 'Location is required',
                 })}
               >
+                <option value="" disabled hidden selected>
+                  Select Location
+                </option>
                 <option>SR-01 Wolves</option>
                 <option>WOlverhampton</option>
                 <option>Lounge</option>
@@ -101,6 +104,9 @@ const Step2: React.FC<stepPropType> = ({ register, errors }) => {
                 required: 'Deposited To is required',
               })}
             >
+              <option value="" disabled hidden selected>
+                Select Location
+              </option>
               <option>SR-01 Wolves</option>
               <option>WOlverhampton</option>
               <option>Lounge</option>
