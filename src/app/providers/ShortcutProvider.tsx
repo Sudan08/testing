@@ -24,6 +24,6 @@ const ShortcutProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [handleKeyPress]);
 
   return <div>{children}</div>;
-}
+};
 
-export default ShortcutProvider
+export default ShortcutProvider;
