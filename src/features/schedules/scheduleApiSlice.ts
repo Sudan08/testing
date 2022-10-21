@@ -16,7 +16,8 @@ export const scheduleApiSlice = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
-    postSchedule: builder.mutation<{ message: string }, Partial<ISchedule>>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    postSchedule: builder.mutation<any, Partial<ISchedule>>({
       query: (data) => ({
         url: '/admin/postRoutineData/',
         method: 'POST',
