@@ -1,12 +1,18 @@
 import { useColorMode } from '@chakra-ui/react';
-import { useCallback, useEffect, FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren, useCallback, useEffect, useRef } from 'react';
 
 const ShortcutProvider: FC<PropsWithChildren> = ({ children }) => {
   const { toggleColorMode } = useColorMode();
-  const handleKeyPress = useCallback(
+  const keysRef = useRef<string[]>([]);
+  const keys = keysRef.current;
+
+  const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (e.shiftKey) {
-        if (e.code === 'KeyD' && document?.activeElement?.tagName !== 'INPUT') {
+      const index = keys?.indexOf(e.code);
+      // only push if element doesnot exist
+      if (index === -1) {
+        keys?.push(e.code);
+        if (keys[0] === 'AltLeft' && keys[1] === 'KeyQ') {
           toggleColorMode();
         }
       }
@@ -14,14 +20,21 @@ const ShortcutProvider: FC<PropsWithChildren> = ({ children }) => {
     [toggleColorMode]
   );
 
+  const handleKeyUp = useCallback(() => {
+    // clear all key presses
+    keys?.splice(0, keys.length);
+  }, []);
+
   useEffect(() => {
     if (window !== undefined) {
-      document.addEventListener('keypress', handleKeyPress);
+      document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('keyup', handleKeyUp);
     }
     return () => {
-      document.removeEventListener('keypress', handleKeyPress);
+      document.removeEventListener('keydown', handleKeyDown);
+      document.addEventListener('keyup', handleKeyUp);
     };
-  }, [handleKeyPress]);
+  }, [handleKeyDown]);
 
   return <div>{children}</div>;
 };
