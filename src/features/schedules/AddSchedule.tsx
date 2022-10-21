@@ -22,6 +22,7 @@ import { FocusEvent, lazy, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BiUpload } from 'react-icons/bi';
 import { useSearchParams } from 'react-router-dom';
+import { useAppDispatch } from '../../app/store';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
 import { addSchedulePageBreadcrumbNav } from '../../data/breadcrumbDatas';
@@ -36,6 +37,7 @@ import {
 } from '../../data/scheduleData';
 import { ISchedule } from '../../interfaces';
 import { usePostScheduleMutation } from './scheduleApiSlice';
+import { addSchedule } from './scheduleSlice';
 const DUploadByExcelFile = lazy(
   () => import('../../components/schedule/UploadByExcel')
 );
@@ -46,6 +48,7 @@ const AddSchedulePage = () => {
     handleSubmit,
     setValue,
     watch,
+    reset,
     formState: { errors },
   } = useForm<ISchedule>();
   const [uploadFile, setUploadFile] = useState(false);
@@ -89,7 +92,7 @@ const AddSchedulePage = () => {
   }, []);
 
   const toast = useToast();
-
+  const dispatch = useAppDispatch();
   const handleScheduleAdd = async (values: ISchedule) => {
     postSchedule(values)
       .unwrap()
@@ -102,6 +105,8 @@ const AddSchedulePage = () => {
           isClosable: true,
           position: 'top-right',
         });
+        dispatch(addSchedule(values));
+        reset();
       })
       .catch((error) => {
         toast({
