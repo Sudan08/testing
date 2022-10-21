@@ -3,26 +3,23 @@ import { FC, PropsWithChildren, useCallback, useEffect, useRef } from 'react';
 
 const ShortcutProvider: FC<PropsWithChildren> = ({ children }) => {
   const { toggleColorMode } = useColorMode();
-  const keysRef = useRef<string[]>([]);
-  const keys = keysRef.current;
+
+  // to prevent toggle when holding key
+  const keyPressedRef = useRef<boolean>(false);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      const index = keys?.indexOf(e.code);
-      // only push if element doesnot exist
-      if (index === -1) {
-        keys?.push(e.code);
-        if (keys[0] === 'AltLeft' && keys[1] === 'KeyQ') {
-          toggleColorMode();
-        }
+      if (e.altKey && e.code === 'KeyQ' && keyPressedRef.current === false) {
+        keyPressedRef.current = true;
+        toggleColorMode();
       }
     },
     [toggleColorMode]
   );
 
   const handleKeyUp = useCallback(() => {
-    // clear all key presses
-    keys?.splice(0, keys.length);
+    // reset keyPress on release
+    keyPressedRef.current = false;
   }, []);
 
   useEffect(() => {
