@@ -23,19 +23,33 @@ export interface IAuthState {
   isAuthenticated: boolean;
 }
 
+type roomName =
+  | 'LT-01 WULFRUNA'
+  | 'LT-03 WALSALL'
+  | 'SR-01 BANTOK'
+  | 'SR-02 BILSTON'
+  | 'SR-03 WOLVES'
+  | 'TR-02 STAFFORD'
+  | 'TR-03 WESTBROMWICH'
+  | 'LAB-01 MANDAR'
+  | 'LAB-02 MOSELEY'
+  | 'BASANTAPUR'
+  | 'CHANDRAGIRI'
+  | 'SAGARMATHA';
+
 export interface ISchedule {
   _id?: string;
-  courseType: string;
+  courseType: 'BIT' | 'BIBM' | 'IMBA';
   moduleName: string;
   teacherName: string;
-  classType: string;
+  classType: 'LECTURE' | 'TUTORIAL' | 'WORKSHOP';
   group: string;
-  roomName: string;
-  blockName: string;
+  roomName: roomName;
+  blockName: 'HCK' | 'WLV';
   day: string;
   startTime: string;
   endTime: string;
-  status: string;
+  status: 'Running' | 'Upcoming' | 'Cancelled' | 'Postponed' | 'Completed';
 }
 export interface IScheduleState {
   allSchedules: ISchedule[];

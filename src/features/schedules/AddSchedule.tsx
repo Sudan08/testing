@@ -11,50 +11,33 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
   Select,
   useColorModeValue,
-  useDisclosure,
   useToast,
   VStack,
 } from '@chakra-ui/react';
 import { chakra } from '@chakra-ui/system';
 import { Schedule } from 'akar-icons';
-import React, {
-  FocusEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { FileWithPath, useDropzone } from 'react-dropzone';
+import { FocusEvent, lazy, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { BiUpload } from 'react-icons/bi';
 import { useSearchParams } from 'react-router-dom';
-import { useAppDispatch } from '../../app/store';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
 import { addSchedulePageBreadcrumbNav } from '../../data/breadcrumbDatas';
+import {
+  blocks,
+  classStatus,
+  classTypes,
+  courses,
+  groups,
+  modules,
+  rooms,
+} from '../../data/scheduleData';
 import { ISchedule } from '../../interfaces';
 import { usePostScheduleMutation } from './scheduleApiSlice';
-import { addSchedule } from './scheduleSlice';
-
-const FilePreviewComponent: React.FC<{ acceptedFiles: FileWithPath[] }> = ({
-  acceptedFiles,
-}) => (
-  <>
-    {acceptedFiles.map((file) => (
-      <chakra.li color={'green.600'} fontWeight={500} key={file.path}>
-        {file.path} - {file.size} bytes
-      </chakra.li>
-    ))}
-  </>
+const DUploadByExcelFile = lazy(
+  () => import('../../components/schedule/UploadByExcel')
 );
 
 const AddSchedulePage = () => {
@@ -62,24 +45,42 @@ const AddSchedulePage = () => {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<ISchedule>();
-  const [uploadFile, setUploadFile] = useState<boolean | string>(false);
+  const [uploadFile, setUploadFile] = useState(false);
+
+  const blockName = watch('blockName');
+  const availableRooms = useMemo(() => {
+    switch (blockName) {
+      case 'HCK':
+        return rooms.hck;
+      case 'WLV':
+        return rooms.wlv;
+      default:
+        return [];
+    }
+  }, [blockName]);
+
+  const courseName = watch('courseType');
+  const availableModules = useMemo(() => {
+    switch (courseName) {
+      case 'BIT':
+        return modules.bit;
+      case 'BIBM':
+        return modules.bibm;
+      case 'IMBA':
+        return modules.imba;
+      default:
+        return [];
+    }
+  }, [courseName]);
+
   const [searchedParams] = useSearchParams();
   const queryStartTime = searchedParams.get('start_time');
-  const { isOpen, onToggle } = useDisclosure();
-  const isFileDragging = useMemo(() => isOpen, [isOpen]);
   const placeholderColor = useColorModeValue('gray', '#fff');
   const containerBgColor = useColorModeValue('white', 'gray.800');
   const [postSchedule, { isLoading }] = usePostScheduleMutation();
-  const dispatch = useAppDispatch();
-  const backgroundColor = useColorModeValue(
-    isFileDragging ? 'green.100' : '#fff',
-    isFileDragging ? 'green.500' : 'gray.800'
-  );
-  const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
-    console.log(acceptedFiles);
-  }, []);
 
   useEffect(() => {
     if (queryStartTime) {
@@ -87,46 +88,33 @@ const AddSchedulePage = () => {
     }
   }, []);
 
-  const { getRootProps, acceptedFiles, getInputProps } = useDropzone({
-    onDrop,
-    onDragEnter: onToggle,
-    onDragLeave: onToggle,
-  });
   const toast = useToast();
 
   const handleScheduleAdd = async (values: ISchedule) => {
-    const response = await postSchedule(values).unwrap();
-    if (response.message) {
-      dispatch(addSchedule(values));
-      toast({
-        title: 'Schedule Added',
-        description: response.message,
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-        position: 'top-right',
+    postSchedule(values)
+      .unwrap()
+      .then((data) => {
+        toast({
+          title: 'Schedule Added',
+          description: data.message,
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+          position: 'top-right',
+        });
+      })
+      .catch((error) => {
+        toast({
+          title: 'Failed to add schedule',
+          description: error.data.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'top-right',
+          size: '24px',
+        });
       });
-    } else {
-      toast({
-        title: 'Failed to add schedule',
-        description: response.message,
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-        position: 'top-right',
-      });
-    }
   };
-
-  const groups = ['L5CG7', 'L5CG6'];
-  const blocks = ['Wolverhampton', 'HERALD'];
-  const rooms = ['Kirtipur', 'Basantapur', 'Dudley'];
-  const classTypes = ['LECTURE', 'TUTORIAL', 'WORKSHOP'];
-  const modules = [
-    'Human Computer Interaction',
-    'Object Oriented Programming',
-    'FYP',
-  ];
 
   return (
     <VStack height={`100%`} width={`100%`}>
@@ -172,7 +160,6 @@ const AddSchedulePage = () => {
             <Divider />
 
             <chakra.form
-              // mt={`2rem`}
               padding={[`0.5rem`, `0.5rem`, `1rem`, `2rem`, `3rem`]}
               onSubmit={handleSubmit(handleScheduleAdd)}
               display={`grid`}
@@ -193,11 +180,10 @@ const AddSchedulePage = () => {
                     required: 'Course is required',
                   })}
                 >
-                  <option value="" disabled hidden selected>
-                    Select Course
-                  </option>
-                  <option value={'BIBM'}>BIBM</option>
-                  <option value={'BIT'}>BIT</option>
+                  <option value="">Select Course</option>
+                  {courses.map((course, index) => (
+                    <option key={index}>{course}</option>
+                  ))}
                 </Select>
                 <FormErrorMessage>
                   {errors.courseType && errors.courseType.message}
@@ -212,9 +198,7 @@ const AddSchedulePage = () => {
                     required: 'Group is required',
                   })}
                 >
-                  <option value="" disabled hidden selected>
-                    Select Group
-                  </option>
+                  <option value="">Select Group</option>
                   {groups.map((group, index) => (
                     <option key={index} value={group}>
                       {group}
@@ -229,17 +213,14 @@ const AddSchedulePage = () => {
                 <FormLabel htmlFor="block">Block</FormLabel>
                 <Select
                   id="block"
-                  // type='text'
                   {...register('blockName', {
                     required: 'Block is required',
                   })}
                 >
-                  <option value="" disabled hidden selected>
-                    Select block
-                  </option>
+                  <option value="">Select block</option>
                   {blocks.map((block, index) => (
-                    <option key={index} value={block}>
-                      {block}
+                    <option key={index} value={block.value}>
+                      {block.name}
                     </option>
                   ))}
                 </Select>
@@ -251,15 +232,12 @@ const AddSchedulePage = () => {
                 <FormLabel htmlFor="room">Room</FormLabel>
                 <Select
                   id="room"
-                  // type='text'
                   {...register('roomName', {
                     required: 'Room is required',
                   })}
                 >
-                  <option value="" disabled hidden selected>
-                    Select Room
-                  </option>
-                  {rooms.map((room, index) => (
+                  <option value="">Select Room</option>
+                  {availableRooms.map((room, index) => (
                     <option key={index} value={room}>
                       {room}
                     </option>
@@ -291,13 +269,9 @@ const AddSchedulePage = () => {
                     required: 'Module Name is required',
                   })}
                 >
-                  <option value="" disabled hidden selected>
-                    Select Module Name
-                  </option>
-                  {modules.map((m, index) => (
-                    <option key={index} value={m}>
-                      {m}
-                    </option>
+                  <option value="">Select Module Name</option>
+                  {availableModules.map((m, index) => (
+                    <option key={index}>{m.label}</option>
                   ))}
                 </Select>
                 <FormErrorMessage>
@@ -394,9 +368,7 @@ const AddSchedulePage = () => {
                   borderRadius={'4px'}
                   marginTop={'0.5rem'}
                 >
-                  <option value="" disabled hidden selected>
-                    Select Class Type
-                  </option>
+                  <option value="">Select Class Type</option>
                   {classTypes.map((c, index) => (
                     <option key={index} value={c}>
                       {c}
@@ -450,11 +422,10 @@ const AddSchedulePage = () => {
                   borderRadius={'4px'}
                   marginTop={'0.5rem'}
                 >
-                  <option value="" disabled hidden selected>
-                    Select Status
-                  </option>
-                  <option value={'UPCOMMING'}>UPCOMMING</option>
-                  <option value={'RUNNING'}>ACTIVE</option>
+                  <option value="">Select Status</option>
+                  {classStatus.map((status, index) => (
+                    <option key={index}>{status}</option>
+                  ))}
                 </Select>
 
                 <FormErrorMessage>
@@ -484,70 +455,10 @@ const AddSchedulePage = () => {
           </Box>
         </VStack>
       </chakra.div>
-
-      <Modal
-        isCentered
-        isOpen={Boolean(uploadFile)}
-        onClose={() => setUploadFile('')}
-      >
-        <ModalOverlay />
-        <ModalContent backgroundColor={backgroundColor}>
-          <ModalHeader>Upload File</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody
-            // {...getRootProps}
-            display={'flex'}
-            gap={'0.5rem'}
-            justifyContent={'flex-start'}
-            className="container"
-          >
-            <Box
-              {...getRootProps({
-                className: 'dropzone',
-              })}
-              width={'100%'}
-            >
-              <input {...getInputProps()} onChange={(e) => console.log(e)} />
-              <HStack width={`100%`} justifyContent={'center'}>
-                <AiOutlineCloudUpload size={24} />
-                <chakra.span>
-                  Drag and Drop or click to
-                  <chakra.label
-                    cursor={'pointer'}
-                    htmlFor="excel_file"
-                    color={'green'}
-                  >
-                    {' '}
-                    Browse{' '}
-                  </chakra.label>
-                </chakra.span>
-              </HStack>
-              <Divider />
-              <chakra.aside
-                display={'flex'}
-                flexDir={'column'}
-                alignItems={'flex-start'}
-                pb={'0.5rem'}
-              >
-                <chakra.h2
-                  fontWeight={700}
-                  fontSize={'1.2rem'}
-                  color={'green.600'}
-                  marginTop={'0.5rem'}
-                >
-                  File
-                </chakra.h2>
-                <chakra.span>
-                  {acceptedFiles.length === 0 && 'No file yet!'}
-                </chakra.span>
-                <chakra.ul>
-                  <FilePreviewComponent acceptedFiles={acceptedFiles} />
-                </chakra.ul>
-              </chakra.aside>
-            </Box>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <DUploadByExcelFile
+        uploadFile={uploadFile}
+        setUploadFile={setUploadFile}
+      />
     </VStack>
   );
 };
