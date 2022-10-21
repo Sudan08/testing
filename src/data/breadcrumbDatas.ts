@@ -60,6 +60,18 @@ export const viewSchedulePageBreadcrumbNav = [
   },
 ];
 
+export const editSchedulePageBreadcrumbNav = [
+  {
+    label: 'Dashboard',
+    link: '/',
+  },
+  { label: 'Schedule', link: '/view-schedule' },
+  {
+    label: 'Edit Schedule',
+    link: '#',
+  },
+];
+
 export const addStudentPageBreadcrumbNav = [
   {
     label: 'Dashboard',

@@ -4,122 +4,156 @@ import {
   Button,
   Divider,
   FormControl,
+  FormErrorMessage,
+  FormLabel,
   Heading,
   HStack,
   Input,
   InputGroup,
   InputLeftElement,
   Select,
-  Spinner,
   useColorModeValue,
   useToast,
   VStack,
 } from '@chakra-ui/react';
 import { chakra } from '@chakra-ui/system';
 import { Schedule } from 'akar-icons';
-import { ChangeEvent, FocusEvent, FormEvent, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { FocusEvent, useEffect, useMemo } from 'react';
+import { useForm } from 'react-hook-form';
+import { useParams, useSearchParams } from 'react-router-dom';
+import BreadcrumbNav from '../../components/BreadcrumbNav';
 import CustomHeading from '../../components/CustomHeading';
-import { useGetScheduleByIdQuery } from './scheduleApiSlice';
+import { editSchedulePageBreadcrumbNav } from '../../data/breadcrumbDatas';
+import {
+  blocks,
+  classStatus,
+  classTypes,
+  courses,
+  groups,
+  modules,
+  rooms,
+} from '../../data/scheduleData';
+import { ISchedule } from '../../interfaces';
+
+import {
+  useGetScheduleByIdQuery,
+  usePutScheduleMutation,
+} from './scheduleApiSlice';
 
 const EditSchedulePage = () => {
-  const toast = useToast();
-  // getting schedule by id in the params
   const { id } = useParams();
-  const { data, isLoading } = useGetScheduleByIdQuery(id);
-  // form values
-  const [group, setGroup] = useState('');
-  const [block, setBlock] = useState('');
-  const [room, setRoom] = useState('');
-  const [classType, setClassType] = useState('');
-  const [lecturerName, setLecturerName] = useState('');
-  const [moduleName, setModuleName] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
-  const [day, setDay] = useState('');
-  const [courseType, setCourseType] = useState('');
+  const { data } = useGetScheduleByIdQuery(id);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm<ISchedule>({
+    defaultValues: { courseType: data?.data.courseType },
+  });
 
-  const handleScheduleAdd = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = {
-      module_name: moduleName.trim(),
-      lecturer_name: lecturerName.trim(),
-      group: group.trim(),
-      room_name: room.trim(),
-      block_name: block.trim(),
-      start_time: startTime.trim(),
-      end_time: endTime.trim(),
-    };
-    console.log(formData);
-    // const response = await EditSchedule(formData);
+  useEffect(() => {
+    if (data) {
+      console.log(data.data);
+      reset({ ...data.data, group: data.data.group[0] });
+    }
+  }, [data]);
+  const blockName = watch('blockName');
+  const availableRooms = useMemo(() => {
+    switch (blockName) {
+      case 'HCK':
+        return rooms.hck;
+      case 'WLV':
+        return rooms.wlv;
+      default:
+        return [];
+    }
+  }, [blockName]);
 
-    toast({
-      title: 'Schedule Edited',
-      description: 'Schedule has been edited successfully',
-      status: 'success',
-      duration: 5000,
-      isClosable: true,
-      position: 'top-right',
-    });
+  const courseName = watch('courseType');
+  const availableModules = useMemo(() => {
+    switch (courseName) {
+      case 'BIT':
+        return modules.bit;
+      case 'BIBM':
+        return modules.bibm;
+      case 'IMBA':
+        return modules.imba;
+      default:
+        return [];
+    }
+  }, [courseName]);
 
-    setModuleName('');
-    setLecturerName('');
-    setGroup('');
-    setRoom('');
-    setBlock('');
-    setStartTime('');
-    setEndTime('');
+  const [searchedParams] = useSearchParams();
+  const queryStartTime = searchedParams.get('start_time');
+  const placeholderColor = useColorModeValue('gray', '#fff');
+  const containerBgColor = useColorModeValue('white', 'gray.800');
+  const [putSchedule, { isLoading }] = usePutScheduleMutation();
 
-    toast({
-      title: 'Failed to edit schedule',
-      description: 'Failed to edit schedule',
-      status: 'error',
-      duration: 5000,
-      isClosable: true,
-      position: 'top-right',
-    });
+  useEffect(() => {
+    if (queryStartTime) {
+      setValue('startTime', queryStartTime);
+    }
+  }, []);
+
+  const toast = useToast();
+
+  const handleScheduleAdd = async (values: ISchedule) => {
+    putSchedule(values)
+      .unwrap()
+      .then((data) => {
+        toast({
+          title: 'Schedule Added',
+          description: data.message,
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+          position: 'top-right',
+        });
+      })
+      .catch((error) => {
+        toast({
+          title: 'Failed to add schedule',
+          description: error.data.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'top-right',
+          size: '24px',
+        });
+      });
   };
 
-  const placeholderColor = useColorModeValue('gray', '#fff');
-  const groups = ['L5CG7', 'L5CG6'];
-  const blocks = ['Wolverhampton', 'HCK'];
-  const rooms = ['Kirtipur', 'Basantapur', 'Dudley'];
-  const classTypes = ['Lecture', 'Tutorial', 'Workshop'];
-  const modules = ['Human Computer Interaction', 'Object Oriented Programming'];
-
-  if (data === null || isLoading) {
-    return <Spinner />;
-  }
-
   return (
-    <>
+    <VStack height={`100%`} width={`100%`}>
       <chakra.div width={`100%`} height={`100%`}>
+        <BreadcrumbNav orderedNavItems={editSchedulePageBreadcrumbNav} />
         <VStack
           as={Box}
           padding={`1rem`}
           justifyContent={[`flex-start`, `flex-start`, `center`]}
-          height={`100%`}
           width={`100%`}
         >
           <Box
             borderRadius={`12px`}
             width={`100%`}
+            backgroundColor={containerBgColor}
             boxShadow={[`none`, `none`, `0px 0px 4px rgba(0, 0, 0, 0.25)`]}
             maxW={`1200`}
           >
             <Heading margin={`1rem 0`}>
               <HStack alignItems={`center`} justifyContent={`center`}>
-                <Schedule strokeWidth={2} size={24} />
-                <CustomHeading>Edit Schedule</CustomHeading>
+                <Schedule color={'green'} strokeWidth={2} size={24} />
+                <CustomHeading>Add Schedule</CustomHeading>
               </HStack>
             </Heading>
             <Divider />
+
             <chakra.form
-              // mt={`2rem`}
               padding={[`0.5rem`, `0.5rem`, `1rem`, `2rem`, `3rem`]}
-              onSubmit={async (e: FormEvent<HTMLFormElement>) =>
-                handleScheduleAdd(e)
-              }
+              onSubmit={handleSubmit(handleScheduleAdd)}
               display={`grid`}
               gridTemplateColumns={[
                 `repeat(1,1fr)`,
@@ -130,129 +164,116 @@ const EditSchedulePage = () => {
               columnGap={[`1rem`, `2rem`, `2rem`, `4rem`]}
               placeItems={`center`}
             >
-              <FormControl isRequired>
-                <label htmlFor="courseType">Course</label>
+              <FormControl isInvalid={Boolean(errors.courseType)}>
+                <FormLabel htmlFor="course">Course</FormLabel>
                 <Select
-                  id="courseType"
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    setCourseType(e.target.value)
-                  }
-                  value={courseType}
-                  placeholder="Select Course"
-                  backgroundColor={'blackAlpha.50'}
-                  outline={`1px solid #DFDFDF`}
-                  borderRadius={'4px'}
-                  marginTop={'0.5rem'}
+                  id="course"
+                  {...register('courseType', {
+                    required: 'Course is required',
+                  })}
                 >
-                  <option value={'BIBM'}>BIBM</option>
-                  <option value={'BIT'}>BIT</option>
+                  <option value="">Select Course</option>
+                  {courses.map((course, index) => (
+                    <option key={index}>{course}</option>
+                  ))}
                 </Select>
+                <FormErrorMessage>
+                  {errors.courseType && errors.courseType.message}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl isRequired>
-                <label htmlFor="group">Group</label>
+              <FormControl isInvalid={Boolean(errors.group)}>
+                <FormLabel htmlFor="group">Group</FormLabel>
                 <Select
                   id="group"
-                  value={group}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    setGroup(e.target.value)
-                  }
-                  placeholder="Select Group"
-                  backgroundColor={`blackAlpha.50`}
-                  outline={`1px solid #DFDFDF`}
-                  borderRadius={'4px'}
-                  marginTop={'0.5rem'}
+                  // type='text'
+                  {...register('group', {
+                    required: 'Group is required',
+                  })}
                 >
+                  <option value="">Select Group</option>
                   {groups.map((group, index) => (
                     <option key={index} value={group}>
                       {group}
                     </option>
                   ))}
                 </Select>
+                <FormErrorMessage>
+                  {errors.group && errors.group.message}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl isRequired>
-                <label htmlFor="block">Block</label>
+              <FormControl isInvalid={Boolean(errors.blockName)}>
+                <FormLabel htmlFor="block">Block</FormLabel>
                 <Select
                   id="block"
-                  value={block}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    setBlock(e.target.value)
-                  }
-                  placeholder="Select Block"
-                  backgroundColor={`blackAlpha.50`}
-                  outline={`1px solid #DFDFDF`}
-                  borderRadius={'4px'}
-                  marginTop={'0.5rem'}
+                  {...register('blockName', {
+                    required: 'Block is required',
+                  })}
                 >
+                  <option value="">Select block</option>
                   {blocks.map((block, index) => (
-                    <option key={index} value={block}>
-                      {block}
+                    <option key={index} value={block.value}>
+                      {block.name}
                     </option>
                   ))}
                 </Select>
+                <FormErrorMessage>
+                  {errors.blockName && errors.blockName.message}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl isRequired>
-                <label htmlFor="room">Room</label>
+              <FormControl isInvalid={Boolean(errors.roomName)}>
+                <FormLabel htmlFor="room">Room</FormLabel>
                 <Select
                   id="room"
-                  value={room}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    setRoom(e.target.value)
-                  }
-                  placeholder="Select Room"
-                  backgroundColor={`blackAlpha.50`}
-                  outline={`1px solid #DFDFDF`}
-                  borderRadius={'4px'}
-                  marginTop={'0.5rem'}
+                  {...register('roomName', {
+                    required: 'Room is required',
+                  })}
                 >
-                  {rooms.map((room, index) => (
+                  <option value="">Select Room</option>
+                  {availableRooms.map((room, index) => (
                     <option key={index} value={room}>
                       {room}
                     </option>
                   ))}
                 </Select>
+                <FormErrorMessage>
+                  {errors.roomName && errors.roomName.message}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl isRequired>
-                <label htmlFor="lecturer_name">Lecturer Name</label>
+              <FormControl isInvalid={Boolean(errors.teacherName)}>
+                <FormLabel htmlFor="lecturer_name">Lecturer Name</FormLabel>
                 <Input
-                  type={`text`}
-                  id={`lecturer_name`}
-                  placeholder={`Lecturer Name`}
-                  value={lecturerName}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setLecturerName(e.target.value)
-                  }
-                  backgroundColor={`blackAlpha.50`}
-                  outline={`1px solid #DFDFDF`}
-                  borderRadius={'4px'}
-                  marginTop={'0.5rem'}
-                  _placeholder={{
-                    color: placeholderColor,
-                  }}
+                  placeholder="Lecturer Name"
+                  id="lecturer_name"
+                  type="string"
+                  {...register('teacherName', {
+                    required: 'Lecturer Name is required',
+                  })}
                 />
+                <FormErrorMessage>
+                  {errors.teacherName && errors.teacherName.message}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl isRequired>
-                <label htmlFor="module_name">Module Name</label>
+              <FormControl isInvalid={Boolean(errors.moduleName)}>
+                <FormLabel htmlFor="module_name">Module Name</FormLabel>
                 <Select
                   id="module_name"
-                  placeholder="Select Module Name"
-                  value={moduleName}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    setModuleName(e.target.value)
-                  }
-                  backgroundColor={`blackAlpha.50`}
-                  outline={`1px solid #DFDFDF`}
-                  borderRadius={'4px'}
-                  marginTop={'0.5rem'}
+                  {...register('moduleName', {
+                    required: 'Module Name is required',
+                  })}
                 >
-                  {modules.map((m, index) => (
-                    <option key={index} value={m}>
-                      {m}
-                    </option>
+                  <option value="">Select Module Name</option>
+                  {availableModules.map((m, index) => (
+                    <option key={index}>{m.label}</option>
                   ))}
                 </Select>
+                <FormErrorMessage>
+                  {errors.moduleName && errors.moduleName.message}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl isRequired>
-                <label htmlFor="class_start_time">Class Start Time</label>
+              <FormControl isInvalid={Boolean(errors.startTime)}>
+                <FormLabel htmlFor="class_start_time">
+                  Class Start Time
+                </FormLabel>
                 <InputGroup
                   backgroundColor={`blackAlpha.50`}
                   outline={`1px solid #DFDFDF`}
@@ -268,27 +289,30 @@ const EditSchedulePage = () => {
                   <Input
                     id={`class_start_time`}
                     placeholder={`Select Time`}
-                    value={startTime}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      setStartTime(e.target.value)
-                    }
-                    onFocus={(e: FocusEvent<HTMLInputElement>) =>
+                    onFocus={(e: React.FocusEvent<HTMLInputElement>) =>
                       (e.target.type = 'time')
                     }
                     backgroundColor={`blackAlpha.50`}
                     outline={`1px solid #DFDFDF`}
                     borderRadius={'4px'}
-                    onBlur={(e: FocusEvent<HTMLInputElement>) =>
-                      (e.target.type = 'text')
-                    }
                     _placeholder={{
                       color: placeholderColor,
                     }}
+                    {...register('startTime', {
+                      required: 'Start time is required',
+                    })}
+                    onBlur={(e: React.FocusEvent<HTMLInputElement>) =>
+                      (e.target.type = 'text')
+                    }
                   />
                 </InputGroup>
+
+                <FormErrorMessage>
+                  {errors.startTime && errors.startTime.message}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl isRequired>
-                <label htmlFor="class_end_time">Class End Time</label>
+              <FormControl isInvalid={Boolean(errors.endTime)}>
+                <FormLabel htmlFor="class_end_time">Class End Time</FormLabel>
                 <InputGroup
                   backgroundColor={`blackAlpha.50`}
                   outline={`1px solid #DFDFDF`}
@@ -301,10 +325,10 @@ const EditSchedulePage = () => {
                   <Input
                     id={`class_end_time`}
                     placeholder={`Select Time`}
-                    value={endTime}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      setEndTime(e.target.value)
-                    }
+                    type="string"
+                    {...register('endTime', {
+                      required: 'Class End Time is required',
+                    })}
                     onFocus={(e: FocusEvent<HTMLInputElement>) => {
                       if (e.target instanceof HTMLInputElement)
                         e.target.type = 'time';
@@ -320,37 +344,42 @@ const EditSchedulePage = () => {
                     }}
                   />
                 </InputGroup>
+                <FormErrorMessage>
+                  {errors.endTime && errors.endTime.message}
+                </FormErrorMessage>
               </FormControl>{' '}
-              <FormControl isRequired>
-                <label htmlFor="class_type">Class Type</label>
+              <FormControl isInvalid={Boolean(errors.classType)}>
+                <FormLabel htmlFor="class_type">Class Type</FormLabel>
                 <Select
                   id="class_type"
-                  placeholder="Select Class Type"
-                  value={classType}
-                  onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-                    setClassType(e.target.value)
-                  }
+                  {...register('classType', {
+                    required: 'Class Type is required',
+                  })}
                   backgroundColor={`blackAlpha.50`}
                   outline={`1px solid #DFDFDF`}
                   borderRadius={'4px'}
                   marginTop={'0.5rem'}
                 >
+                  <option value="">Select Class Type</option>
                   {classTypes.map((c, index) => (
                     <option key={index} value={c}>
                       {c}
                     </option>
                   ))}
                 </Select>
+                <FormErrorMessage>
+                  {errors.classType && errors.classType.message}
+                </FormErrorMessage>
               </FormControl>
-              <FormControl isRequired>
-                <label htmlFor="day">Day</label>
+              <FormControl isInvalid={Boolean(errors.day)}>
+                <FormLabel htmlFor="day">Day</FormLabel>
                 <Input
                   id="day"
                   placeholder="Enter Day"
-                  value={day}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setDay(e.target.value)
-                  }
+                  type="string"
+                  {...register('day', {
+                    required: 'Day is required',
+                  })}
                   backgroundColor={`blackAlpha.50`}
                   outline={`1px solid #DFDFDF`}
                   borderRadius={'4px'}
@@ -369,9 +398,34 @@ const EditSchedulePage = () => {
                   <option value="Friday" />
                   <option value="Saturday" />
                 </datalist>
+                <FormErrorMessage>
+                  {errors.day && errors.day.message}
+                </FormErrorMessage>
+              </FormControl>
+              <FormControl isInvalid={Boolean(errors.status)}>
+                <FormLabel htmlFor="status">Status</FormLabel>
+                <Select
+                  id="status"
+                  {...register('status', {
+                    required: 'Status is required',
+                  })}
+                  backgroundColor={'blackAlpha.50'}
+                  outline={`1px solid #DFDFDF`}
+                  borderRadius={'4px'}
+                  marginTop={'0.5rem'}
+                >
+                  <option value="">Select Status</option>
+                  {classStatus.map((status, index) => (
+                    <option key={index}>{status}</option>
+                  ))}
+                </Select>
+
+                <FormErrorMessage>
+                  {errors.status && errors.status.message}
+                </FormErrorMessage>
               </FormControl>
               <VStack
-                justifyContent={`flex-end`}
+                justifyContent={errors.status ? 'center' : 'flex-end'}
                 width={`100%`}
                 height={`100%`}
               >
@@ -384,7 +438,7 @@ const EditSchedulePage = () => {
                   }}
                   backgroundColor="#74C043"
                   width={`100%`}
-                  // isLoading={isLoading}
+                  isLoading={isLoading}
                 >
                   Save Schedule
                 </Button>
@@ -393,7 +447,8 @@ const EditSchedulePage = () => {
           </Box>
         </VStack>
       </chakra.div>
-    </>
+    </VStack>
   );
 };
+
 export default EditSchedulePage;

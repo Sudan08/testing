@@ -12,7 +12,7 @@ export const scheduleApiSlice = apiSlice.injectEndpoints({
     }),
     getScheduleById: builder.query({
       query: (routineID) => ({
-        url: `/admin/routines/${routineID}`,
+        url: `/routines/${routineID}`,
         method: 'GET',
       }),
     }),
@@ -29,12 +29,12 @@ export const scheduleApiSlice = apiSlice.injectEndpoints({
       Partial<{ routineID: string }>
     >({
       query: (routineID) => ({
-        url: '/admin/deleteRoutineData/',
+        url: `/admin/deleteRoutineData/?routineID=${routineID.routineID}`,
         method: 'DELETE',
-        body: { routineID },
       }),
     }),
-    putSchedule: builder.mutation<ISchedule, Partial<ISchedule>>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    putSchedule: builder.mutation<any, Partial<ISchedule>>({
       query: (data) => ({
         url: '/admin/updateRoutineData/',
         method: 'PUT',
