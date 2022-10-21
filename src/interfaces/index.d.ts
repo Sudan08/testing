@@ -11,6 +11,10 @@ export interface ILoginResponse {
   refreshToken: string;
 }
 
+export interface IForgetPassword {
+  email: string;
+}
+
 export interface IBreadcrumNav {
   label: string;
   link?: string;
