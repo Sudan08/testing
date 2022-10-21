@@ -9,16 +9,24 @@ import {
   Image,
   Input,
   useColorMode,
+  FormErrorMessage,
   VStack,
 } from '@chakra-ui/react';
 import { chakra } from '@chakra-ui/system';
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../app/store';
 import { selectIsAuthenticated } from './authSlice';
+import { useForm } from 'react-hook-form';
+import { IForgetPassword } from '../../interfaces';
 
 const ForgotPassword = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IForgetPassword>();
 
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const navigate = useNavigate();
@@ -28,35 +36,7 @@ const ForgotPassword = () => {
       navigate('/');
     }
   }, [isAuthenticated]);
-  const [email, setEmail] = useState('');
 
-  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    // const response = await login(email)
-    // if (response.status === 200) {
-    //   setIsLoggedIn(true)
-    //   setAuthToken(response.data.token)
-
-    //   toast({
-    //     title: 'OTP sent Successfully',
-    //     description: response.data.message,
-    //     status: 'success',
-    //     duration: 5000,
-    //     isClosable: true,
-    //     position: 'top-right',
-    //   })
-    // } else {
-    //   toast({
-    //     title: 'Failed to get OTP',
-    //     description: response.data,
-    //     status: 'error',
-    //     duration: 5000,
-    //     isClosable: true,
-    //     position: 'top-right',
-    //   })
-    // }
-  };
   return (
     <VStack
       alignItems={`center`}
@@ -115,38 +95,44 @@ const ForgotPassword = () => {
           marginTop={`2rem !important`}
           gap={`1rem`}
           width={`100%`}
-          onSubmit={(e) => handleFormSubmit(e)}
+          onSubmit={handleSubmit(() => {
+            navigate('/');
+          })}
         >
-          <FormControl isRequired>
+          <FormControl isInvalid={Boolean(errors.email)}>
             <FormLabel htmlFor="email">Email</FormLabel>
             <Input
               id="email"
-              value={email}
               placeholder={'Enter Email'}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register('email', {
+                required: 'Email is required',
+              })}
               type="email"
             />
-            <Button
-              borderRadius={`8px`}
-              colorScheme={`brand`}
-              width={'100%'}
-              type={`submit`}
-              marginTop={'4'}
-            >
-              Send Reset OTP
-            </Button>
-            <Button
-              borderRadius={`8px`}
-              color={'#74C043'}
-              variant={'link'}
-              width={'100%'}
-              type={`submit`}
-              marginTop={'4'}
-              onClick={() => navigate('/login')}
-            >
-              Back to login
-            </Button>
+            <FormErrorMessage>
+              {errors.email && errors.email.message}
+            </FormErrorMessage>
           </FormControl>
+          <Button
+            borderRadius={`8px`}
+            colorScheme={`brand`}
+            width={'100%'}
+            type={`submit`}
+            marginTop={'4'}
+          >
+            Send Reset OTP
+          </Button>
+          <Button
+            borderRadius={`8px`}
+            color={'#74C043'}
+            variant={'link'}
+            width={'100%'}
+            type={`submit`}
+            marginTop={'4'}
+            onClick={() => navigate('/')}
+          >
+            Back to login
+          </Button>
         </chakra.form>
       </VStack>
       <chakra.p
