@@ -185,7 +185,9 @@ const AddSchedulePage = () => {
                     required: 'Course is required',
                   })}
                 >
-                  <option value="">Select Course</option>
+                  <option value="" hidden>
+                    Select Course
+                  </option>
                   {courses.map((course, index) => (
                     <option key={index}>{course}</option>
                   ))}
@@ -203,7 +205,9 @@ const AddSchedulePage = () => {
                     required: 'Group is required',
                   })}
                 >
-                  <option value="">Select Group</option>
+                  <option value="" hidden>
+                    Select Group
+                  </option>
                   {groups.map((group, index) => (
                     <option key={index} value={group}>
                       {group}
@@ -222,7 +226,9 @@ const AddSchedulePage = () => {
                     required: 'Block is required',
                   })}
                 >
-                  <option value="">Select block</option>
+                  <option value="" hidden>
+                    Select block
+                  </option>
                   {blocks.map((block, index) => (
                     <option key={index} value={block.value}>
                       {block.name}
@@ -241,7 +247,9 @@ const AddSchedulePage = () => {
                     required: 'Room is required',
                   })}
                 >
-                  <option value="">Select Room</option>
+                  <option value="" hidden>
+                    Select Room
+                  </option>
                   {availableRooms.map((room, index) => (
                     <option key={index} value={room}>
                       {room}
@@ -274,7 +282,10 @@ const AddSchedulePage = () => {
                     required: 'Module Name is required',
                   })}
                 >
-                  <option value="">Select Module Name</option>
+                  <option value="" hidden>
+                    {' '}
+                    Select Module Name
+                  </option>
                   {availableModules.map((m, index) => (
                     <option key={index}>{m.label}</option>
                   ))}

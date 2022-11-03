@@ -50,6 +50,8 @@ const ClassesPage = () => {
   const toast = useToast();
 
   const schedules = useAppSelector(selectAllSchedules);
+
+  console.log(schedules);
   const [deleteSchedule, { isLoading }] = useDeleteScheduleMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -166,7 +168,7 @@ const ClassesPage = () => {
                           fontWeight={'bold'}
                           color={getClassStatusColor('Completed')}
                         >
-                          Completed
+                          {item.status}
                         </Td>
                         <Td fontWeight={'semibold'}>
                           {convertTime(item.startTime, 'am/pm') +

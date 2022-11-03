@@ -66,7 +66,7 @@ const LostAndFound = () => {
               gap={'1rem'}
               width={`100%`}
             >
-              <FormControl>
+              <FormControl flex={'2'}>
                 <FormLabel>Categories</FormLabel>
                 <Select placeholder="All Categories">
                   <option>Electronics</option>
@@ -77,7 +77,7 @@ const LostAndFound = () => {
                 </Select>
               </FormControl>
 
-              <FormControl>
+              <FormControl flex={'1'}>
                 <FormLabel>Status</FormLabel>
                 <Select placeholder="All">
                   <option>Completed</option>
@@ -85,7 +85,7 @@ const LostAndFound = () => {
                 </Select>
               </FormControl>
 
-              <FormControl>
+              <FormControl flex={'1'}>
                 <FormLabel>Month</FormLabel>
                 <Select placeholder="Jan">
                   <option>Feb</option>
@@ -93,7 +93,7 @@ const LostAndFound = () => {
                 </Select>
               </FormControl>
 
-              <FormControl>
+              <FormControl flex={'1'}>
                 <FormLabel>Year</FormLabel>
                 <Select placeholder="2022">
                   <option>2021</option>

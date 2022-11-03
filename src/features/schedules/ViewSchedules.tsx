@@ -1,4 +1,12 @@
-import { Box, Divider, Grid, Heading, HStack, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Divider,
+  Grid,
+  Heading,
+  HStack,
+  VStack,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { chakra } from '@chakra-ui/system';
 import { BookClose } from 'akar-icons';
 import BreadcrumbNav from '../../components/BreadcrumbNav';
@@ -20,7 +28,9 @@ const times = [
   '05:00 PM',
   '06:00 PM',
 ];
+
 const ViewSchedulePage = () => {
+  const backgroundColor = useColorModeValue('#fff', 'gray.800');
   return (
     <chakra.div height={`100%`} width={`100%`}>
       <BreadcrumbNav orderedNavItems={viewSchedulePageBreadcrumbNav} />
@@ -37,7 +47,7 @@ const ViewSchedulePage = () => {
           maxW={'1150px'}
           height={`fit-content`}
           boxShadow={[`none`, `none`, `0px 0px 15px rgba(0, 0, 0, 0.15)`]}
-          backgroundColor={'white'}
+          backgroundColor={backgroundColor}
         >
           <Heading margin={`1rem 0`}>
             <HStack alignItems={`center`} justifyContent={`center`}>
